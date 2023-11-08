@@ -183,6 +183,67 @@ manuscript. However, in contrast to the study, this example was executed
 only for a single passeriformes phylogeny. A more complete assessment
 using all phylogenies could be executed in the sections below.</p>
 </div>
+<div class="section level3">
+<h3 id="second-framework-example">Second framework example<a class="anchor" aria-label="anchor" href="#second-framework-example"></a>
+</h3>
+<p>Herein, we’ll use the Australian passeriformes to calculate the
+CpB-rate for both turnover and nestedness components. Firstly, we’ll
+need to load the paired assemblages with their respective neighborhoods
+to run the analysis which is stored in an intern object called
+<code>pass_asb</code>. This object is a list of presence-absences
+matrices, where each lists contain a given Australian focal cell and its
+respective neighborhood cells. So, let’s check the header of the four
+first columns of the first matrix within the list:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pass_asb</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    Myzomela_obscura Dicaeum_hirundinaceum Hirundo_nigricans Artamus_personatus</span></span>
+<span><span class="co">#&gt; 6                 1                     1                 1                  1</span></span>
+<span><span class="co">#&gt; 5                 1                     1                 1                  1</span></span>
+<span><span class="co">#&gt; 7                 1                     1                 1                  1</span></span>
+<span><span class="co">#&gt; 16                1                     1                 1                  1</span></span>
+<span><span class="co">#&gt; 17                1                     1                 1                  1</span></span>
+<span><span class="co">#&gt; 18                1                     1                 1                  1</span></span></code></pre></div>
+<p>We can run some sensitivity analysis to find the most parsimonious
+number of slices to assess the CpB rate patterns. But first, we’ll need
+to create an vector of number of slices:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">250</span>, <span class="fl">500</span>, <span class="fl">750</span>, <span class="fl">1000</span>, <span class="fl">1250</span>, <span class="fl">1500</span>, <span class="fl">1750</span>, <span class="fl">2000</span><span class="op">)</span></span></code></pre></div>
+<p>Now we can run the sensitivity analysis and visualize its patterns.
+We’ll do only for turnover in order to :</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sens_turn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_sensitivity.html">CpR_sensitivity</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, vec <span class="op">=</span> <span class="va">vec</span>, samp <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>                             asb <span class="op">=</span> <span class="va">pass_asb</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, comp <span class="op">=</span> <span class="st">"turnover"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &gt; The 250 number of pieces inputted equals to intervals of 0.2610503391684 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 500 number of pieces inputted equals to intervals of 0.1305251695842 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 750 number of pieces inputted equals to intervals of 0.0870167797228 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 1000 number of pieces inputted equals to intervals of 0.0652625847921 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 1250 number of pieces inputted equals to intervals of 0.05221006783368 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 1500 number of pieces inputted equals to intervals of 0.0435083898614 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 1750 number of pieces inputted equals to intervals of 0.0372929055954857 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 2000 number of pieces inputted equals to intervals of 0.03263129239605 million of years.</span></span></code></pre></div>
+<p>So, we can plot our sensitivity analysis for both components using
+the <code>CpR_sensitivity_plot</code> funcion. We use the ggplot syntaxe
+to add a vertical line showing our number of slices set for our
+following analysis:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Store each graph within a respective object</span></span>
+<span><span class="fu"><a href="../reference/CpR_sensitivity_plot.html">CpR_sensitivity_plot</a></span><span class="op">(</span><span class="va">sens_turn</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, stc <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">1000</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Passeriformes-diversification_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
+<p>Calculating the CpB-rate from the turnover and nestedness components
+under a multisite approach (PS: this can take some minutes):</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># For turnover component</span></span>
+<span><span class="va">turn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, n <span class="op">=</span> <span class="fl">1000</span>, asb <span class="op">=</span> <span class="va">pass_asb</span>, comp <span class="op">=</span> <span class="st">"turnover"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &gt; The 1000 number of pieces inputted equals to intervals of 0.0652625847921 million of years.</span></span></code></pre></div>
+<p>Finally, we can plot these CpB through time or map it. To map it, we
+can use our intern <code>AU_grid</code> object that represents the
+Australian grid map. Let’s do it first for the turnover component:
+<img src="Passeriformes-diversification_files/figure-html/ggplot2-1.png" width="700"></p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">turn</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span>, map <span class="op">=</span> <span class="va">AU_grid</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Passeriformes-diversification_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
