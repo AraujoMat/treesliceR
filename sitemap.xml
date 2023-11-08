@@ -25,6 +25,9 @@
     <loc>https://araujomat.github.io/treesliceR/news/index.html</loc>
   </url>
   <url>
+    <loc>https://araujomat.github.io/treesliceR/reference/AU_grid.html</loc>
+  </url>
+  <url>
     <loc>https://araujomat.github.io/treesliceR/reference/CpB.html</loc>
   </url>
   <url>
@@ -53,6 +56,15 @@
   </url>
   <url>
     <loc>https://araujomat.github.io/treesliceR/reference/nodes_config.html</loc>
+  </url>
+  <url>
+    <loc>https://araujomat.github.io/treesliceR/reference/pass_asb.html</loc>
+  </url>
+  <url>
+    <loc>https://araujomat.github.io/treesliceR/reference/pass_mat.html</loc>
+  </url>
+  <url>
+    <loc>https://araujomat.github.io/treesliceR/reference/pass_trees.html</loc>
   </url>
   <url>
     <loc>https://araujomat.github.io/treesliceR/reference/phylo_pieces.html</loc>
