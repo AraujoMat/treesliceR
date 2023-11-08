@@ -86,12 +86,18 @@ load the <code>treesliceR</code>, <code>ape</code> and
 <code>ggplot2</code> packages.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">libs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ape"</span>, <span class="st">"ggplot2"</span><span class="op">)</span></span>
+<span><span class="va">libs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ape"</span>, <span class="st">"ggplot2"</span>, <span class="st">"ggpubr"</span><span class="op">)</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="va">libs</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="va">libs</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://ape-package.ird.fr/" class="external-link">ape</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/" class="external-link">ggpubr</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'ggpubr'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:ape':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     rotate</span></span>
 <span></span>
 <span><span class="va">libs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"treesliceR"</span><span class="op">)</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="va">libs</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
@@ -221,28 +227,64 @@ We’ll do only for turnover in order to :</p>
 <span><span class="co">#&gt; &gt; The 1500 number of pieces inputted equals to intervals of 0.0435083898614 million of years.</span></span>
 <span><span class="co">#&gt; &gt; The 1750 number of pieces inputted equals to intervals of 0.0372929055954857 million of years.</span></span>
 <span><span class="co">#&gt; &gt; The 2000 number of pieces inputted equals to intervals of 0.03263129239605 million of years.</span></span></code></pre></div>
+<p>Now we can run the sensitivity analysis and visualize its patterns.
+We’ll do only for turnover in order to :</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sens_turn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_sensitivity.html">CpR_sensitivity</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, vec <span class="op">=</span> <span class="va">vec</span>, samp <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>                             asb <span class="op">=</span> <span class="va">pass_asb</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, comp <span class="op">=</span> <span class="st">"turnover"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &gt; The 250 number of pieces inputted equals to intervals of 0.2610503391684 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 500 number of pieces inputted equals to intervals of 0.1305251695842 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 750 number of pieces inputted equals to intervals of 0.0870167797228 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 1000 number of pieces inputted equals to intervals of 0.0652625847921 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 1250 number of pieces inputted equals to intervals of 0.05221006783368 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 1500 number of pieces inputted equals to intervals of 0.0435083898614 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 1750 number of pieces inputted equals to intervals of 0.0372929055954857 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 2000 number of pieces inputted equals to intervals of 0.03263129239605 million of years.</span></span>
+<span><span class="va">sens_nest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_sensitivity.html">CpR_sensitivity</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, vec <span class="op">=</span> <span class="va">vec</span>, samp <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>                             asb <span class="op">=</span> <span class="va">pass_asb</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, comp <span class="op">=</span> <span class="st">"nestedness"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &gt; The 250 number of pieces inputted equals to intervals of 0.2610503391684 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 500 number of pieces inputted equals to intervals of 0.1305251695842 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 750 number of pieces inputted equals to intervals of 0.0870167797228 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 1000 number of pieces inputted equals to intervals of 0.0652625847921 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 1250 number of pieces inputted equals to intervals of 0.05221006783368 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 1500 number of pieces inputted equals to intervals of 0.0435083898614 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 1750 number of pieces inputted equals to intervals of 0.0372929055954857 million of years.</span></span>
+<span><span class="co">#&gt; &gt; The 2000 number of pieces inputted equals to intervals of 0.03263129239605 million of years.</span></span></code></pre></div>
 <p>So, we can plot our sensitivity analysis for both components using
 the <code>CpR_sensitivity_plot</code> funcion. We use the ggplot syntaxe
 to add a vertical line showing our number of slices set for our
 following analysis:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Store each graph within a respective object</span></span>
-<span><span class="fu"><a href="../reference/CpR_sensitivity_plot.html">CpR_sensitivity_plot</a></span><span class="op">(</span><span class="va">sens_turn</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, stc <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">1000</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Passeriformes-diversification_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
+<span><span class="va">turn_sens_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_sensitivity_plot.html">CpR_sensitivity_plot</a></span><span class="op">(</span><span class="va">sens_turn</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, stc <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">1000</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span>
+<span><span class="va">nest_sens_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_sensitivity_plot.html">CpR_sensitivity_plot</a></span><span class="op">(</span><span class="va">sens_nest</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, stc <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">1000</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span>
+<span><span class="co"># To plot them together</span></span>
+<span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html" class="external-link">ggarrange</a></span><span class="op">(</span><span class="va">turn_sens_plot</span>, <span class="va">nest_sens_plot</span>,</span>
+<span>                    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a)"</span>, <span class="st">"b)"</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Passeriformes-diversification_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
 <p>Calculating the CpB-rate from the turnover and nestedness components
 under a multisite approach (PS: this can take some minutes):</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For turnover component</span></span>
 <span><span class="va">turn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, n <span class="op">=</span> <span class="fl">1000</span>, asb <span class="op">=</span> <span class="va">pass_asb</span>, comp <span class="op">=</span> <span class="st">"turnover"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &gt; The 1000 number of pieces inputted equals to intervals of 0.0652625847921 million of years.</span></span>
+<span><span class="co"># For nestedness component</span></span>
+<span><span class="va">nest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, n <span class="op">=</span> <span class="fl">1000</span>, asb <span class="op">=</span> <span class="va">pass_asb</span>, comp <span class="op">=</span> <span class="st">"nestedness"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &gt; The 1000 number of pieces inputted equals to intervals of 0.0652625847921 million of years.</span></span></code></pre></div>
 <p>Finally, we can plot these CpB through time or map it. To map it, we
 can use our intern <code>AU_grid</code> object that represents the
 Australian grid map. Let’s do it first for the turnover component:
 <img src="Passeriformes-diversification_files/figure-html/ggplot2-1.png" width="700"></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">turn</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span>, map <span class="op">=</span> <span class="va">AU_grid</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Passeriformes-diversification_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
+<p>And we can do the same for the nestedness component:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">nest1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nest</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">nest2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nest</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span>, map <span class="op">=</span> <span class="va">AU_grid</span><span class="op">)</span></span>
+<span><span class="co"># To plot them together</span></span>
+<span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html" class="external-link">ggarrange</a></span><span class="op">(</span><span class="va">nest1</span>, <span class="va">nest2</span>,</span>
+<span>                    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a)"</span>, <span class="st">"b)"</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Passeriformes-diversification_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
