@@ -93,17 +93,11 @@ load the <code>treesliceR</code>, <code>ape</code> and
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://ape-package.ird.fr/" class="external-link">ape</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/" class="external-link">ggpubr</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Attaching package: 'ggpubr'</span></span>
-<span><span class="co">#&gt; The following object is masked from 'package:ape':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     rotate</span></span>
 <span></span>
 <span><span class="va">libs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"treesliceR"</span><span class="op">)</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="va">libs</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"AraujoMat/treesliceR"</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span>
-<span><span class="co">#devtools::install_github("AraujoMat/treesliceR") # If it isn't installed within your PC</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AraujoTheus/treesliceR" class="external-link">treesliceR</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="case-study-using-a-single-passeriformes-tree">Case study using a single passeriformes tree<a class="anchor" aria-label="anchor" href="#case-study-using-a-single-passeriformes-tree"></a>
@@ -137,38 +131,37 @@ our estimation. :</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree</span>, main <span class="op">=</span> <span class="st">"Complete tree"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">old</span>, main <span class="op">=</span> <span class="st">"Old tree"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">recent</span>, main <span class="op">=</span> <span class="st">"Recent tree"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">old</span>, main <span class="op">=</span> <span class="st">"Old tree"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Passeriformes-diversification_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># Returning to a simple 1x1 viewer</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># Returning to a simple 1x1 viewer</span></span></code></pre></div>
+<p><img src="../../reference/figures/Sliced_pas_tree.png" style="display: block; margin: auto;"></p>
 <p>Then, we need to calculate the tip diversification rates (DR)
 separately for each phylogeny slice, while finding their difference. To
 calculate the DR, we can use the function <code><a href="../reference/DR.html">DR()</a></code> available
 within the <code>treesliceR</code> package:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">DR_diff</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/DR.html">DR</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">recent</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">-</span> <span class="fu"><a href="../reference/DR.html">DR</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">old</span><span class="op">)</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span></span></code></pre></div>
 <p>Now we’ll pair the differences in DR by assigning their difference to
 a data.frame that contains our passeriformes information inside our tree
 object:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree</span><span class="op">$</span><span class="va">Species_info</span><span class="op">$</span><span class="va">DR_diff</span> <span class="op">&lt;-</span> <span class="va">DR_diff</span></span></code></pre></div>
 <p>To calculate the mean and standard deviation difference per
 passeriformes family, we use the <code><a href="https://rdrr.io/r/base/tapply.html" class="external-link">tapply()</a></code> function to
 aggregate the tip-DR’s by family:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fam_DR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tapply.html" class="external-link">tapply</a></span><span class="op">(</span><span class="va">tree</span><span class="op">$</span><span class="va">Species_info</span><span class="op">$</span><span class="va">DR_diff</span>, <span class="va">tree</span><span class="op">$</span><span class="va">Species_info</span><span class="op">$</span><span class="va">Family</span>, <span class="va">mean</span><span class="op">)</span></span>
 <span><span class="va">fam_DR_sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tapply.html" class="external-link">tapply</a></span><span class="op">(</span><span class="va">tree</span><span class="op">$</span><span class="va">Species_info</span><span class="op">$</span><span class="va">DR_diff</span>, <span class="va">tree</span><span class="op">$</span><span class="va">Species_info</span><span class="op">$</span><span class="va">Family</span>, <span class="va">sd</span><span class="op">)</span></span></code></pre></div>
 <p>To visualize the differences in DR among families, lets create a
 dataframe contaning our outputs:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fam_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">fam_DR</span><span class="op">)</span>, DR_diff <span class="op">=</span> <span class="va">fam_DR</span>, DR_sd <span class="op">=</span> <span class="va">fam_DR_sd</span><span class="op">)</span></span>
 <span><span class="co"># Sorting based on DR value to plot</span></span>
 <span><span class="va">fam_df</span> <span class="op">&lt;-</span> <span class="va">fam_df</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">fam_df</span><span class="op">$</span><span class="va">DR_diff</span><span class="op">)</span>,<span class="op">]</span></span>
 <span><span class="va">fam_df</span><span class="op">$</span><span class="va">Family</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">fam_df</span><span class="op">$</span><span class="va">Family</span>, levels <span class="op">=</span> <span class="va">fam_df</span><span class="op">$</span><span class="va">Family</span><span class="op">)</span></span></code></pre></div>
 <p>Now, we can create a graph similar to the manuscript using the
 package <code>ggplot2</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">fam_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Family</span>, y <span class="op">=</span> <span class="va">DR_diff</span>,</span>
 <span>                    ymin <span class="op">=</span> <span class="va">DR_diff</span> <span class="op">-</span> <span class="va">DR_sd</span>,</span>
 <span>                    ymax <span class="op">=</span> <span class="va">DR_diff</span> <span class="op">+</span> <span class="va">DR_sd</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -180,9 +173,8 @@ package <code>ggplot2</code>:</p>
 <span>        axis.line <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span>,</span>
 <span>        panel.grid.major.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>        panel.grid.minor.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">DR</span><span class="op">[</span><span class="st">"recent"</span><span class="op">]</span><span class="op">-</span><span class="va">DR</span><span class="op">[</span><span class="st">"past"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Removed 9 rows containing missing values (`geom_segment()`).</span></span></code></pre></div>
-<p><img src="Passeriformes-diversification_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">DR</span><span class="op">[</span><span class="st">"recent"</span><span class="op">]</span><span class="op">-</span><span class="va">DR</span><span class="op">[</span><span class="st">"past"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../../reference/figures/OneTree_DR.png" style="display: block; margin: auto;"></p>
 <p>Pay attention that the final outputs could be sligly different from
 those obtained on the <a href="">Araujo et al. (in review)</a>
 manuscript. However, in contrast to the study, this example was executed
@@ -200,61 +192,25 @@ to run the analysis which is stored in an intern object called
 matrices, where each lists contain a given Australian focal cell and its
 respective neighborhood cells. So, let’s check the header of the four
 first columns of the first matrix within the list:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pass_asb</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt;    Myzomela_obscura Dicaeum_hirundinaceum Hirundo_nigricans Artamus_personatus</span></span>
-<span><span class="co">#&gt; 6                 1                     1                 1                  1</span></span>
-<span><span class="co">#&gt; 5                 1                     1                 1                  1</span></span>
-<span><span class="co">#&gt; 7                 1                     1                 1                  1</span></span>
-<span><span class="co">#&gt; 16                1                     1                 1                  1</span></span>
-<span><span class="co">#&gt; 17                1                     1                 1                  1</span></span>
-<span><span class="co">#&gt; 18                1                     1                 1                  1</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pass_asb</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p>We can run some sensitivity analysis to find the most parsimonious
 number of slices to assess the CpB rate patterns. But first, we’ll need
 to create an vector of number of slices:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">250</span>, <span class="fl">500</span>, <span class="fl">750</span>, <span class="fl">1000</span>, <span class="fl">1250</span>, <span class="fl">1500</span>, <span class="fl">1750</span>, <span class="fl">2000</span><span class="op">)</span></span></code></pre></div>
 <p>Now we can run the sensitivity analysis and visualize its patterns.
 We’ll do only for turnover in order to :</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sens_turn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_sensitivity.html">CpR_sensitivity</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, vec <span class="op">=</span> <span class="va">vec</span>, samp <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>                             asb <span class="op">=</span> <span class="va">pass_asb</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, comp <span class="op">=</span> <span class="st">"turnover"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &gt; The 250 number of pieces inputted equals to intervals of 0.2610503391684 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 500 number of pieces inputted equals to intervals of 0.1305251695842 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 750 number of pieces inputted equals to intervals of 0.0870167797228 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 1000 number of pieces inputted equals to intervals of 0.0652625847921 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 1250 number of pieces inputted equals to intervals of 0.05221006783368 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 1500 number of pieces inputted equals to intervals of 0.0435083898614 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 1750 number of pieces inputted equals to intervals of 0.0372929055954857 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 2000 number of pieces inputted equals to intervals of 0.03263129239605 million of years.</span></span></code></pre></div>
-<p>Now we can run the sensitivity analysis and visualize its patterns.
-We’ll do only for turnover in order to :</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sens_turn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_sensitivity.html">CpR_sensitivity</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, vec <span class="op">=</span> <span class="va">vec</span>, samp <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>                             asb <span class="op">=</span> <span class="va">pass_asb</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, comp <span class="op">=</span> <span class="st">"turnover"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &gt; The 250 number of pieces inputted equals to intervals of 0.2610503391684 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 500 number of pieces inputted equals to intervals of 0.1305251695842 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 750 number of pieces inputted equals to intervals of 0.0870167797228 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 1000 number of pieces inputted equals to intervals of 0.0652625847921 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 1250 number of pieces inputted equals to intervals of 0.05221006783368 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 1500 number of pieces inputted equals to intervals of 0.0435083898614 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 1750 number of pieces inputted equals to intervals of 0.0372929055954857 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 2000 number of pieces inputted equals to intervals of 0.03263129239605 million of years.</span></span>
 <span><span class="va">sens_nest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_sensitivity.html">CpR_sensitivity</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, vec <span class="op">=</span> <span class="va">vec</span>, samp <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>                             asb <span class="op">=</span> <span class="va">pass_asb</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, comp <span class="op">=</span> <span class="st">"nestedness"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &gt; The 250 number of pieces inputted equals to intervals of 0.2610503391684 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 500 number of pieces inputted equals to intervals of 0.1305251695842 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 750 number of pieces inputted equals to intervals of 0.0870167797228 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 1000 number of pieces inputted equals to intervals of 0.0652625847921 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 1250 number of pieces inputted equals to intervals of 0.05221006783368 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 1500 number of pieces inputted equals to intervals of 0.0435083898614 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 1750 number of pieces inputted equals to intervals of 0.0372929055954857 million of years.</span></span>
-<span><span class="co">#&gt; &gt; The 2000 number of pieces inputted equals to intervals of 0.03263129239605 million of years.</span></span></code></pre></div>
+<span>                             asb <span class="op">=</span> <span class="va">pass_asb</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, comp <span class="op">=</span> <span class="st">"nestedness"</span><span class="op">)</span></span></code></pre></div>
 <p>So, we can plot our sensitivity analysis for both components using
 the <code>CpR_sensitivity_plot</code> funcion. We use the ggplot syntaxe
 to add a vertical line showing our number of slices set for our
 following analysis:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Store each graph within a respective object</span></span>
 <span><span class="va">turn_sens_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_sensitivity_plot.html">CpR_sensitivity_plot</a></span><span class="op">(</span><span class="va">sens_turn</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, stc <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">1000</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span>
@@ -263,28 +219,175 @@ following analysis:</p>
 <span><span class="co"># To plot them together</span></span>
 <span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html" class="external-link">ggarrange</a></span><span class="op">(</span><span class="va">turn_sens_plot</span>, <span class="va">nest_sens_plot</span>,</span>
 <span>                    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a)"</span>, <span class="st">"b)"</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Passeriformes-diversification_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
+<p><img src="../../reference/figures/OneTree_sensitivity.png" style="display: block; margin: auto;"></p>
 <p>Calculating the CpB-rate from the turnover and nestedness components
 under a multisite approach (PS: this can take some minutes):</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For turnover component</span></span>
 <span><span class="va">turn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, n <span class="op">=</span> <span class="fl">1000</span>, asb <span class="op">=</span> <span class="va">pass_asb</span>, comp <span class="op">=</span> <span class="st">"turnover"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &gt; The 1000 number of pieces inputted equals to intervals of 0.0652625847921 million of years.</span></span>
 <span><span class="co"># For nestedness component</span></span>
-<span><span class="va">nest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, n <span class="op">=</span> <span class="fl">1000</span>, asb <span class="op">=</span> <span class="va">pass_asb</span>, comp <span class="op">=</span> <span class="st">"nestedness"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; &gt; The 1000 number of pieces inputted equals to intervals of 0.0652625847921 million of years.</span></span></code></pre></div>
+<span><span class="va">nest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, n <span class="op">=</span> <span class="fl">1000</span>, asb <span class="op">=</span> <span class="va">pass_asb</span>, comp <span class="op">=</span> <span class="st">"nestedness"</span><span class="op">)</span></span></code></pre></div>
 <p>Finally, we can plot these CpB through time or map it. To map it, we
 can use our intern <code>AU_grid</code> object that represents the
-Australian grid map. Let’s do it first for the turnover component:
-<img src="Passeriformes-diversification_files/figure-html/ggplot2-1.png" width="700"></p>
+Australian grid map. Let’s do it first for the turnover component:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">turn_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">turn</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">turn_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">turn</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span>, map <span class="op">=</span> <span class="va">AU_grid</span><span class="op">)</span></span>
+<span><span class="co"># To plot them together</span></span>
+<span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html" class="external-link">ggarrange</a></span><span class="op">(</span><span class="va">turn_1</span>, <span class="va">turn_2</span>,</span>
+<span>                    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a)"</span>, <span class="st">"b)"</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../../reference/figures/OneTree_turn.png" style="display: block; margin: auto;"></p>
 <p>And we can do the same for the nestedness component:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nest1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nest</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">nest2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nest</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span>, map <span class="op">=</span> <span class="va">AU_grid</span><span class="op">)</span></span>
 <span><span class="co"># To plot them together</span></span>
 <span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html" class="external-link">ggarrange</a></span><span class="op">(</span><span class="va">nest1</span>, <span class="va">nest2</span>,</span>
 <span>                    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a)"</span>, <span class="st">"b)"</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Passeriformes-diversification_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
+<p><img src="../../reference/figures/OneTree_nest.png" style="display: block; margin: auto;"></p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="case-study-using-a-multiple-100-passeriformes-tree">Case study using a multiple (100) passeriformes tree<a class="anchor" aria-label="anchor" href="#case-study-using-a-multiple-100-passeriformes-tree"></a>
+</h2>
+<div class="section level3">
+<h3 id="first-framework-example-1">First framework example<a class="anchor" aria-label="anchor" href="#first-framework-example-1"></a>
+</h3>
+<p>It will be done for all 100 trees</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">recent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">tree</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="../reference/squeeze_root.html">squeeze_root</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">33</span>, dropNodes <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="va">old</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">tree</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="../reference/squeeze_tips.html">squeeze_tips</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">33</span>, dropNodes <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<p>Then, we can calculate the species DR separately for both recent and
+old slices</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">DR_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">recent</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="../reference/DR.html">DR</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="va">DR_old</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">old</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="fu"><a href="../reference/DR.html">DR</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<p>Merging the lists by matching its Species column</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Recent</span></span>
+<span><span class="va">f_DRrec</span> <span class="op">&lt;-</span> <span class="va">DR_rec</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">f_DRrec</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="co"># Old</span></span>
+<span><span class="va">f_DRold</span> <span class="op">&lt;-</span> <span class="va">DR_old</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">f_DRold</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span></span>
+<span><span class="co"># Looping</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">2</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">DR_rec</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Recent</span></span>
+<span>  <span class="va">f_DRrec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">f_DRrec</span>, <span class="va">DR_rec</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, by <span class="op">=</span> <span class="st">"Species"</span>, sort <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">f_DRrec</span><span class="op">)</span><span class="op">[</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">i</span></span>
+<span>  <span class="co"># Old</span></span>
+<span>  <span class="va">f_DRold</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">f_DRold</span>, <span class="va">DR_old</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>, by <span class="op">=</span> <span class="st">"Species"</span>, sort <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">f_DRold</span><span class="op">)</span><span class="op">[</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">i</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Capturing the mean and sd for species DR at each depth</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Recent</span></span>
+<span><span class="va">DR_rec_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">f_DRrec</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span>, <span class="va">mean</span><span class="op">)</span></span>
+<span><span class="va">DR_rec_sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">f_DRrec</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span>, <span class="va">sd</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Old</span></span>
+<span><span class="va">DR_old_mean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">f_DRold</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span>, <span class="va">mean</span><span class="op">)</span></span>
+<span><span class="va">DR_old_sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">f_DRold</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span>, <span class="va">sd</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Capturing their mean difference</span></span>
+<span><span class="va">DR_diff</span> <span class="op">&lt;-</span> <span class="va">DR_rec_mean</span> <span class="op">-</span> <span class="va">DR_old_mean</span></span></code></pre></div>
+<p>Mergin with the species name</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Specie <span class="op">=</span> <span class="va">f_DRrec</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>, DR_diff <span class="op">=</span> <span class="va">DR_diff</span><span class="op">)</span></span>
+<span><span class="co"># Capturing families information</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">tree</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">Species_info</span>, by <span class="op">=</span> <span class="st">"Specie"</span>, sort <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Displaying it graphically for families</span></span>
+<span><span class="va">fam_DR</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tapply.html" class="external-link">tapply</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">DR_diff</span>, <span class="va">df</span><span class="op">$</span><span class="va">Family</span>, <span class="va">mean</span><span class="op">)</span></span>
+<span><span class="va">fam_DR_sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tapply.html" class="external-link">tapply</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">DR_diff</span>, <span class="va">df</span><span class="op">$</span><span class="va">Family</span>, <span class="va">sd</span><span class="op">)</span></span></code></pre></div>
+<p>Creating a new DF for families</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fam_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">fam_DR</span><span class="op">)</span>, DR_diff <span class="op">=</span> <span class="va">fam_DR</span>, DR_sd <span class="op">=</span> <span class="va">fam_DR_sd</span><span class="op">)</span></span>
+<span><span class="co"># Ordering to plot</span></span>
+<span><span class="va">fam_df</span> <span class="op">&lt;-</span> <span class="va">fam_df</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">fam_df</span><span class="op">$</span><span class="va">DR_diff</span><span class="op">)</span>,<span class="op">]</span></span>
+<span><span class="va">fam_df</span><span class="op">$</span><span class="va">Family</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">fam_df</span><span class="op">$</span><span class="va">Family</span>, levels <span class="op">=</span> <span class="va">fam_df</span><span class="op">$</span><span class="va">Family</span><span class="op">)</span></span></code></pre></div>
+<p>Ploting!</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">fam_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Family</span>, y <span class="op">=</span> <span class="va">DR_diff</span>,</span>
+<span>                    ymin <span class="op">=</span> <span class="va">DR_diff</span> <span class="op">-</span> <span class="va">DR_sd</span>,</span>
+<span>                    ymax <span class="op">=</span> <span class="va">DR_diff</span> <span class="op">+</span> <span class="va">DR_sd</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_pointrange</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"#d90429"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">13</span><span class="op">)</span>,</span>
+<span>        axis.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span>        axis.line <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span>,</span>
+<span>        panel.grid.major.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>        panel.grid.minor.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">DR</span><span class="op">[</span><span class="st">"recent"</span><span class="op">]</span><span class="op">-</span><span class="va">DR</span><span class="op">[</span><span class="st">"past"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../../reference/figures/AllTrees_DR.png" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level3">
+<h3 id="second-framework-example-1">Second framework example<a class="anchor" aria-label="anchor" href="#second-framework-example-1"></a>
+</h3>
+<p>Once we already decided the number of slices in the previous section,
+we’ll jump the sensitivity analysis step to calculate the CpB-rate.
+Thus, we’ll calculate the CpB-rate for 100 trees using our previously
+defined criteria of 1000 slices.</p>
+<p>First we’ll run the analysis for the <strong>TURNOVER</strong>. Pay
+attention that we are setting to execute the function under parallel
+programing, being this code executed under 5 cores. Before run, you
+<em>must</em> confirm if the number of cores are supported by your
+machine. Anyway, the following function can take some long minutes to
+end:</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">CpB_turn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">pass_trees</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">x</span>, n <span class="op">=</span> <span class="fl">1000</span>, asb <span class="op">=</span> <span class="va">pass_asb</span>, comp <span class="op">=</span> <span class="st">"turnover"</span>, ncor <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<p>Now, we capture the mean of each parameter and store then within a
+new data.fram</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">CpB_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">CpB_turn</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="va">pB_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">CpB_turn</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="va">pBO_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">CpB_turn</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="co"># DF</span></span>
+<span><span class="va">turn_100trees</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>CpB <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">CpB_val</span>, <span class="fl">1</span>, <span class="va">mean</span><span class="op">)</span>,</span>
+<span>                            pB <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">pB_val</span>, <span class="fl">1</span>, <span class="va">mean</span><span class="op">)</span>,</span>
+<span>                            pBO <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">pBO_val</span>, <span class="fl">1</span>, <span class="va">mean</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Ploting it:</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">turn_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">turn_100trees</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">turn_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">turn_100trees</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span>, map <span class="op">=</span> <span class="va">AU_grid</span><span class="op">)</span></span>
+<span><span class="co"># To plot them together</span></span>
+<span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html" class="external-link">ggarrange</a></span><span class="op">(</span><span class="va">turn_1</span>, <span class="va">turn_2</span>,</span>
+<span>          labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a)"</span>, <span class="st">"b)"</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../../reference/figures/AllTrees_turn.png" style="display: block; margin: auto;"></p>
+<p>Now, we’ll run the analysis for the <strong>NESTEDNESS</strong>:</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">CpB_nest</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">pass_trees</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">x</span>, n <span class="op">=</span> <span class="fl">1000</span>, asb <span class="op">=</span> <span class="va">pass_asb</span>, comp <span class="op">=</span> <span class="st">"nestedness"</span>, ncor <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<p>Separating and summarizing each parameter:</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">CpB_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">CpB_nest</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="va">pB_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">CpB_nest</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="va">pBO_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">CpB_nest</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="co"># DF</span></span>
+<span><span class="va">nest_100trees</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>CpB <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">CpB_val</span>, <span class="fl">1</span>, <span class="va">mean</span><span class="op">)</span>,</span>
+<span>                            pB <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">pB_val</span>, <span class="fl">1</span>, <span class="va">mean</span><span class="op">)</span>,</span>
+<span>                            pBO <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">pBO_val</span>, <span class="fl">1</span>, <span class="va">mean</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Plotting it:</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">nest_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nest_100trees</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">nest_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nest_100trees</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span>, map <span class="op">=</span> <span class="va">AU_grid</span><span class="op">)</span></span>
+<span><span class="co"># To plot them together</span></span>
+<span><span class="fu"><a href="https://rpkgs.datanovia.com/ggpubr/reference/ggarrange.html" class="external-link">ggarrange</a></span><span class="op">(</span><span class="va">nest_1</span>, <span class="va">nest_2</span>,</span>
+<span>          labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a)"</span>, <span class="st">"b)"</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<p><img src="../../reference/figures/AllTrees_nest.png" style="display: block; margin: auto;"></p>
+<p>That’s it!</p>
+</div>
+<div class="section level3">
+<h3 id="references">References:<a class="anchor" aria-label="anchor" href="#references"></a>
+</h3>
+<p>Jetz, W., Thomas, G. H., Joy, J. B., Hartmann, K. and Mooers, A. O.
+2012. The global diversity of birds in space and time. - Nature
+491(7424): 444–448. <a href="https://doi.org/10.1038/nature11631" class="external-link uri">https://doi.org/10.1038/nature11631</a></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
