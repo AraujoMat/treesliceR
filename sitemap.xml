@@ -10,6 +10,9 @@
     <loc>https://araujomat.github.io/treesliceR/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://araujomat.github.io/treesliceR/articles/Passeriformes-distribution.html</loc>
+  </url>
+  <url>
     <loc>https://araujomat.github.io/treesliceR/articles/Passeriformes-diversification.html</loc>
   </url>
   <url>
@@ -68,6 +71,9 @@
   </url>
   <url>
     <loc>https://araujomat.github.io/treesliceR/reference/phylo_pieces.html</loc>
+  </url>
+  <url>
+    <loc>https://araujomat.github.io/treesliceR/reference/prune_tips.html</loc>
   </url>
   <url>
     <loc>https://araujomat.github.io/treesliceR/reference/r_phylo.html</loc>
