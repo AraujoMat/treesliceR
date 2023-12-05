@@ -102,16 +102,13 @@ The second family of functions present within `treesliceR` enables the slicing o
 
 The first option to slice phylogenies is by squeezing its branch lengths from the tips to the root using the function `squeeze_tips()`. Squeezing, in this context, refers to collapsing branch lengths based on a given threshold (tree depth, in this case, in million years). This function requires providing a phylogenetic tree and a numeric value indicating the depth at which the branches will be compressed. For instance, let's squeeze the passerine phylogeny at three different ages (10, 30 and 50 million years):
 ```{r echo=TRUE, eval=TRUE}
-
 tree_squeeze10 <- squeeze_tips(tree = tree, time = 10)
 tree_squeeze30 <- squeeze_tips(tree = tree, time = 30)
 tree_squeeze50 <- squeeze_tips(tree = tree, time = 50)
-
 ```
 
 We can visualize the phylogeny before and after the squeezing process to check out the differences:
 ```{r echo=TRUE, eval=TRUE}
-
 par(mfrow = c(1, 3)) # Setting an 1x3 graphical display
 plot(tree_squeeze10, main = "squeezed at 10my", show.tip.label = F); axisPhylo()
 plot(tree_squeeze30, main = "Squeezed at 30my", show.tip.label = F); axisPhylo()
