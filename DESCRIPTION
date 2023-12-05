@@ -6,10 +6,10 @@ Authors@R:
            comment = c(ORCID = "0000-0002-9111-725X")),
            person("Luiz Gabriel Souza e Souza", "Ferreira", , "luizferreira@discente.ufg.br", role = "aut",
            comment = c(ORCID = "0009-0002-5881-9791")),
-           person("Marco Tulio Pacheco", "Coelho", , "marcotpcoelho@gmail.com", role = "aut",
-           comment = c(ORCID = "0000-0002-7831-3053")),
            person("Gabriel", "Nakamura", , "gabriel.nakamura.souza@gmail.com", role = "aut",
            comment = c(ORCID = "0000-0002-5144-5312")),
+           person("Marco Tulio Pacheco", "Coelho", , "marcotpcoelho@gmail.com", role = "aut",
+           comment = c(ORCID = "0000-0002-7831-3053")),
            person("Thiago Fernando", "Rangel", , "rangel.tf@gmail.com", role = "aut",
            comment = c(ORCID = "0000-0002-2001-7382")))
 Description: Provide a range of functions with multiple criteria for cutting phylogenies at any evolutionary depth. It enables users to cut phylogenies in any orientation, such as 'rootwardly' (from root to tips) and 'tipwardly' (from tips to its root), or allows users to define a specific time interval of interest. It can also be used to crate several phylogenetic pieces of equal temporal width. Moreover, it allows the assessment of novel temporal rates for various phylogenetic indexes, which can be quickly displayed graphically.

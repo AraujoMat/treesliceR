@@ -66,7 +66,7 @@ Now, you are ready to temporally dissect any phylogenetic pattern of interest!
 
 To learn about various ways to use and solve problems using **treesliceR**, you can explore some of our vignettes:
 
-- [Basic applications](https://github.com/AraujoMat/treesliceR): This section provides straightforward and beginner-friendly applications with simple illustrations of the tools available within the package;
+- [Introduction to treesliceR](https://araujomat.github.io/treesliceR/articles/Intro-treesliceR.html): This section provides straightforward and beginner-friendly applications with simple illustrations of the tools available within the package;
 - [Passerines distribution](https://araujomat.github.io/treesliceR/articles/Passeriformes-distribution.html): Here, you'll find an applied example of our tools focusing on Australian passeriformes, where we compare species richness distributions between older and more recent lineages;
 - [Passerines diversification](https://araujomat.github.io/treesliceR/articles/Passeriformes-diversification.html): In this vignette, we replicate the case study by [Araujo et al. (in review)](https://github.com/AraujoMat/treesliceR). It presents the workflow executed for both a single phylogeny and multiple sampled phylogenies for passeriformes.
 

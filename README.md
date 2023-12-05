@@ -126,9 +126,11 @@ interest!
 To learn about various ways to use and solve problems using
 **treesliceR**, you can explore some of our vignettes:
 
-- [Basic applications](https://github.com/AraujoMat/treesliceR): This
-  section provides straightforward and beginner-friendly applications
-  with simple illustrations of the tools available within the package;
+- [Introduction to
+  treesliceR](https://araujomat.github.io/treesliceR/articles/Intro-treesliceR.html):
+  This section provides straightforward and beginner-friendly
+  applications with simple illustrations of the tools available within
+  the package;
 - [Passerines
   distribution](https://araujomat.github.io/treesliceR/articles/Passeriformes-distribution.html):
   Here, you’ll find an applied example of our tools focusing on

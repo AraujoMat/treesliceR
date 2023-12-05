@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This article aims to map the species richness distributions of older and young lineages of Australian passerines. Using the `treesliceR` tools, we'll compare the spatial distribution between these lineages and explore emergent biodiversity patterns in space.
+This article aims to map the species richness distributions of older and young lineages of Australian passerines (obtained from [Jetz et al. (2012)](https://doi.org/10.1038/nature11631)). Using the `treesliceR` tools, we'll compare the spatial distribution between these lineages and explore emergent biodiversity patterns in space.
 
 Before starting our analysis, we'll need to load the `ape`, `ggplot2`, and `ggpubr` packages. Additionally, if required, install the `devtools` before downloading the `treesliceR` package from GitHub:
 ```{r, message = FALSE, warning = FALSE}
@@ -164,7 +164,9 @@ Using these residuals, we can possibly infer the processes leading to the differ
 
 That’s all folks!
 
-# Related research
+# References and related research
 Hawkins, B. A., Diniz‐Filho, J. A. F., Jaramillo, C. A, and Soeller, S. A. 2007. Climate, Niche Conservatism, and the Global Bird Diversity Gradient. - The American Naturalist 170(S2): S16–S27. https://doi.org/10.1086/519009
+
+Jetz, W., Thomas, G. H., Joy, J. B., Hartmann, K. and Mooers, A. O. 2012. The global diversity of birds in space and time. - Nature 491(7424): 444–448. https://doi.org/10.1038/nature11631
 
 Sonne, J., Dalsgaard, B., Borregaard, M. K., Kennedy, J., Fjeldså, J. and Rahbek, C. 2022. Biodiversity cradles and museums segregating within hotspots of endemism. - Proceedings of Royal Society: B. 289: 20221102. https://doi.org/10.1098/rspb.2022.1102
