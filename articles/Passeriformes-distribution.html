@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Passerines Distribution">
 <meta property="og:description" content="treesliceR">
@@ -47,6 +47,7 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/Intro_treeSlicer.html">Introduction to treesliceR</a>
     <a class="dropdown-item" href="../articles/Passeriformes-distribution.html">Passerines Distribution</a>
     <a class="dropdown-item" href="../articles/Passeriformes-diversification.html">Passerines Diversification</a>
   </div>
@@ -88,13 +89,14 @@
     
     
 <p>This article aims to map the species richness distributions of older
-and young lineages of Australian passerines. Moreover, using the
-<code>treesliceR</code> tools, we’ll compare the distribution between
-these lineages and explore emergent patterns in space.</p>
+and young lineages of Australian passerines. Using the
+<code>treesliceR</code> tools, we’ll compare the spatial distribution
+between these lineages and explore emergent biodiversity patterns in
+space.</p>
 <p>Before starting our analysis, we’ll need to load the
 <code>ape</code>, <code>ggplot2</code>, and <code>ggpubr</code>
 packages. Additionally, if required, install the <code>devtools</code>
-to invoke the <code>treesliceR</code> package:</p>
+before downloading the <code>treesliceR</code> package from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Creating a list of our desired packages</span></span>
 <span><span class="va">libs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ape"</span>, <span class="st">"devtools"</span>, <span class="st">"ggplot2"</span>, <span class="st">"ggpubr"</span><span class="op">)</span></span>
@@ -122,29 +124,29 @@ to invoke the <code>treesliceR</code> package:</p>
 <h2 id="pruning-the-passerines-phylogeny">1. Pruning the passerines phylogeny<a class="anchor" aria-label="anchor" href="#pruning-the-passerines-phylogeny"></a>
 </h2>
 <p>Before conducting our analysis, it is necessary to load the
-passerines’ phylogeny. We will invoke the <code>pass_trees</code>
-object, which is accessible within the <code>treesliceR</code> package.
-This object comprises 100 passerine phylogenies, but for this vignette
-we will use only the first one:</p>
+passerines’ phylogeny. We will call the <code>pass_trees</code> object,
+which is accessible from the <code>treesliceR</code> package. This
+object comprises 100 passerine phylogenies, but for the sake of
+simplicity we will use only the first one:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="va">pass_trees</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <p>To evaluate the species richness distribution of both older and
-younger lineages, it is essential to segregate these lineages based on a
-specific criterion. Therefore, we will categorize lineages as older
-species if their last branching events are higher than the 75th quantile
-of the overall passerines age. This can be accomplished using the
-<code><a href="../reference/prune_tips.html">prune_tips()</a></code> function:</p>
+younger lineages, it is essential to split the phylogenetic tree of
+these lineages based on a specific criterion. Therefore, we will
+categorize lineages as older species if their last branching events are
+higher than the 75th quantile of the overall passerines age
+distribution. This can be done by using the <code><a href="../reference/prune_tips.html">prune_tips()</a></code>
+function:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">older</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prune_tips.html">prune_tips</a></span><span class="op">(</span><span class="va">tree</span>, <span class="fl">0.75</span>, qtl <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <p>Now, we will classify lineages as younger if their ages are smaller
 than the 25th quantile of the overall passerine ages. However, because
-we aim to retain in the phylogeny those species originating
-<em>after</em> our quantile threshold, we will set the argument
-<code>method = 2</code> (for more details, see
-<code>?prune_tips()</code>):</p>
+we aim to keep in the phylogeny those species originating <em>after</em>
+our quantile threshold, we will set the argument <code>method = 2</code>
+(for more details, see <code>?prune_tips()</code>):</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">younger</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prune_tips.html">prune_tips</a></span><span class="op">(</span><span class="va">tree</span>, <span class="fl">0.25</span>, qtl <span class="op">=</span> <span class="cn">T</span>, method <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p>Let’s visualize both our original and pruned phylogenies:</p>
+<p>Let’s visualize both the original and pruned phylogenies:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># Setting an 1x3 graphical display</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">older</span>, main <span class="op">=</span> <span class="st">"All species"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -157,14 +159,14 @@ we aim to retain in the phylogeny those species originating
 <div class="section level2">
 <h2 id="distribution-of-species-richness-older-vs-younger">2. Distribution of species richness (older <em>vs</em> younger)<a class="anchor" aria-label="anchor" href="#distribution-of-species-richness-older-vs-younger"></a>
 </h2>
-<p>Before calculating the species richness distribution for our
-categories, we need to identify the older and younger species present in
-our pruned phylogenies:</p>
+<p>Before calculating the species richness in each one of our categories
+(young and old lineages), we need to identify the older and younger
+species present in the pruned phylogenies:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">older</span> <span class="op">&lt;-</span> <span class="va">older</span><span class="op">$</span><span class="va">tip.label</span></span>
 <span><span class="va">younger</span> <span class="op">&lt;-</span> <span class="va">younger</span><span class="op">$</span><span class="va">tip.label</span></span></code></pre></div>
 <p>Now, we need to evaluate the distribution of these species. To do
-this, we’ll load the passerines species matrix stored in the
+this, we’ll load the passerines species occurrence matrix in the
 <code>pass_mat</code> object. Let’s take a look at the first tree
 species in the matrix:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -181,18 +183,18 @@ species. Let’s begin with the older ones:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">pass_mat</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">older</span><span class="op">)</span></span>
 <span><span class="va">old_mat</span> <span class="op">&lt;-</span> <span class="va">pass_mat</span><span class="op">[</span>, <span class="va">positions</span><span class="op">]</span></span></code></pre></div>
-<p>Now, let’s proceed with creating subsets for the younger species:</p>
+<p>Now, let’s proceed by subsetting assemblages that contain the younger
+species:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">pass_mat</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">younger</span><span class="op">)</span></span>
 <span><span class="va">yng_mat</span> <span class="op">&lt;-</span> <span class="va">pass_mat</span><span class="op">[</span>, <span class="va">positions</span><span class="op">]</span></span></code></pre></div>
-<p>Now, we can load a grid map of Australia and incorporate all this
-species richness information onto it:</p>
+<p>Now, we can load a grid map of Australia and merge species richness
+information from young and old species onto it:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="va">AU_grid</span></span>
 <span><span class="va">grid</span><span class="op">$</span><span class="va">SR_old</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">old_mat</span><span class="op">)</span></span>
 <span><span class="va">grid</span><span class="op">$</span><span class="va">SR_yng</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">yng_mat</span><span class="op">)</span></span></code></pre></div>
-<p>Then, visualize the species richness patterns for both
-categories:</p>
+<p>Then, visualize the species richness patterns in both categories:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Younger</span></span>
 <span><span class="va">AU_yng</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -213,7 +215,7 @@ categories:</p>
 <div class="section level2">
 <h2 id="mismatches-in-species-richness-distribution">3. Mismatches in species richness distribution<a class="anchor" aria-label="anchor" href="#mismatches-in-species-richness-distribution"></a>
 </h2>
-<p>As observed above, there is a noticeable correspondence between the
+<p>As observed above, there is a spatial correspondence between the
 species richness of younger and older lineages. However, the extent of
 is this relationship is uncertain. Let’s fit a simple linear regression
 to quantify this relationship:</p>
@@ -240,14 +242,14 @@ to quantify this relationship:</p>
 <span><span class="co">#&gt; Residual standard error: 3.999 on 718 degrees of freedom</span></span>
 <span><span class="co">#&gt; Multiple R-squared:  0.6391, Adjusted R-squared:  0.6386 </span></span>
 <span><span class="co">#&gt; F-statistic:  1271 on 1 and 718 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
-<p>Note that its coefficient of determination is significantly and
-higher (R² = 63%!!!!). Thus, areas with high richness of younger
-lineages will generally also exhibit high richness of older lineages.
-These areas could indicate different dynamics of diversification rates
-over time, concurrently influencing the patterns of species richness of
-lineages of different depths.</p>
-<p>However, let’s examine a scatterplot depicting the species richness
-of both categories:</p>
+<p>Note that its coefficient of determination is high and significant
+(R² = 63%!!!!). Thus, areas with high richness of younger lineages will
+generally also exhibit high richness of older lineages. These areas
+could indicate different dynamics of diversification rates over time,
+concurrently influencing the patterns of species richness of lineages of
+different depths.</p>
+<p>Let’s dive a bit more into this example and examine a scatterplot
+depicting the species richness of both categories:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">SR_yng</span> <span class="op">~</span> <span class="va">SR_old</span>, data <span class="op">=</span> <span class="va">grid</span>,</span>
 <span>     ylab <span class="op">=</span> <span class="st">"Species richness (younger)"</span>,</span>
@@ -256,12 +258,12 @@ of both categories:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span><span class="va">model</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Passeriformes-distribution_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
 <p>Despite the stronger relationship between the species richness of
-both, the deviations in these patterns could indicate important and
-unidentified biogeographical processes influencing the currently
-observed species richness of these lineages.</p>
-<p>Therefore, let’s capture the deviations of our model using the
-<code>residuals</code> function and visualize them on the Australia
-map:</p>
+both young and old lineages, the deviations in these patterns could
+indicate important and unidentified biogeographical processes
+influencing the currently observed species richness of these
+lineages.</p>
+<p>Therefore, let’s quantify the magnitude of these deviations from our
+model using the <code>residuals</code> function and spatialize them:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">grid</span><span class="op">$</span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
 <span><span class="co"># Mapping it</span></span>
@@ -272,20 +274,21 @@ map:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_void</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Passeriformes-distribution_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
 <p>Areas in blue indicate a higher predominance of younger lineages than
-expected, while in red those older lineages predominate. Areas colored
-in grey indicate that the observed species richness of younger and older
-species matches the richness expected by our model.</p>
-<p>Using these residuals, we can attempt to infer the processes leading
-to the differences between the species richness of older and younger
+expected, while in red indicates that older lineages are predominant.
+Areas colored in grey indicate that the observed species richness of
+younger and older species are close to the richness expected by our
+model.</p>
+<p>Using these residuals, we can possibly infer the processes leading to
+the differences between the species richness of older and younger
 lineages. Interestingly, these differences observed in the residuals are
-highly structured in space. On the one hand, there is a higher
-predominance of older lineages within deserts, which could be attributed
-to a processes of lower diversification rates within these locations
-over time. On the other hand, younger lineages predominate in humid
-areas and islands, indicating locations where diversification rates are
-higher and continually generate recent lineages. However, both
-mechanisms mentioned here remain in the realm of hypothesis and are open
-to further empirical testing.</p>
+highly structured in space. There is a higher predominance of older
+lineages in deserts, which could be attributed to a processes of lower
+diversification rates within these locations over time. On the other
+hand, younger lineages predominate in humid areas and islands,
+indicating locations where diversification rates are higher and
+continually generate recent lineages. It is worth to mention that both
+mechanisms mentioned here are only hypotheses that deserves further
+empirical testing.</p>
 <p>That’s all folks!</p>
 </div>
 <div class="section level2">
