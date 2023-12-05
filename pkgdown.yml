@@ -2,10 +2,10 @@ pandoc: 2.19.2
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
-  Intro_treeSlicer: Intro_treeSlicer.html
+  Intro-treesliceR: Intro-treesliceR.html
   Passeriformes-distribution: Passeriformes-distribution.html
   Passeriformes-diversification: Passeriformes-diversification.html
-last_built: 2023-12-05T11:20Z
+last_built: 2023-12-05T14:05Z
 urls:
   reference: https://araujomat.github.io/treesliceR/reference
   article: https://araujomat.github.io/treesliceR/articles
