@@ -1,0 +1,181 @@
+---
+title: "Introduction to treesliceR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+**treesliceR** is an R package that provides tools to flexibly subset and slice phylogenetic trees at different depths and ways. Sliced and pruned phylogenies are also ready to be used in downstream analysis (e.g. to assess phylogenetic patterns like beta and alpha phylogenetic metrics). With {`treesliceR`} phylogenies can be sliced in any temporal orientation (“rootwardly” or “tipwardly”), and internally by using different temporal criteria (million years, accumulated phylogenetic diversity or quantiles based on age distribution). 
+
+Moreover, {`treesliceR`} contain functions to assess the rates of accumulation of phylogenetic information (e.g., “α” and “β” diversities) through time ([check out this vignette to an introduction to how to calculate these metrics](link here)). All the analysis are designed to be flexible, reliable and fast, since functions that are computationally time-demanding were designed to run under parallel computation. Finally, our package also provides plotting functions that allows to produce [ready-to-use figures]().
+
+In order to illustrate the basic use of `treesliceR` we will present some examples on how to subset and slice phylogenies in different ways. To do that we will need the following packages:
+
+```{r echo=TRUE, eval=TRUE}
+libs <- c("ape")
+
+# Checking if they're installed
+if (!requireNamespace(libs, quietly = TRUE)){
+    install.packages(libs)
+}
+
+# Loading them
+library(ape)
+```
+
+Now, we'll need to load (and install if necessary) the `treesliceR` package:
+```{r, message = FALSE, warning = FALSE, eval=TRUE}
+# Is it already present within the machine?
+if (!requireNamespace("treesliceR", quietly = TRUE)){
+    devtools::install_github("AraujoMat/treesliceR")
+}
+
+# Loading it
+library(treesliceR)
+```
+
+# Subsetting and slicing phylogenies
+
+treesliceR provides a set of functions that can be used to slice phylogenetic trees in different ways. Slicing phylogenies can be used for different tasks, from vizualization purposes to conduct downstream analysis ([see this vignette for an example](https://araujomat.github.io/treesliceR/articles/Passeriformes-distribution.html)).
+
+In order to illustrate the flexibility of treesliceR we will demonstrate how to subset and slice a phylogenetic tree of passarine species (308 species) presented in the package. The object `pass_tree` comprises a multiphylo object with 100 phylogenetic trees. For the sake of simplicity we will use only one tree. To load this dataset use the following code.
+
+```{r readData, echo=TRUE, eval=TRUE}
+library(treesliceR)
+data("pass_trees")
+tree <- pass_trees[[1]]
+```
+
+# Prunning function
+
+treesliceR has functions that allow to prune a phylogenetic tree based on a specific absolute tree depth or by setting a quantile based on the age distribution of the last sppliting events in the phylogenetic tree. In both procedures (absolute age or quantile), all tips that have the age of the last splitting event **after** or **before** the value specified in the time argument will be pruned off or kept in the phylogeny (depending the `method` argument). In the next examples we will show how to prune the phylogenetic tree using an absolute depth (in this case in million years) or a scalar indicating a quantile draw from species age distribution.
+
+## Prunning using absolute depth
+
+First, lets prune the phylogeny in a way to keep only species that have splitting events older than 10 and 30 million years.
+
+```{r echo=TRUE, eval=TRUE}
+tree_pruned10 <- prune_tips(tree = tree, time = 10, qtl = F) # keep species older than 10myr
+tree_pruned30 <- prune_tips(tree = tree, time = 30, qtl = F) # keep species older than 30myr
+```
+
+Lets check the format of those trees
+
+```{r echo=TRUE, eval=TRUE}
+par(mfrow = c(1, 3)) # Setting an 1x3 graphical display
+plot(tree, main = "All species", show.tip.label = F); axisPhylo()
+plot(tree_pruned10, main = "Species older than 10my", show.tip.label = F); axisPhylo()
+plot(tree_pruned30, main = "Species older than 30my", show.tip.label = T); axisPhylo()
+```
+
+We can see that only species in which the last sppliting event are greater than 10 and 30 million years are kept in the trees. It is worth to note that the original branch lengths are not changed. From the left to the right we have the original phylogeny, the phylogeny containing only species in which the last splitting event is older than 10myr and, finally, the phylogeny with species that the last branching event is older than 30myr (only three species in our example).
+
+The inverse procedure can be done, i.e. we can keep only the species with the last branching event that is younger than the `time` argument by setting the `method` argument as 2.
+
+```{r echo=TRUE, eval=TRUE}
+tree_pruned10_inverse <- prune_tips(tree = tree, time = 10, qtl = F, method = 2) # keep species younger than 10myr
+tree_pruned30_inverse <- prune_tips(tree = tree, time = 30, qtl = F, method = 2) # keep species younger than 30myr
+
+# plotting phylogenies
+par(mfrow = c(1, 3)) # Setting an 1x3 graphical display
+plot(tree, main = "All species", show.tip.label = F); axisPhylo()
+plot(tree_pruned10_inverse, main = "Species younger than 10my", show.tip.label = F); axisPhylo()
+plot(tree_pruned30_inverse, main = "Species younger than 30my", show.tip.label = F); axisPhylo()
+```
+## Prunning using depth quantiles
+
+The same procedure can be done by setting the `time` argument as a scalar indicating the quantile of the distribution of species ages (given by the time of the last branching event). For example, if we want to keep only the species with age values younger (lower) than the ages of 25th quantile of the age distribution of all species, we can do the following:
+
+```{r echo=TRUE, eval=TRUE}
+tree_pruned25q <- prune_tips(tree, 0.25, qtl = T, method = 2)
+plot(tree_pruned25q, main = "Species with ages younger than 25th quantile", show.tip.label = F); axisPhylo()
+```
+
+Note that if we want to keep the species with ages younger than the ages of the 25th quantile we set the `method` argument as 2, as in the example above. The default value is 1, i.e., we remove the tips with ages younger than the threshold specified in `time` argument.
+
+# Slicing functions
+
+The second family of functions present in {`treesliceR`} allows to slice the phylogeny in different ways. In this section we will show the flexibility of tressliceR to perform tree slicing and visualize the output of these functions. 
+
+## Slicing from tip to roots
+
+The first option to slice phylogenies is by squeezing its branch lengths from the tips to the root using the function `squeeze_int`. By squeezing we mean collapsing the branch lengths accordingly to a given threshold (tree depth, in this case in million of years). In this function we need to provide a phylogenetic tree and a numeric value indicating the depth in which the branches will be squeezed. For example, let's squeeze the passerine phylogeny up to three different ages: 10, 30 and 50 million years (myr).
+
+```{r squeezeTip, echo=TRUE, eval=TRUE}
+
+tree_squeeze10 <- squeeze_tips(tree = tree, time = 10, criteria = "my", dropNodes = FALSE)
+tree_squeeze30 <- squeeze_tips(tree = tree, time = 30, criteria = "my", dropNodes = FALSE)
+tree_squeeze50 <- squeeze_tips(tree = tree, time = 50, criteria = "my", dropNodes = FALSE)
+
+```
+
+We can plot the phylogeny before and after the squeezing process to check out the difference
+
+```{r plotSqueeze, echo=TRUE, eval=TRUE}
+
+par(mfrow = c(1, 3)) # Setting an 1x3 graphical display
+plot(tree_squeeze10, main = "squeezed at 10myr", show.tip.label = F); axisPhylo()
+plot(tree_squeeze30, main = "Squeezed at 30myr", show.tip.label = F); axisPhylo()
+plot(tree_squeeze50, main = "Squeezed at 50myr", show.tip.label = F); axisPhylo()
+```
+
+It is worth to note that when we set the argument `dropNodes` as TRUE we change the structure of the tree by removing the nodes from the original tree. We can check this out by typping:
+
+```{r echo=TRUE, eval=TRUE}
+tree_squeeze30_drop <- squeeze_tips(tree = tree, time = 30, criteria = "my", dropNodes = TRUE)
+tree_squeeze30 # full binary tree
+tree_squeeze30_drop # tree with nodes dropped
+```
+You can see that the object `tree_squeeze30` is a full binary tree (308 species and 307 nodes), while the object `tree_squeeze30_drop` is not a binary tree since the nodes younger than 30myr were dropped out of the tree.
+
+As mentioned before, we can squeeze the tree using different depths. Let's play around with 20 and 40 myr and plot all trees to check the differences.
+
+```{r plotSqueeze2, echo=TRUE, eval=TRUE}
+tree_squeeze20 <- squeeze_tips(tree = tree, time = 20, criteria = "my", dropNodes = FALSE)
+tree_squeeze40 <- squeeze_tips(tree = tree, time = 40, criteria = "my", dropNodes = FALSE)
+par(mfrow = c(1, 2)) # Setting an 1x2 graphical display
+plot(tree_squeeze20, main = "Tree squeezed at 20myr", show.tip.label = F); axisPhylo()
+plot(tree_squeeze40, main = "Tree squeezed at 40myr", show.tip.label = F); axisPhylo()
+```
+
+## Slicing from root to tip
+
+Another option implemented in treeSlicer is the function `squeeze_root`, in which the user can squeeze the phylogenetic tree from the root to the tips using the same depth criteria used before.
+
+```{r squeezeRoot, echo=TRUE, eval=TRUE}
+tree_root50 <- squeeze_root(tree = tree, time = 50, criteria = "my")
+plot(tree_root50, main = "Tree sliced rootwardly in 50myr", show.tip.label = F); axisPhylo()
+```
+Note that the root of the tree is now 50myr.
+
+## Slicing phylogenies internally
+
+treesliceR also have the option of slice phylogenies internally by using the function `squeeze_int`. In this function the user must specify two values that represents the depth boundaries of the tree that will be kept or removed from the phylogeny.
+
+For example, if we want to keep only branches of the tree that lies between 30myr and 10myr, we can use the following code
+
+```{r echo=TRUE,eval=TRUE}
+tree_int <- squeeze_int(tree = tree, from = 30, to = 10, criteria = "my")
+```
+Lets check out the slice of the tree that was kept and compare with the original tree
+
+```{r echo=TRUE, eval=TRUE}
+par(mfrow = c(1, 2)) # Setting an 1x2 graphical display
+plot(tree, main = "Original tree", show.tip.label = F); axisPhylo()
+plot(tree_int, main = "Tree slice 10-30 myr", show.tip.label = F); axisPhylo()
+
+```
+Again, it is worth to note that the absolute depths of the tree will change but the internal branch lengths will be kept the same as the original values (except the ones that were sliced).
+
+

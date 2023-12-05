@@ -14,9 +14,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-This article aims to map the species richness distributions of older and young lineages of Australian passerines. Moreover, using the `treesliceR` tools, we'll compare the distribution between these lineages and explore emergent patterns in space.
+This article aims to map the species richness distributions of older and young lineages of Australian passerines. Using the `treesliceR` tools, we'll compare the spatial distribution between these lineages and explore emergent biodiversity patterns in space.
 
-Before starting our analysis, we'll need to load the `ape`, `ggplot2`, and `ggpubr` packages. Additionally, if required, install the `devtools` to invoke the `treesliceR` package:
+Before starting our analysis, we'll need to load the `ape`, `ggplot2`, and `ggpubr` packages. Additionally, if required, install the `devtools` before downloading the `treesliceR` package from GitHub:
 ```{r, message = FALSE, warning = FALSE}
 # Creating a list of our desired packages
 libs <- c("ape", "devtools", "ggplot2", "ggpubr")
@@ -45,23 +45,23 @@ library(treesliceR)
 
 # 1. Pruning the passerines phylogeny
 
-Before conducting our analysis, it is necessary to load the passerines' phylogeny. We will invoke the `pass_trees` object, which is accessible within the `treesliceR` package. This object comprises 100 passerine phylogenies, but for this vignette we will use only the first one:
+Before conducting our analysis, it is necessary to load the passerines' phylogeny. We will call the `pass_trees` object, which is accessible from the `treesliceR` package. This object comprises 100 passerine phylogenies, but for the sake of simplicity we will use only the first one:
 ```{r}
 tree <- pass_trees[[1]]
 ```
 
-To evaluate the species richness distribution of both older and younger lineages, it is essential to segregate these lineages based on a specific criterion. Therefore, we will categorize lineages as older species if their last branching events are higher than the 75th quantile of the overall passerines age. This can be accomplished using the `prune_tips()` function:
+To evaluate the species richness distribution of both older and younger lineages, it is essential to split the phylogenetic tree of these lineages based on a specific criterion. Therefore, we will categorize lineages as older species if their last branching events are higher than the 75th quantile of the overall passerines age distribution. This can be done by using the `prune_tips()` function:
 ```{r}
 older <- prune_tips(tree, 0.75, qtl = T)
 ```
 
 
-Now, we will classify lineages as younger if their ages are smaller than the 25th quantile of the overall passerine ages. However, because we aim to retain in the phylogeny those species originating *after* our quantile threshold, we will set the argument `method = 2` (for more details, see `?prune_tips()`):
+Now, we will classify lineages as younger if their ages are smaller than the 25th quantile of the overall passerine ages. However, because we aim to keep in the phylogeny those species originating *after* our quantile threshold, we will set the argument `method = 2` (for more details, see `?prune_tips()`):
 ```{r}
 younger <- prune_tips(tree, 0.25, qtl = T, method = 2)
 ```
 
-Let's visualize both our original and pruned phylogenies:
+Let's visualize both the original and pruned phylogenies:
 ```{r}
 par(mfrow = c(1, 3)) # Setting an 1x3 graphical display
 plot(older, main = "All species", show.tip.label = F); axisPhylo()
@@ -73,13 +73,13 @@ par(mfrow = c(1, 1)) # Returning to 1x1
 
 # 2. Distribution of species richness (older *vs* younger)
 
-Before calculating the species richness distribution for our categories, we need to identify the older and younger species present in our pruned phylogenies:
+Before calculating the species richness in each one of our categories (young and old lineages), we need to identify the older and younger species present in the pruned phylogenies:
 ```{r}
 older <- older$tip.label
 younger <- younger$tip.label
 ```
 
-Now, we need to evaluate the distribution of these species. To do this, we'll load the passerines species matrix stored in the `pass_mat` object. Let's take a look at the first tree species in the matrix:
+Now, we need to evaluate the distribution of these species. To do this, we'll load the passerines species occurrence matrix in the `pass_mat` object. Let's take a look at the first tree species in the matrix:
 ```{r}
 head(pass_mat[, 1:3])
 ```
@@ -90,20 +90,20 @@ positions <- which(colnames(pass_mat) %in% older)
 old_mat <- pass_mat[, positions]
 ```
 
-Now, let's proceed with creating subsets for the younger species:
+Now, let's proceed by subsetting assemblages that contain the younger species:
 ```{r}
 positions <- which(colnames(pass_mat) %in% younger)
 yng_mat <- pass_mat[, positions]
 ```
 
-Now, we can load a grid map of Australia and incorporate all this species richness information onto it:
+Now, we can load a grid map of Australia and merge species richness information from young and old species onto it:
 ```{r}
 grid <- AU_grid
 grid$SR_old <- rowSums(old_mat)
 grid$SR_yng <- rowSums(yng_mat)
 ```
 
-Then, visualize the species richness patterns for both categories:
+Then, visualize the species richness patterns in both categories:
 ```{r}
 # Younger
 AU_yng <- ggplot() +
@@ -124,7 +124,7 @@ ggarrange(AU_yng, AU_old, labels = c("a)", "b)"), ncol = 2, nrow = 1)
 
 # 3. Mismatches in species richness distribution
 
-As observed above, there is a noticeable correspondence between the species richness of younger and older lineages. However, the extent of is this relationship is uncertain. Let's fit a simple linear regression to quantify this relationship:
+As observed above, there is a spatial correspondence between the species richness of younger and older lineages. However, the extent of is this relationship is uncertain. Let's fit a simple linear regression to quantify this relationship:
 ```{r}
 model <- lm(SR_yng ~ SR_old, data = grid)
 ```
@@ -134,9 +134,9 @@ Now, let's examine the summarized results:
 summary(model)
 ```
 
-Note that its coefficient of determination is significantly and higher (R² = 63%!!!!). Thus, areas with high richness of younger lineages will generally also exhibit high richness of older lineages. These areas could indicate different dynamics of diversification rates over time, concurrently influencing the patterns of species richness of lineages of different depths.
+Note that its coefficient of determination is high and significant (R² = 63%!!!!). Thus, areas with high richness of younger lineages will generally also exhibit high richness of older lineages. These areas could indicate different dynamics of diversification rates over time, concurrently influencing the patterns of species richness of lineages of different depths.
 
-However, let's examine a scatterplot depicting the species richness of both categories:
+Let's dive a bit more into this example and examine a scatterplot depicting the species richness of both categories:
 ```{r}
 plot(SR_yng ~ SR_old, data = grid,
      ylab = "Species richness (younger)",
@@ -145,9 +145,9 @@ plot(SR_yng ~ SR_old, data = grid,
 abline(model, col = "red")
 ```
 
-Despite the stronger relationship between the species richness of both, the deviations in these patterns could indicate important and unidentified biogeographical processes influencing the currently observed species richness of these lineages.
+Despite the stronger relationship between the species richness of both young and old lineages, the deviations in these patterns could indicate important and unidentified biogeographical processes influencing the currently observed species richness of these lineages.
 
-Therefore, let's capture the deviations of our model using the `residuals` function and visualize them on the Australia map:
+Therefore, let's quantify the magnitude of these deviations from our model using the `residuals` function and spatialize them:
 ```{r}
 grid$res <- residuals(model)
 # Mapping it
@@ -158,9 +158,9 @@ ggplot() +
   theme_void()
 ```
 
-Areas in blue indicate a higher predominance of younger lineages than expected, while in red those older lineages predominate. Areas colored in grey indicate that the observed species richness of younger and older species matches the richness expected by our model.
+Areas in blue indicate a higher predominance of younger lineages than expected, while in red indicates that older lineages are predominant. Areas colored in grey indicate that the observed species richness of younger and older species are close to the richness expected by our model.
 
-Using these residuals, we can attempt to infer the processes leading to the differences between the species richness of older and younger lineages. Interestingly, these differences observed in the residuals are highly structured in space. On the one hand, there is a higher predominance of older lineages within deserts, which could be attributed to a processes of lower diversification rates within these locations over time. On the other hand, younger lineages predominate in humid areas and islands, indicating locations where diversification rates are higher and continually generate recent lineages. However, both mechanisms mentioned here remain in the realm of hypothesis and are open to further empirical testing.
+Using these residuals, we can possibly infer the processes leading to the differences between the species richness of older and younger lineages. Interestingly, these differences observed in the residuals are highly structured in space. There is a higher predominance of older lineages in deserts, which could be attributed to a processes of lower diversification rates within these locations over time. On the other hand, younger lineages predominate in humid areas and islands, indicating locations where diversification rates are higher and continually generate recent lineages. It is worth to mention that both mechanisms mentioned here are only hypotheses that deserves further empirical testing.
 
 That’s all folks!
 

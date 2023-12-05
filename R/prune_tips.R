@@ -35,6 +35,7 @@ prune_tips <- function(tree, time, qtl = FALSE, method = 1){
   # Tips position in matrix
   positions <- which(tree$config[,2] <= length(tree$tip.label))
   tip_depth <- tree$tree_depth - tree$config[positions, "YearBegin"]
+  range_age <- range(tip_depth)
 
   if(method == 1){
     ## Is there only one time inputted?
@@ -48,7 +49,7 @@ prune_tips <- function(tree, time, qtl = FALSE, method = 1){
           # Selecting only these tips
           return(ape::keep.tip(tree, tips))
         } else {
-          stop("The entered time threshold exceeds the ages of the tips")
+          stop(paste("The input time argument must be between", range_age[1], "and", range_age[2], sep = " "))
         }
       }
 
@@ -81,7 +82,7 @@ prune_tips <- function(tree, time, qtl = FALSE, method = 1){
           # Returning the output
           return(output)
         } else {
-          stop("The entered time threshold exceeds the ages of the tips")
+          stop(paste("The input time argument must be between", range_age[1], "and", range_age[2], sep = " "))
         }
       }
 
@@ -117,7 +118,7 @@ prune_tips <- function(tree, time, qtl = FALSE, method = 1){
           # Selecting only these tips
           return(ape::drop.tip(tree, tips))
         } else {
-          stop("The entered time threshold exceeds the ages of the tips")
+          stop(paste("The input time argument must be between", range_age[1], "and", range_age[2], sep = " "))
         }
       }
 
@@ -150,7 +151,7 @@ prune_tips <- function(tree, time, qtl = FALSE, method = 1){
           # Returning the output
           return(output)
         } else {
-          stop("The entered time threshold exceeds the ages of the tips")
+          stop(paste("The input time argument must be between", range_age[1], "and", range_age[2], sep = " "))
         }
       }
 

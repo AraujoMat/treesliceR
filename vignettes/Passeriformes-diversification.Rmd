@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This article aims to replicate the case study developed by [Araujo et al. (in review)](https://github.com/AraujoMat/treesliceR). Moreover, here we will present the workflow executed within the study for both a single passerine phylogeny and multiple passerine phylogenies, in order to control the outputted results for phylogenetic uncertainty [Rangel et al. (2015)](https://doi.org/10.1111/evo.12644).
+This article aims to replicate the case study developed by [Araujo et al. (in review)](https://github.com/AraujoMat/treesliceR). We will also present the workflow executed within the study for both a single passerine phylogeny and multiple passerine phylogenies, in order to control the results for phylogenetic uncertainty [Rangel et al. (2015)](https://doi.org/10.1111/evo.12644).
 
 Before starting our analysis, we'll need to load the `ape`, `ggplot2`, and `ggpubr` packages. Additionally, if required, install the `devtools` to invoke the `treesliceR` package:
 ```{r, message = FALSE, warning = FALSE}
