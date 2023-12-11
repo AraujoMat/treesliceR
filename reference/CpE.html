@@ -114,23 +114,23 @@
 <span class="r-in"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu">ape</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/rtree.html" class="external-link">rcoal</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create a presence-absence matrix</span></span></span>
-<span class="r-in"><span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, <span class="fl">20</span><span class="op">*</span><span class="fl">10</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">20</span>, nrow <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, <span class="fl">20</span><span class="op">*</span><span class="fl">10</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">20</span>, nrow <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">tree</span><span class="op">$</span><span class="va">tip.label</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate the CpE for 100 tree slices</span></span></span>
 <span class="r-in"><span><span class="fu">CpE</span><span class="op">(</span><span class="va">tree</span>, n <span class="op">=</span> <span class="fl">100</span>, mat <span class="op">=</span> <span class="va">mat</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0118043360241857 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0119876498941788 million of years.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         CpE        PE      pEO</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2.327126 0.5859064 1.287310</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2.497732 0.6394462 1.199381</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2.296169 0.5913821 1.304666</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2.316997 0.6146696 1.292938</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2.733748 0.7489282 1.095833</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2.555804 0.6808154 1.172129</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2.336137 0.6111124 1.282344</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2.099404 0.5368146 1.426944</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2.195113 0.5204773 1.364728</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2.116296 0.5257175 1.415555</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2.815568 0.4892698 1.063989</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.960455 0.3447976 1.528080</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2.039690 0.6092918 1.468720</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2.037550 0.6074368 1.470262</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.603225 0.4772842 1.868566</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.802776 0.3152018 1.661733</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2.497325 0.4371033 1.199576</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.958454 0.5838504 1.529641</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2.220324 0.6616721 1.349232</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2.346595 0.4108910 1.276630</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
