@@ -37,7 +37,6 @@ CpD_DF <- CpD(tree, n = 100, mat = mat)
 Plot it using the CpR_graph
 CpR_graph(CpD_DF, rate = "CpD")
 
- @export
 }
 \references{
 See the tutorial on how to use this function on our \href{https://araujomat.github.io/treesliceR/articles/Passeriformes-diversification.html}{website}.

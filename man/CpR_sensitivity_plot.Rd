@@ -39,7 +39,6 @@ Sens_out <- CpR_sensitivity(tree, vec, mat, rate = "CpD", samp = 5)
 # Plot the sensitity analysis
 CpR_sensitivity_plot(Sens_out, rate = "CpD", stc = "mean")
 
- @export
 }
 \references{
 Users can use the \code{\link[=CpR_sensitivity_plot]{CpR_sensitivity_plot()}} function for plotting sensitivity analysis outputs.

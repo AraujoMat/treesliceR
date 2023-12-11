@@ -34,7 +34,7 @@
 #' tree$node_matrix # Node matrix
 #' tree$tree_depth # Tree age
 #'
-#'  @export
+#' @export
 
 nodes_config <- function(tree){
 

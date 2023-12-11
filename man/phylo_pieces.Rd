@@ -37,7 +37,6 @@ plot(tree[[1]])
 plot(tree[[2]])
 plot(tree[[3]])
 
- @export
 }
 \seealso{
 Other slicing methods: \code{\link[=squeeze_root]{squeeze_root()}}, \code{\link[=squeeze_tips]{squeeze_tips()}}, \code{\link[=squeeze_int]{squeeze_int()}}, \code{\link[=prune_tips]{prune_tips()}}

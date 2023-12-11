@@ -34,7 +34,7 @@
 #' # Plot it
 #' plot(tree)
 #'
-#'  @export
+#' @export
 
 squeeze_root <- function(tree, time, criteria = "my", dropNodes = FALSE){
 

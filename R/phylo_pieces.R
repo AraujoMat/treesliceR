@@ -29,7 +29,7 @@
 #' plot(tree[[2]])
 #' plot(tree[[3]])
 #'
-#'  @export
+#' @export
 
 phylo_pieces <- function(tree, n, criteria = "my", method = 1,
                          timeSteps = FALSE, dropNodes = FALSE, returnTree = FALSE){

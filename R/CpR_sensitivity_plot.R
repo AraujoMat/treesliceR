@@ -37,7 +37,7 @@
 #' # Plot the sensitity analysis
 #' CpR_sensitivity_plot(Sens_out, rate = "CpD", stc = "mean")
 #'
-#'  @export
+#' @export
 
 
 CpR_sensitivity_plot <- function(sst_output, rate = NULL, stc = "mean"){

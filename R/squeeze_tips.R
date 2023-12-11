@@ -33,7 +33,7 @@
 #' # Plot it
 #' plot(tree)
 #'
-#'  @export
+#' @export
 
 squeeze_tips <- function(tree, time, criteria = "my", dropNodes = FALSE){
 

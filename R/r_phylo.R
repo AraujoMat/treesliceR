@@ -61,7 +61,7 @@
 #' # Plot the relative PB_RW of the first assemblage
 #' plot(rPB_RW[[1]])
 #'
-#'  @export
+#' @export
 
 r_phylo <- function(tree, n, mat, asb, index = NULL, comp = "sorensen",
                     method = "multisite", criteria = "my", ncor = 0){

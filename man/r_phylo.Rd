@@ -71,7 +71,6 @@ rPB_RW <- r_phylo(tree, n = 100, mat = mat, asb = asb, index = "PB_RW")
 # Plot the relative PB_RW of the first assemblage
 plot(rPB_RW[[1]])
 
- @export
 }
 \seealso{
 Other cumulative phylogenetic rates analysis: \code{\link[=CpD]{CpD()}}, \code{\link[=CpE]{CpE()}}, \code{\link[=CpB]{CpB()}}, \code{\link[=CpB_RW]{CpB_RW()}}

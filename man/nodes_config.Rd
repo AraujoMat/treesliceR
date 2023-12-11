@@ -37,7 +37,6 @@ tree$config # Nodes configurations
 tree$node_matrix # Node matrix
 tree$tree_depth # Tree age
 
- @export
 }
 \seealso{
 Phylogenetic slicing methods: \code{\link[=squeeze_tips]{squeeze_tips()}},\code{\link[=squeeze_root]{squeeze_root()}},\code{\link[=squeeze_int]{squeeze_int()}}.

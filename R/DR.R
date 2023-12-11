@@ -21,7 +21,7 @@
 #' # Computing the tip-DR
 #' DR(tree)
 #'
-#'  @export
+#' @export
 
 DR <- function(tree){
 

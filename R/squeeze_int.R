@@ -36,7 +36,7 @@
 #' # Plot it
 #' plot(tree)
 #'
-#'  @export
+#' @export
 
 squeeze_int <- function(tree, from, to, invert = FALSE, criteria = "my", dropNodes = FALSE){
 

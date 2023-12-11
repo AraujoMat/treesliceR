@@ -40,7 +40,6 @@ tree <- squeeze_int(tree, from = 0.5, to = 0.2)
 # Plot it
 plot(tree)
 
- @export
 }
 \references{
 See the tutorial on how to use this function on our \href{https://araujomat.github.io/treesliceR/articles/Intro-treesliceR.html}{website}.
