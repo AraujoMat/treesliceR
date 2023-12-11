@@ -58,6 +58,8 @@ vec <- c(25, 50, 75, 100, 125, 150)
 
 # Calculate the sensitivity of the CpD
 CpR_sensitivity(tree, vec, mat, rate = "CpD", samp = 5)
+
+ @export
 }
 \references{
 See the tutorial on how to use this function on our \href{https://araujomat.github.io/treesliceR/articles/Passeriformes-diversification.html}{website}.

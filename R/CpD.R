@@ -33,6 +33,8 @@
 #'
 #' # Calculate the CpD for 100 tree slices
 #' CpD(tree, n = 100, mat = mat)
+#'
+#'  @export
 
 CpD <- function(tree, n, mat, criteria = "my", pDO = 5, ncor = 0){
 

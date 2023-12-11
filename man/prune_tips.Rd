@@ -39,6 +39,8 @@ plot(tree1)
 tree2 <- prune_tips(tree, time = c(0.25, 0.75), method = 2)
 plot(tree2[[1]])
 plot(tree2[[2]])
+
+ @export
 }
 \references{
 See the tutorial on how to use this function on our \href{https://araujomat.github.io/treesliceR/articles/Intro-treesliceR.html}{website}.

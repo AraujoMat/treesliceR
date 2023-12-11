@@ -33,6 +33,8 @@
 #'
 #' # Calculate the CpE for 100 tree slices
 #' CpE(tree, n = 100, mat = mat)
+#'
+#'  @export
 
 CpE <- function(tree, n, mat, criteria = "my", pEO = 5, ncor = 0){
 

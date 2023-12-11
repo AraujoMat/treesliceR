@@ -47,6 +47,7 @@ asb <- list(mat[1:5,], mat[6:10,])
 
 # Calculate their CpB range weighted for 100 tree slices
 CpB_RW(tree, n = 100, mat = mat, asb = asb, method = "multisite")
+
 }
 \references{
 Laffan, S. W., Rosauer, D. F., Di Virgilio, G., Miller, J. T., González-Orozco, C. E., Knerr, N., Thornhill, A. H., & Mishler, B. D. (2016). Range-weighted metrics of species and phylogenetic turnover can better resolve biogeographic transition zones. Methods in Ecology and Evolution, 7(5), 580–588. https://doi.org/10.1111/2041-210x.12513

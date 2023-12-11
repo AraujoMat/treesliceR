@@ -41,6 +41,8 @@
 #'
 #' # Calculate their CpB (sorensen) for 100 tree slices
 #' CpB(tree, n = 100, asb = asb, comp = "sorensen", method = "multisite")
+#'
+#' @export
 
 CpB <- function(tree, n, asb, comp = "sorensen",
                 method = "multisite", criteria = "my", pBO = 5, ncor = 0){

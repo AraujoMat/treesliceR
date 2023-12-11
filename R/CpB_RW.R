@@ -41,6 +41,8 @@
 #'
 #' # Calculate their CpB range weighted for 100 tree slices
 #' CpB_RW(tree, n = 100, mat = mat, asb = asb, method = "multisite")
+#'
+#' @export
 
 CpB_RW <- function(tree, n, mat, asb, method = "multisite", criteria = "my", pBO = 5, ncor = 0){
 

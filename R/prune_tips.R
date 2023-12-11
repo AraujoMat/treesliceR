@@ -36,6 +36,8 @@
 #' tree2 <- prune_tips(tree, time = c(0.25, 0.75), method = 2)
 #' plot(tree2[[1]])
 #' plot(tree2[[2]])
+#'
+#'  @export
 
 prune_tips <- function(tree, time, qtl = FALSE, method = 1){
 

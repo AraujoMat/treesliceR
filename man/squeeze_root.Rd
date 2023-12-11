@@ -35,6 +35,8 @@ tree <- squeeze_root(tree, time = 0.1)
 
 # Plot it
 plot(tree)
+
+ @export
 }
 \references{
 See the tutorial on how to use this function on our \href{https://araujomat.github.io/treesliceR/articles/Intro-treesliceR.html}{website}.

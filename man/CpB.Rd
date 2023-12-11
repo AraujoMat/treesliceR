@@ -47,6 +47,7 @@ asb <- list(mat[1:5,], mat[6:10,])
 
 # Calculate their CpB (sorensen) for 100 tree slices
 CpB(tree, n = 100, asb = asb, comp = "sorensen", method = "multisite")
+
 }
 \references{
 See the tutorial on how to use this function on our \href{https://araujomat.github.io/treesliceR/articles/Passeriformes-diversification.html}{website}.

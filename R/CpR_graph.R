@@ -34,6 +34,8 @@
 #'
 #' Plot it using the CpR_graph
 #' CpR_graph(CpD_DF, rate = "CpD")
+#'
+#'  @export
 
 CpR_graph <- function(data, rate = NULL, map = NULL, pal = NULL, qtl = FALSE){
 

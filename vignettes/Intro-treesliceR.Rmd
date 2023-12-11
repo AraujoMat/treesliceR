@@ -2,7 +2,7 @@
 title: "Introduction to treesliceR"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction}
+  %\VignetteIndexEntry{Introduction to treesliceR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -23,7 +23,7 @@ Moreover, `treesliceR` contains functions for assessing the rates of accumulatio
 To demonstrate the basic usage of `treesliceR`, we will provide examples illustrating how to subset and slice phylogenies in different ways. To begin, it is necessary to install the `ape` package:
 ```{r message = FALSE, warning = FALSE, eval=TRUE}
 # Checking if it is already installed within the machine
-if (!requireNamespace("ape", quietly = TRUE)){
+if(!requireNamespace("ape", quietly = TRUE)){
     install.packages(libs)
 }
 
@@ -34,7 +34,7 @@ library(ape)
 Now, we'll need to load (and install if necessary) the `treesliceR` package:
 ```{r message = FALSE, warning = FALSE, eval=TRUE}
 # Is it already present within the machine?
-if (!requireNamespace("treesliceR", quietly = TRUE)){
+if(!requireNamespace("treesliceR", quietly = TRUE)){
     devtools::install_github("AraujoMat/treesliceR")
 }
 

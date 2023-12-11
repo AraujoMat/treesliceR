@@ -40,6 +40,8 @@ colnames(mat) <- tree$tip.label
 
 # Calculate the CpD for 100 tree slices
 CpD(tree, n = 100, mat = mat)
+
+ @export
 }
 \seealso{
 Other cumulative phylogenetic rates analysis: \code{\link[=CpE]{CpE()}}, \code{\link[=CpB]{CpB()}}, \code{\link[=CpB_RW]{CpB_RW()}}

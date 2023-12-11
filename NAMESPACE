@@ -2,5 +2,7 @@
 
 export("%do%")
 export("%dopar%")
+export(CpB)
+export(CpB_RW)
 importFrom(foreach,"%do%")
 importFrom(foreach,"%dopar%")

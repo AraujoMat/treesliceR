@@ -21,6 +21,8 @@ tree <- ape::rcoal(20)
 
 # Computing the tip-DR
 DR(tree)
+
+ @export
 }
 \references{
 See the tutorial on how to use this function on our \href{https://araujomat.github.io/treesliceR/articles/Passeriformes-diversification.html}{website}.

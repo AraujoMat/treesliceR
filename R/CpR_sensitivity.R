@@ -50,6 +50,8 @@
 #'
 #' # Calculate the sensitivity of the CpD
 #' CpR_sensitivity(tree, vec, mat, rate = "CpD", samp = 5)
+#'
+#'  @export
 
 
 CpR_sensitivity <- function(tree, vec, mat = NULL, asb = NULL, rate = NULL, samp = 0,

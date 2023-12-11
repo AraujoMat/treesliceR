@@ -60,6 +60,8 @@
 #' rPB_RW <- r_phylo(tree, n = 100, mat = mat, asb = asb, index = "PB_RW")
 #' # Plot the relative PB_RW of the first assemblage
 #' plot(rPB_RW[[1]])
+#'
+#'  @export
 
 r_phylo <- function(tree, n, mat, asb, index = NULL, comp = "sorensen",
                     method = "multisite", criteria = "my", ncor = 0){
