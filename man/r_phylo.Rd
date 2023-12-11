@@ -4,7 +4,7 @@
 \alias{r_phylo}
 \title{Calculates the relative value of a phylogenetic index in a temporal sequence of phylogenetic slices.}
 \usage{
-r_phylo(tree, n, mat, asb, index = NULL, criteria = "my", ncor = 0)
+r_phylo(tree, n, mat, asb, index = NULL, comp, method, criteria = "my", ncor = 0)
 }
 \arguments{
 \item{tree}{phylo. An ultrametric phylogenetic tree in the "phylo" format.}
@@ -45,7 +45,7 @@ Users are advised to check the number of cores available within their machines b
 tree <- ape::rcoal(20)
 
 # Create a presence-absence matrix
-mat <- matrix(sample(c(1,0), 20*10, replace = T), ncol = 20, nrow = 10)
+mat <- matrix(sample(c(1,0), 20*10, replace = TRUE), ncol = 20, nrow = 10)
 colnames(mat) <- tree$tip.label
 
 # And separe it into two assemblages with focal and neigs
@@ -62,7 +62,7 @@ rPE <- r_phylo(tree, n = 100, mat = mat, index = "PE")
 plot(rPE[[1]])
 
 # Calculate the relative PB for 100 slices
-rPB <-  r_phylo(tree, n = 100, asb, index = "PB")
+rPB <-  r_phylo(tree, n = 100, asb = asb, index = "PB")
 # Plot the relative PB of the first assemblage
 plot(rPB[[1]])
 

@@ -40,7 +40,7 @@ plot(tree)
 See the tutorial on how to use this function on our \href{https://araujomat.github.io/treesliceR/articles/Intro-treesliceR.html}{website}.
 }
 \seealso{
-Other slicing methods: \code{\link[=squeeze_root]{squeeze_root()}}, \code{\link[=squeeze_int]{squeeze_int()}}, \code{\link[=phylo_slices]{phylo_slices()}}, \code{\link[=prune_tips]{prune_tips()}}.
+Other slicing methods: \code{\link[=squeeze_root]{squeeze_root()}}, \code{\link[=squeeze_int]{squeeze_int()}}, \code{\link[=phylo_pieces]{phylo_pieces()}}, \code{\link[=prune_tips]{prune_tips()}}.
 }
 \author{
 Matheus Lima de Araujo \href{mailto:matheusaraujolima@live.com}{matheusaraujolima@live.com}

@@ -33,7 +33,7 @@
 #'
 #'
 #' # Pruning the tips based on quantiles of tip ages
-#' tree2 <- prune_tips(tree, time = c(0.25, 0.75), method = 2)
+#' tree2 <- prune_tips(tree, time = c(0.25, 0.75), qtl = TRUE)
 #' plot(tree2[[1]])
 #' plot(tree2[[2]])
 #'

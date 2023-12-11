@@ -28,7 +28,7 @@
 #' tree <- ape::rcoal(20)
 #'
 #' # Create a presence-absence matrix
-#' mat <- matrix(sample(c(1,0), 20*10, replace = T), ncol = 20, nrow = 10)
+#' mat <- matrix(sample(c(1,0), 20*10, replace = TRUE), ncol = 20, nrow = 10)
 #' colnames(mat) <- tree$tip.label
 #'
 #' # Calculate the CpE for 100 tree slices

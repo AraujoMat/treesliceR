@@ -2,7 +2,7 @@
 #' @description
 #' This function estimates the rates of accumulation of phylogenetic B-diversity (CpB) over time for inputted assemblages.
 #'
-#' @usage CpB(tree, n, asb, comp = "sorensen", method = "multisite", criteria = "my", pBO = 5, ncor = 0)
+#' @usage CpB(tree, n, asb, comp, method, criteria, pBO, ncor)
 #'
 #' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
 #' @param n numeric. A numeric value indicating the number of temporal slices (method = 1) or the time interval in million years (or phylogenetic diversity) among the tree slices (method = 2). Default is 1.
@@ -33,7 +33,7 @@
 #' tree <- ape::rcoal(20)
 #'
 #' # Create a presence-absence matrix
-#' mat <- matrix(sample(c(1,0), 20*10, replace = T), ncol = 20, nrow = 10)
+#' mat <- matrix(sample(c(1,0), 20*10, replace = TRUE), ncol = 20, nrow = 10)
 #' colnames(mat) <- tree$tip.label
 #'
 #' # And separate it into two assemblages with focal and neigs

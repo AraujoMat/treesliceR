@@ -4,7 +4,7 @@
 \alias{phylo_pieces}
 \title{Slices a phylogenetic tree into multiple temporal slices}
 \usage{
-phylo_pieces(tree, n, criteria = "my", method = 1, timeSteps = FALSE, dropNodes = FALSE)
+phylo_pieces(tree, n, criteria, method, timeSteps, dropNodes, returnTree)
 }
 \arguments{
 \item{tree}{phylo. An ultrametric phylogenetic tree in the "phylo" format.}
@@ -18,6 +18,8 @@ phylo_pieces(tree, n, criteria = "my", method = 1, timeSteps = FALSE, dropNodes 
 \item{timeSteps}{logical. A logical value indicating whether the vector containing the time-steps used for creating the multiple slices should be returned. If "timeSteps = TRUE", then it returns a list containing both the time vector and a list with the multiple tree slices. Default is FALSE.}
 
 \item{dropNodes}{logical. A logical value indicating whether the nodes that were sliced (void nodes, presenting no branch length) should be preserved in the node matrix. Default is FALSE.}
+
+\item{returnTree}{logical. A logical value indicating whether the original input tree should be returned with its slices in a list. Default is FALSE.}
 }
 \value{
 The function returns a list containing multiple slices of a phylogenetic tree. The slices list is ordered from roots to tips. Thus, the first object within the outputted list is the root-slice, whereas the last is the tips-slice.
@@ -30,7 +32,7 @@ This function slices a phylogenetic tree into multiple slices, spaced equally ei
 tree <- ape::rcoal(20)
 
 # Cuts a phylogeny into multiple temporal slices
-tree <- phylo_pieces(tree, n = 3, criteria = "my", type = 1)
+tree <- phylo_pieces(tree, n = 3, criteria = "my", method = 1)
 
 # Plotting the three slices of our phylogeny
 plot(tree[[1]])

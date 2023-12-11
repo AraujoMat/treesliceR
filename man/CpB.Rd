@@ -4,7 +4,7 @@
 \alias{CpB}
 \title{Calculates the rate of accumulation of phylogenetic B-diversity (CpB) over time slices}
 \usage{
-CpB(tree, n, asb, comp = "sorensen", method = "multisite", criteria = "my", pBO = 5, ncor = 0)
+CpB(tree, n, asb, comp, method, criteria, pBO, ncor)
 }
 \arguments{
 \item{tree}{phylo. An ultrametric phylogenetic tree in the "phylo" format.}
@@ -39,7 +39,7 @@ Users are advised to check the number of available cores within their machines b
 tree <- ape::rcoal(20)
 
 # Create a presence-absence matrix
-mat <- matrix(sample(c(1,0), 20*10, replace = T), ncol = 20, nrow = 10)
+mat <- matrix(sample(c(1,0), 20*10, replace = TRUE), ncol = 20, nrow = 10)
 colnames(mat) <- tree$tip.label
 
 # And separate it into two assemblages with focal and neigs

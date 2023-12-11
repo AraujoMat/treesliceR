@@ -4,7 +4,7 @@
 \alias{CpR_sensitivity}
 \title{Runs a sensitivity analysis for rates of accumulation of a given phylogenetic index}
 \usage{
-CpR_sensitivity(tree, vec, mat, asb, rate = NULL, samp = 0, criteria = "my", ncor = 0)
+CpR_sensitivity(tree, vec, mat, asb, rate, samp, comp, method, criteria, ncor)
 }
 \arguments{
 \item{tree}{phylo. An ultrametric phylogenetic tree in the "phylo" format.}
@@ -47,7 +47,7 @@ For plotting the sensitivity analysis output users can use \code{\link[=CpR_sens
 tree <- ape::rcoal(20)
 
 # Create a presence-absence matrix
-mat <- matrix(sample(c(1,0), 20*10, replace = T), ncol = 20, nrow = 10)
+mat <- matrix(sample(c(1,0), 20*10, replace = TRUE), ncol = 20, nrow = 10)
 colnames(mat) <- tree$tip.label
 
 # Calculate the CpD for 100 tree slices

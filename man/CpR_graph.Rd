@@ -28,13 +28,13 @@ This function creates a line graph, or a grid map, depicting the estimated rates
 tree <- ape::rcoal(20)
 
 # Create a presence-absence matrix
-mat <- matrix(sample(c(1,0), 20*10, replace = T), ncol = 20, nrow = 10)
+mat <- matrix(sample(c(1,0), 20*10, replace = TRUE), ncol = 20, nrow = 10)
 colnames(mat) <- tree$tip.label
 
 # Calculate the CpD for 100 tree slices
 CpD_DF <- CpD(tree, n = 100, mat = mat)
 
-Plot it using the CpR_graph
+# Plot it using the CpR_graph
 CpR_graph(CpD_DF, rate = "CpD")
 
 }

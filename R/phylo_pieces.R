@@ -2,7 +2,7 @@
 #' @description
 #' This function slices a phylogenetic tree into multiple slices, spaced equally either in million years or intervals of phylogenetic diversity (PD).
 #'
-#' @usage phylo_pieces(tree, n, criteria = "my", method = 1, timeSteps = FALSE, dropNodes = FALSE)
+#' @usage phylo_pieces(tree, n, criteria, method, timeSteps, dropNodes, returnTree)
 #'
 #' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
 #' @param n numeric. A numeric value indicating either the number of temporal slices (method = 1) or the time interval in million years (or phylogenetic diversity) among the tree slices (method = 2). Default is 1.
@@ -10,6 +10,7 @@
 #' @param method numerical. A numerical value indicating the method to make the multiple slices. Setting "method = 1" will slice the phylogeny based on an "n" number of slices. If method = 2, the slices will be created based on a temporal interval. Default is 1.
 #' @param timeSteps logical. A logical value indicating whether the vector containing the time-steps used for creating the multiple slices should be returned. If "timeSteps = TRUE", then it returns a list containing both the time vector and a list with the multiple tree slices. Default is FALSE.
 #' @param dropNodes logical. A logical value indicating whether the nodes that were sliced (void nodes, presenting no branch length) should be preserved in the node matrix. Default is FALSE.
+#' @param returnTree logical. A logical value indicating whether the original input tree should be returned with its slices in a list. Default is FALSE.
 #'
 #' @return The function returns a list containing multiple slices of a phylogenetic tree. The slices list is ordered from roots to tips. Thus, the first object within the outputted list is the root-slice, whereas the last is the tips-slice.
 #'
@@ -22,7 +23,7 @@
 #' tree <- ape::rcoal(20)
 #'
 #' # Cuts a phylogeny into multiple temporal slices
-#' tree <- phylo_pieces(tree, n = 3, criteria = "my", type = 1)
+#' tree <- phylo_pieces(tree, n = 3, criteria = "my", method = 1)
 #'
 #' # Plotting the three slices of our phylogeny
 #' plot(tree[[1]])

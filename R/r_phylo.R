@@ -2,7 +2,7 @@
 #' @description
 #' This function estimates the relative value of a phylogenetic index in a sequence of multiple phylogenetic slices cut from roots to tips.
 #'
-#' @usage r_phylo(tree, n, mat, asb, index = NULL, criteria = "my", ncor = 0)
+#' @usage r_phylo(tree, n, mat, asb, index = NULL, comp, method, criteria = "my", ncor = 0)
 #'
 #' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
 #' @param n numeric. A numeric value indicating either the number of temporal slices (method = 1) or the time interval in million years (or phylogenetic diversity) among the tree slices (method = 2). Default is 1.
@@ -35,7 +35,7 @@
 #' tree <- ape::rcoal(20)
 #'
 #' # Create a presence-absence matrix
-#' mat <- matrix(sample(c(1,0), 20*10, replace = T), ncol = 20, nrow = 10)
+#' mat <- matrix(sample(c(1,0), 20*10, replace = TRUE), ncol = 20, nrow = 10)
 #' colnames(mat) <- tree$tip.label
 #'
 #' # And separe it into two assemblages with focal and neigs
@@ -52,7 +52,7 @@
 #' plot(rPE[[1]])
 #'
 #' # Calculate the relative PB for 100 slices
-#' rPB <-  r_phylo(tree, n = 100, asb, index = "PB")
+#' rPB <-  r_phylo(tree, n = 100, asb = asb, index = "PB")
 #' # Plot the relative PB of the first assemblage
 #' plot(rPB[[1]])
 #'

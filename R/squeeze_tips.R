@@ -16,7 +16,7 @@
 #' \bold{Slicing approach}
 #' The treesliceR package uses a simple approach for cutting phylogenies, which reduces branch lengths in relation to an inputted temporal threshold.
 #'
-#' @seealso Other slicing methods: [squeeze_root()], [squeeze_int()], [phylo_slices()], [prune_tips()].
+#' @seealso Other slicing methods: [squeeze_root()], [squeeze_int()], [phylo_pieces()], [prune_tips()].
 #'
 #' @author Matheus Lima de Araujo <matheusaraujolima@live.com>
 #'
