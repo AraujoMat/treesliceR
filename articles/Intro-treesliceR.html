@@ -114,10 +114,8 @@ provide examples illustrating how to subset and slice phylogenies in
 different ways. To begin, it is necessary to install the
 <code>ape</code> package:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">libs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ape"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Checking if it is already installed within the machine</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="va">libs</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<code class="sourceCode R"><span><span class="co"># Checking if it is already installed within the machine</span></span>
+<span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"ape"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="va">libs</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -127,7 +125,7 @@ different ways. To begin, it is necessary to install the
 <code>treesliceR</code> package:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Is it already present within the machine?</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"treesliceR"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span><span class="kw">if</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"treesliceR"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"AraujoMat/treesliceR"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -223,7 +221,7 @@ enables the slicing of phylogeny in vairous ways. In this section, we
 will show the flexibility of <code>treesliceR</code> in performing tree
 slicing and visualizing the output of these functions.</p>
 <div class="section level3">
-<h3 id="slicing-from-tip-to-roots">2.1. Slicing from tip to roots<a class="anchor" aria-label="anchor" href="#slicing-from-tip-to-roots"></a>
+<h3 id="slicing-from-the-tips-to-the-root">2.1. Slicing from the tips to the root<a class="anchor" aria-label="anchor" href="#slicing-from-the-tips-to-the-root"></a>
 </h3>
 <p>The first option to slice phylogenies is by squeezing its branch
 lengths from the tips to the root using the function
@@ -289,7 +287,7 @@ total PD was accumulated in the phylogenetic tree:</p>
 <p><img src="Intro-treesliceR_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 </div>
 <div class="section level3">
-<h3 id="slicing-from-root-to-tip">2.2. Slicing from root to tip<a class="anchor" aria-label="anchor" href="#slicing-from-root-to-tip"></a>
+<h3 id="slicing-from-the-root-to-the-tips">2.2. Slicing from the root to the tips<a class="anchor" aria-label="anchor" href="#slicing-from-the-root-to-the-tips"></a>
 </h3>
 <p>Another option available in <code>treesliceR</code> is the
 <code><a href="../reference/squeeze_root.html">squeeze_root()</a></code> function, allowing users to squeeze the
