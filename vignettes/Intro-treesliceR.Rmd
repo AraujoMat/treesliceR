@@ -22,10 +22,8 @@ Moreover, `treesliceR` contains functions for assessing the rates of accumulatio
 
 To demonstrate the basic usage of `treesliceR`, we will provide examples illustrating how to subset and slice phylogenies in different ways. To begin, it is necessary to install the `ape` package:
 ```{r message = FALSE, warning = FALSE, eval=TRUE}
-libs <- c("ape")
-
 # Checking if it is already installed within the machine
-if (!requireNamespace(libs, quietly = TRUE)){
+if (!requireNamespace("ape", quietly = TRUE)){
     install.packages(libs)
 }
 
@@ -98,7 +96,7 @@ Note that if we aim to retain species with ages younger than the 25th quantile, 
 
 The second family of functions present within `treesliceR` enables the slicing of phylogeny in vairous ways. In this section, we will show the flexibility of `treesliceR` in performing tree slicing and visualizing the output of these functions. 
 
-## 2.1. Slicing from tip to roots
+## 2.1. Slicing from the tips to the root
 
 The first option to slice phylogenies is by squeezing its branch lengths from the tips to the root using the function `squeeze_tips()`. Squeezing, in this context, refers to collapsing branch lengths based on a given threshold (tree depth, in this case, in million years). This function requires providing a phylogenetic tree and a numeric value indicating the depth at which the branches will be compressed. For instance, let's squeeze the passerine phylogeny at three different ages (10, 30 and 50 million years):
 ```{r echo=TRUE, eval=TRUE}
@@ -138,7 +136,7 @@ plot(tree_squeeze10, main = "Tree squeezed at 10% PD", show.tip.label = F); axis
 plot(tree_squeeze50, main = "Tree squeezed at 50% PD", show.tip.label = F); axisPhylo()
 ```
 
-## 2.2. Slicing from root to tip
+## 2.2. Slicing from the root to the tips
 
 Another option available in `treesliceR` is the `squeeze_root()` function, allowing users to squeeze the phylogenetic tree from the root to the tips using the same depth criteria and arguments as demonstrated in the previous section. For instance, let's squeeze our passerine phylogeny root to 50 million years:
 ```{r squeezeRoot, echo=TRUE, eval=TRUE}

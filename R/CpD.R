@@ -1,35 +1,44 @@
-#### f6) CpD() -----------------------------------------------------------------
-
-# Calculates the rate of Cumulation of phylogenetic B-diversity.
-
-# tree = a phylogenetic tree of the phylo class;
-# n = number of temporal slices (method = 1) or time interval;
-# mat = a complete presence absence matrix of all studied species and sites;
-# criteria = temporal criteria for slices ("pd" or "my");
-# pDO = numeric proportion to define the temporal origin that the phylogenetic
-# diversity starts to accumulate on a given site. The default is 5%;
-# ncor = number of cores the user wants to parallelize.
-
-
-#' Title
+#' Calculates the rate of accumulation of phylogenetic diversity (CpD) over time slices
+#' @description
+#' This function estimates the rates of accumulation of phylogenetic diveristy (CpD) over time for inputted assemblages.
 #'
-#' @param tree
-#' @param n
-#' @param mat
-#' @param criteria
-#' @param pDO
-#' @param ncor
+#' @usage CpD(tree, n, mat, criteria = "my", pDO = 5, ncor = 0)
 #'
-#' @return
-#' @export
+#' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
+#' @param n numeric. A numeric value indicating the number of temporal slices (method = 1) or the time interval in million years (or phylogenetic diversity) among the tree slices (method = 2). Default is 1.
+#' @param mat matrix. A presence/absence matrix containing all studied species and sites.
+#' @param criteria character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
+#' @param pDO numeric. A value indicating the numeric proportion to define the temporal origin at which the phylogenetic diversity (PD) started to accumulate in a given assemblage. Default is 5%.
+#' @param ncor numeric. A value indicating the number of cores the user wants to parallelize. Default is 0.
+#'
+#' @return The function returns a data frame containing the assemblages' rates of cumulative phylogenetic diversity (CpD), their total phylogenetic diversity (PD), and their PD origin (pDO).
+#'
+#' @details
+#'
+#' \bold{Parallelization}
+#'
+#' Users are advised to check the number of available cores within their machines before running parallel programming.
+#'
+#' @seealso Other cumulative phylogenetic rates analysis: [CpE()], [CpB()], [CpB_RW()]
+#'
+#' @author Matheus Lima de Araujo <matheusaraujolima@live.com>
 #'
 #' @examples
+#' # Generate a random tree
+#' tree <- ape::rcoal(20)
+#'
+#' # Create a presence-absence matrix
+#' mat <- matrix(sample(c(1,0), 20*10, replace = T), ncol = 20, nrow = 10)
+#' colnames(mat) <- tree$tip.label
+#'
+#' # Calculate the CpD for 100 tree slices
+#' CpD(tree, n = 100, mat = mat)
 
 CpD <- function(tree, n, mat, criteria = "my", pDO = 5, ncor = 0){
 
   ## Cleaning the phylogeny (if necessary) and cutting it into pieces ----------
 
-  # If a doesnt have a matrix, but a vector of species,
+  # If doesnt have a matrix, but a vector of species,
   # transform it into a species matrix
   if((is.matrix(mat) | is.data.frame(mat)) == FALSE){
     mat <- t(as.matrix(mat))

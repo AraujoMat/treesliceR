@@ -1,32 +1,46 @@
-#### f8) CpB() -----------------------------------------------------------------
-
-# Calculates the rate of Cumulation of phylogenetic B-diversity.
-
-# tree = a phylogenetic tree of the phylo class;
-# n = number of temporal slices (method = 1) or time interval;
-# asb = list with assemblages and its adjacent cells (need at least two assemblages to run);
-# comp = component of the beta-diversity at the user wants the CpB ("turnover" and "nestedness");
-# method = method to calculate the CpB-rate "pairwise" or "multisite"
-# criteria = temporal criteria for slices ("pd" or "my");
-# pBO = numeric proportion to define the temporal origin that the phylogenetic beta-diversity
-# starts to accumulate on a given site. The default is 5%;
-# ncor = number of cores the user wants to parallelize.
-
-#' Title
+#' Calculates the rate of accumulation of phylogenetic B-diversity (CpB) over time slices
+#' @description
+#' This function estimates the rates of accumulation of phylogenetic B-diversity (CpB) over time for inputted assemblages.
 #'
-#' @param tree
-#' @param n
-#' @param asb
-#' @param comp
-#' @param method
-#' @param criteria
-#' @param pBO
-#' @param ncor
+#' @usage CpB(tree, n, asb, comp = "sorensen", method = "multisite", criteria = "my", pBO = 5, ncor = 0)
 #'
-#' @return
-#' @export
+#' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
+#' @param n numeric. A numeric value indicating the number of temporal slices (method = 1) or the time interval in million years (or phylogenetic diversity) among the tree slices (method = 2). Default is 1.
+#' @param asb matrix, or list of matrices. A matrix (or list of matrices) containing a focal assemblage and its neighborhood assemblages (need at least two assemblages to run).
+#' @param comp character string. The component of the phylogenetic beta-diversity to obtain the rates of accumulation. It can be either "sorensen", "turnover", or "nestedness". Default is "sorensen".
+#' @param method character string. The method for calculating the phylogenetic beta-diversity. It can be either obtained through a "pairwise" or "multisite" approach. Default is "multisite".
+#' @param criteria character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
+#' @param pBO numeric. A value indicating the numeric proportion to define the temporal origin at which the phylogenetic B-diversity (PB) started to accumulate in a given assemblage. Default is 5%.
+#' @param ncor numeric. A value indicating the number of cores the user wants to parallelize. Default is 0.
+#'
+#' @return The function returns a data frame containing the assemblages' rates of cumulative phylogenetic B-diversity (CpB), their total phylogenetic B-diversity (PB), and their PB origin (pBO).
+#'
+#' @details
+#'
+#' \bold{Parallelization}
+#'
+#' Users are advised to check the number of available cores within their machines before running parallel programming.
+#'
+#' @seealso Other cumulative phylogenetic index analysis: [CpD()], [CpE()], [CpB_RW()]
+#'
+#' @author Matheus Lima de Araujo <matheusaraujolima@live.com>
+#'
+#' @references
+#' See the tutorial on how to use this function on our [website](https://araujomat.github.io/treesliceR/articles/Passeriformes-diversification.html).
 #'
 #' @examples
+#' # Generate a random tree
+#' tree <- ape::rcoal(20)
+#'
+#' # Create a presence-absence matrix
+#' mat <- matrix(sample(c(1,0), 20*10, replace = T), ncol = 20, nrow = 10)
+#' colnames(mat) <- tree$tip.label
+#'
+#' # And separate it into two assemblages with focal and neigs
+#' asb <- list(mat[1:5,], mat[6:10,])
+#'
+#' # Calculate their CpB (sorensen) for 100 tree slices
+#' CpB(tree, n = 100, asb = asb, comp = "sorensen", method = "multisite")
 
 CpB <- function(tree, n, asb, comp = "sorensen",
                 method = "multisite", criteria = "my", pBO = 5, ncor = 0){

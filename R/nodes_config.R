@@ -1,18 +1,38 @@
-#### f1) nodes_config() ----------------------------------------------------------
-# Capture nodes and branches configurations.
-
-# Arguments:
-# tree = a phylogenetic tree of the phylo class;
-
-## Capturing nodes and tree information
-#' Title
+#' Capture general branching information for an inputted phylogenetic tree
+#' @description
+#' This function captures general tree information, including branching, node positions, and depths. It serves as a core function underlying all algorithms for slicing phylogenies.
 #'
-#' @param tree
+#' @usage nodes_config(tree)
 #'
-#' @return
-#' @export
+#' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
+#'
+#' @details
+#' This function captures node and edge information from an ultrametric phylogenetic tree. The function provides a data frame containing detailed branching information (within the internal "config" object), a node matrix (within "node_matrix"), and the tree age (within "tree_depth").
+#'
+#' More specifically, the "config" object returns the following information:
+#' NodeBegin: the node at which a given branch begins.
+#' NodeEnd: the node at which a given branch ends.
+#' NodeLength: the branch length of that nodes interval.
+#' YearBegin: the year at which a given node begins.
+#' YearEnd: the year at which a given node ends.
+#'
+#' @return The function returns a phylogenetic tree in the "phylo" format containing three novel pieces of information (stored within "config", "node_matrix", and "tree_depth").
+#'
+#' @seealso Phylogenetic slicing methods: [squeeze_tips()],[squeeze_root()],[squeeze_int()].
+#'
+#' @author Matheus Lima de Araujo <matheusaraujolima@live.com>
 #'
 #' @examples
+#' # Generate a random tree
+#' tree <- ape::rcoal(20)
+#'
+#' # Capture tree information
+#' tree <- nodes_config(tree)
+#'
+#' # Accessing these informations
+#' tree$config # Nodes configurations
+#' tree$node_matrix # Node matrix
+#' tree$tree_depth # Tree age
 
 nodes_config <- function(tree){
 

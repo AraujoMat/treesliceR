@@ -2,13 +2,46 @@
 % Please edit documentation in R/squeeze_root.R
 \name{squeeze_root}
 \alias{squeeze_root}
-\title{Title}
+\title{Slices a phylogenetic tree following a 'rootward' orientation}
 \usage{
 squeeze_root(tree, time, criteria = "my", dropNodes = FALSE)
 }
 \arguments{
-\item{dropNodes}{}
+\item{tree}{phylo. An ultrametric phylogenetic tree in the "phylo" format.}
+
+\item{time}{numeric. A value that determines the time, or accumulated phylogenetic diversity (PD), at which the tree should be cut.}
+
+\item{criteria}{character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".}
+
+\item{dropNodes}{logical. A logical value indicating whether the nodes that were sliced (void nodes, presenting no branch length) should be preserved in the node matrix. Default is FALSE.}
+}
+\value{
+The function returns a time-slice of an inputted phylogenetic tree in the "phylo" format, following a 'rootward' orientation.
 }
 \description{
-Title
+This function slices a phylogenetic tree in a 'rootward' orientation, starting from the root and moving towards the tips of the tree.
+}
+\details{
+\bold{Slicing approach}
+
+The treesliceR package uses a simple approach for cutting phylogenies, which reduces branch lengths in relation to an inputted temporal threshold.
+}
+\examples{
+# Generate a random tree
+tree <- ape::rcoal(20)
+
+# Slice "rootwardly" the phylogeny at 0.1 million years
+tree <- squeeze_root(tree, time = 0.1)
+
+# Plot it
+plot(tree)
+}
+\references{
+See the tutorial on how to use this function on our \href{https://araujomat.github.io/treesliceR/articles/Intro-treesliceR.html}{website}.
+}
+\seealso{
+Other slicing methods: \code{\link[=squeeze_tips]{squeeze_tips()}}, \code{\link[=squeeze_int]{squeeze_int()}}, \code{\link[=prune_tips]{prune_tips()}}, \code{\link[=phylo_pieces]{phylo_pieces()}}.
+}
+\author{
+Matheus Lima de Araujo \href{mailto:matheusaraujolima@live.com}{matheusaraujolima@live.com}
 }

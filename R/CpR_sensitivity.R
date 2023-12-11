@@ -1,39 +1,56 @@
-#### f11) CpR_sensitivity() -----------------------------------------------------
-
-### Calculates the sensitivity of the CpB-rates based on this index calculated
-# through different time-slices.
-
-# tree = a phylogenetic tree of the phylo class;
-# vec = a numeric vector containing a serie of number of slices;
-# mat = a complete presence absence matrix of all studied species and sites;
-# asb = list with assemblages and its adjacent cells;
-# rate = need to provide the CpRate desired (i.e., "CpD", "CpE", "CpB_RW", "CpB");
-# samp = number of sites to be sampled to make the sensitivity analysis;
-# comp = component of the beta-diversity if the user wants the CpB (Deafault is
-# "sorensen", but "turnover" and "nestedness" can be set in);
-# method = method for calculation of the CpB or CpB_RW, which can be "pairwise"
-# or "multisite" (which is the default);
-# criteria = temporal criteria for making phylogenetic slices ("pd" or "my");
-# ncor = number of cores the user wants to parallelize.
-
-
-#' Title
+#' Runs a sensitivity analysis for rates of accumulation of a given phylogenetic index
+#' @description
+#' This function allows the evaluation of the sensitivity of the estimated rates of accumulation of a given phylogenetic index (e.g., [CpD()], [CpE()], [CpB()], [CpB_RW()]) to the number of slices inputted by the user.
 #'
-#' @param tree
-#' @param vec
-#' @param mat
-#' @param asb
-#' @param rate
-#' @param samp
-#' @param comp
-#' @param method
-#' @param criteria
-#' @param ncor
+#' @usage CpR_sensitivity(tree, vec, mat, asb, rate = NULL, samp = 0, criteria = "my", ncor = 0)
 #'
-#' @return
-#' @export
+#' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
+#' @param vec numeric vector. A numeric vector containing a series of numbers of slices.
+#' @param mat matrix. A presence/absence matrix containing all studied species and sites.
+#' @param asb matrix, or list of matrices. A matrix (or list of matrices) containing a focal assemblage and its neighborhood assemblages (need at least two assemblages to run).
+#' @param rate character string. The desired cumulative phylogenetic rate to be assessed, which can be the phylogenetic diversity (CpD), phylogenetic endemism (CpE), phylogenetic B-diversity (CpB), or phylogenetic B-diversity range-weighted (CpB_RW). Default is NULL, but must be filled with "CpD", "CPE", "CpB_RW", or "CpB".
+#' @param samp numeric. The number of assemblages, or sites, to be sampled to make the sensitivity analysis.
+#' @param comp character string. The component of beta-diversity that the user wants to calculate the CpB. It can be either "sorensen", turnover" or "nestedness". This argument works only when "rate = CpB". Default is "sorensen".
+#' @param method character string. The method for calculating the CpB-rate. It can be either "pairwise" or "multisite". This argument works only when the argument "rate" is set to run for "CpB" or "CpB_RW". Default is "multisite".
+#' @param criteria character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
+#' @param ncor numeric. A value indicating the number of cores the user wants to parallelize. Default is 0.
+#'
+#' @return This function returns a data frame containing the sensitivity analysis for a given rate of accumulation of a phylogenetic index. This outputted data frame contains, for each row or assemblage, a column with the rate value assessed for each inputted number of slices.
+#'
+#' @details
+#'
+#' \bold{Parallelization}
+#'
+#' Users are advised to check the number of available cores within their machines before running parallel programming.
+#'
+#' \bold{Plotting}
+#'
+#' For plotting the sensitivity analysis output users can use [CpR_sensitivity_plot()].
+#'
+#' @seealso Other cumulative phylogenetic index rate analysis: [CpD()], [CpE()], [CpB()], [CpB_RW()]
+#'
+#' @author Matheus Lima de Araujo <matheusaraujolima@live.com>
+#'
+#' @references
+#' See the tutorial on how to use this function on our [website](https://araujomat.github.io/treesliceR/articles/Passeriformes-diversification.html).
 #'
 #' @examples
+#' # Generate a random tree
+#' tree <- ape::rcoal(20)
+#'
+#' # Create a presence-absence matrix
+#' mat <- matrix(sample(c(1,0), 20*10, replace = T), ncol = 20, nrow = 10)
+#' colnames(mat) <- tree$tip.label
+#'
+#' # Calculate the CpD for 100 tree slices
+#' CpD(tree, n = 100, mat = mat)
+#'
+#' # Create a vector of number of slices
+#' vec <- c(25, 50, 75, 100, 125, 150)
+#'
+#' # Calculate the sensitivity of the CpD
+#' CpR_sensitivity(tree, vec, mat, rate = "CpD", samp = 5)
+
 
 CpR_sensitivity <- function(tree, vec, mat = NULL, asb = NULL, rate = NULL, samp = 0,
                             comp = "sorensen", method = "multisite",

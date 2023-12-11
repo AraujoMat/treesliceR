@@ -1,32 +1,46 @@
-#### f9) CpB_RW() --------------------------------------------------------------
-
-# Calculates the rate of Cumulation of phylogenetic B-diversity.
-
-# tree = a phylogenetic tree of the phylo class;
-# n = number of temporal slices (method = 1) or time interval;
-# mat = a complete presence absence matrix of all studied species and sites;
-# asb = list with assemblages and its adjacent cells (need at least two assemblages to run);
-# method = method to calculate the CpB-rate "pairwise" or "multisite"
-# criteria = temporal criteria for slices ("pd" or "my");
-# pBO = numeric proportion to define the temporal origin that the phylogenetic beta-diversity
-# starts to accumulate on a given site. The default is 5%;
-# ncor = number of cores the user wants to parallelize.
-
-#' Title
+#' Calculates the range weighted rate of accumulation of phylogenetic B-diversity (CpB_RW) over time slices
+#' @description
+#' This function estimates the range-weighted rates of accumulation of phylogenetic B-diversity (CpB_RW) over time for inputted assemblages.
 #'
-#' @param tree
-#' @param n
-#' @param mat
-#' @param asb
-#' @param method
-#' @param criteria
-#' @param pBO
-#' @param ncor
+#' @usage CpB_RW(tree, n, mat, asb, method = "multisite", criteria = "my", pBO = 5, ncor = 0)
 #'
-#' @return
-#' @export
+#' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
+#' @param n numeric. A numeric value indicating the number of temporal slices (method = 1) or the time interval in million years (or phylogenetic diversity) among the tree slices (method = 2). Default is 1.
+#' @param mat matrix. A presence/absence matrix containing all studied species and sites.
+#' @param asb matrix, or list of matrices. A matrix (or list of matrices) containing a focal assemblage and its neighborhood assemblages (need at least two assemblages to run).
+#' @param method character string. The method for calculating the phylogenetic beta-diversity. It can be either obtained through a "pairwise" or "multisite" approach. Default is "multisite".
+#' @param criteria character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
+#' @param pBO numeric. A value indicating the numeric proportion to define the temporal origin at which the range-weighted phylogenetic B-diversity (PB_RW) started to accumulate in a given assemblage. Default is 5%.
+#' @param ncor numeric. A value indicating the number of cores the user wants to parallelize. Default is 0.
+#'
+#' @return The function returns a data frame containing the assemblages' rates of cumulative range-weighted phylogenetic B-diversity  (CpB_RW), their total range-weighted phylgonetic B-diversity (PB_RW), and their origin (pBO).
+#'
+#' @details
+#'
+#' \bold{Parallelization}
+#'
+#' Users are advised to check the number of available cores within their machines before running parallel programming.
+#'
+#' @seealso Other cumulative phylogenetic index analysis: [CpD()], [CpE()], [CpB()]
+#'
+#' @author Matheus Lima de Araujo <matheusaraujolima@live.com>
+#'
+#' @references
+#' Laffan, S. W., Rosauer, D. F., Di Virgilio, G., Miller, J. T., González-Orozco, C. E., Knerr, N., Thornhill, A. H., & Mishler, B. D. (2016). Range-weighted metrics of species and phylogenetic turnover can better resolve biogeographic transition zones. Methods in Ecology and Evolution, 7(5), 580–588. https://doi.org/10.1111/2041-210x.12513
 #'
 #' @examples
+#' # Generate a random tree
+#' tree <- ape::rcoal(20)
+#'
+#' # Create a presence-absence matrix
+#' mat <- matrix(sample(c(1,0), 20*10, replace = T), ncol = 20, nrow = 10)
+#' colnames(mat) <- tree$tip.label
+#'
+#' # And separate it into two assemblages with focal and neigs
+#' asb <- list(mat[1:5,], mat[6:10,])
+#'
+#' # Calculate their CpB range weighted for 100 tree slices
+#' CpB_RW(tree, n = 100, mat = mat, asb = asb, method = "multisite")
 
 CpB_RW <- function(tree, n, mat, asb, method = "multisite", criteria = "my", pBO = 5, ncor = 0){
 

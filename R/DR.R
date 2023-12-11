@@ -1,18 +1,25 @@
-#### f14) DR() -----------------------------------------------------------------
-# Calculates the DR based on Jetz et al., 2012 (?). This algorithm is able to calculate
-# capable to calculate DR for sliced trees, distinguishing "void nodes" from a cutted tree.
-
-# tree = a phylogenetic tree of the class "phylo" from ape package.
-
-# Creating my DR function
-#' Title
+#' Calculate the tip diversification rates (DR) for a phylogenetic tree
+#' @description
+#' This function computes the tip diversification rates ([Jetz et al., 2012](https://doi.org/10.1038/nature11631)), or DR, for an inputted ultrametric phylogenetic tree.
 #'
-#' @param tree
+#' @usage DR(tree)
 #'
-#' @return
-#' @export
+#' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
+#'
+#' @return The function returns a data frame containing the tip diversification rates for all species within the inputted phylogenetic tree.
+#'
+#' @author Matheus Lima de Araujo <matheusaraujolima@live.com>
+#'
+#' @references
+#' See the tutorial on how to use this function on our [website](https://araujomat.github.io/treesliceR/articles/Passeriformes-diversification.html).
+#' Jetz, Walter, et al. "The global diversity of birds in space and time." Nature 491.7424 (2012): 444-448. https://doi.org/10.1038/nature11631
 #'
 #' @examples
+#' # Generate a random tree
+#' tree <- ape::rcoal(20)
+#'
+#' # Computing the tip-DR
+#' DR(tree)
 
 DR <- function(tree){
 

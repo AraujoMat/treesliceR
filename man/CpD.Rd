@@ -2,13 +2,48 @@
 % Please edit documentation in R/CpD.R
 \name{CpD}
 \alias{CpD}
-\title{Title}
+\title{Calculates the rate of accumulation of phylogenetic diversity (CpD) over time slices}
 \usage{
 CpD(tree, n, mat, criteria = "my", pDO = 5, ncor = 0)
 }
 \arguments{
-\item{ncor}{}
+\item{tree}{phylo. An ultrametric phylogenetic tree in the "phylo" format.}
+
+\item{n}{numeric. A numeric value indicating the number of temporal slices (method = 1) or the time interval in million years (or phylogenetic diversity) among the tree slices (method = 2). Default is 1.}
+
+\item{mat}{matrix. A presence/absence matrix containing all studied species and sites.}
+
+\item{criteria}{character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".}
+
+\item{pDO}{numeric. A value indicating the numeric proportion to define the temporal origin at which the phylogenetic diversity (PD) started to accumulate in a given assemblage. Default is 5\%.}
+
+\item{ncor}{numeric. A value indicating the number of cores the user wants to parallelize. Default is 0.}
+}
+\value{
+The function returns a data frame containing the assemblages' rates of cumulative phylogenetic diversity (CpD), their total phylogenetic diversity (PD), and their PD origin (pDO).
 }
 \description{
-Title
+This function estimates the rates of accumulation of phylogenetic diveristy (CpD) over time for inputted assemblages.
+}
+\details{
+\bold{Parallelization}
+
+Users are advised to check the number of available cores within their machines before running parallel programming.
+}
+\examples{
+# Generate a random tree
+tree <- ape::rcoal(20)
+
+# Create a presence-absence matrix
+mat <- matrix(sample(c(1,0), 20*10, replace = T), ncol = 20, nrow = 10)
+colnames(mat) <- tree$tip.label
+
+# Calculate the CpD for 100 tree slices
+CpD(tree, n = 100, mat = mat)
+}
+\seealso{
+Other cumulative phylogenetic rates analysis: \code{\link[=CpE]{CpE()}}, \code{\link[=CpB]{CpB()}}, \code{\link[=CpB_RW]{CpB_RW()}}
+}
+\author{
+Matheus Lima de Araujo \href{mailto:matheusaraujolima@live.com}{matheusaraujolima@live.com}
 }

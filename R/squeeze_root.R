@@ -1,23 +1,38 @@
-#### f3) squeeze_root() ----------------------------------------------------------
-# Make a phylogenetic slice following a rootwards orientation (roots -> tips);
-
-# Arguments:
-# tree = a phylogenetic tree of the phylo class;
-# time = numeric temporal threshold at which the root will be squeezed (pd or time threshold);
-# criteria = temporal criteria to make the slices, it can be "my" (DEFAULT) or "pd";
-# dropNodes = remove those void nodes without information (TRUE or FALSE).
-
-#' Title
+#' Slices a phylogenetic tree following a 'rootward' orientation
+#' @description
+#' This function slices a phylogenetic tree in a 'rootward' orientation, starting from the root and moving towards the tips of the tree.
 #'
-#' @param tree
-#' @param time
-#' @param criteria
-#' @param dropNodes
+#' @usage squeeze_root(tree, time, criteria = "my", dropNodes = FALSE)
 #'
-#' @return
-#' @export
+#' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
+#' @param time numeric. A value that determines the time, or accumulated phylogenetic diversity (PD), at which the tree should be cut.
+#' @param criteria character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
+#' @param dropNodes logical. A logical value indicating whether the nodes that were sliced (void nodes, presenting no branch length) should be preserved in the node matrix. Default is FALSE.
+#'
+#' @return The function returns a time-slice of an inputted phylogenetic tree in the "phylo" format, following a 'rootward' orientation.
+#'
+#' @details
+#'
+#' \bold{Slicing approach}
+#'
+#' The treesliceR package uses a simple approach for cutting phylogenies, which reduces branch lengths in relation to an inputted temporal threshold.
+#'
+#' @seealso Other slicing methods: [squeeze_tips()], [squeeze_int()], [prune_tips()], [phylo_pieces()].
+#'
+#' @author Matheus Lima de Araujo <matheusaraujolima@live.com>
+#'
+#' @references
+#' See the tutorial on how to use this function on our [website](https://araujomat.github.io/treesliceR/articles/Intro-treesliceR.html).
 #'
 #' @examples
+#' # Generate a random tree
+#' tree <- ape::rcoal(20)
+#'
+#' # Slice "rootwardly" the phylogeny at 0.1 million years
+#' tree <- squeeze_root(tree, time = 0.1)
+#'
+#' # Plot it
+#' plot(tree)
 
 squeeze_root <- function(tree, time, criteria = "my", dropNodes = FALSE){
 

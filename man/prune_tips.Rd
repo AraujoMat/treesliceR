@@ -2,13 +2,50 @@
 % Please edit documentation in R/prune_tips.R
 \name{prune_tips}
 \alias{prune_tips}
-\title{Title}
+\title{Collapse the tips of a phylogenetic tree based on a temporal threshold}
 \usage{
 prune_tips(tree, time, qtl = FALSE, method = 1)
 }
 \arguments{
-\item{method}{}
+\item{tree}{phylo. An ultrametric phylogenetic tree in the "phylo" format.}
+
+\item{time}{numeric or numeric vector. A numeric value, or vector, containing the temporal threshold(s) in million years for pruning the tree tips. It must be within the interval of the tips ages present in the phylogenetic tree.}
+
+\item{qtl}{logical. A logical value indicating whether the user wants to use the quantile values of the tip ages to prune the tree. Default is FALSE}
+
+\item{method}{numerical. A numerical value indicating the method to prune the tips. If "method = 1", the function will prune the tips originating after an inputted temporal threshold. If method = 2, the function will prune the tips originating before a temporal threshold. Default is 1.}
+}
+\value{
+The function returns a pruned tree in the "phylo" format if a single temporal threshold was inputted. Otherwise, if a vector of thresholds was inputted, it returns an list of pruned trees.
 }
 \description{
-Title
+This function collapses, or prune, the tips of a phylogenetic tree based on an inputted temporal threshold.
+}
+\details{
+It uses the tip ages location in relation to an inputted time threshold to prune the phylogenetic tree. Setting "method = 2" makes slices based on the quantile distribution of tip ages available within the phylogenetic tree.
+}
+\examples{
+# Generate a random tree
+tree <- ape::rcoal(20)
+
+# Pruning the tips originating after 0.3 million years
+tree1 <- prune_tips(tree, time = 0.1)
+
+# Plot it
+plot(tree1)
+
+
+# Pruning the tips based on quantiles of tip ages
+tree2 <- prune_tips(tree, time = c(0.25, 0.75), method = 2)
+plot(tree2[[1]])
+plot(tree2[[2]])
+}
+\references{
+See the tutorial on how to use this function on our \href{https://araujomat.github.io/treesliceR/articles/Intro-treesliceR.html}{website}.
+}
+\seealso{
+Other slicing methods: \code{\link[=squeeze_root]{squeeze_root()}},\code{\link[=squeeze_tips]{squeeze_tips()}},\code{\link[=squeeze_int]{squeeze_int()}},\code{\link[=phylo_pieces]{phylo_pieces()}}
+}
+\author{
+Matheus Lima de Araujo \href{mailto:matheusaraujolima@live.com}{matheusaraujolima@live.com}
 }

@@ -2,13 +2,49 @@
 % Please edit documentation in R/CpR_sensitivity_plot.R
 \name{CpR_sensitivity_plot}
 \alias{CpR_sensitivity_plot}
-\title{Title}
+\title{Make a plot of the sensitivity analysis evaluated under cumulative phylogenetic rate functions}
 \usage{
 CpR_sensitivity_plot(sst_output, rate = NULL, stc = "mean")
 }
 \arguments{
-\item{stc}{}
+\item{sst_output}{data frame. The outputted data frame from the \code{\link[=CpR_sensitivity]{CpR_sensitivity()}} function.}
+
+\item{rate}{character string. The desired phylogenetic index rate to display. It can be filled with "CpD", "CPE", "CpB", or "CpB_RW".}
+
+\item{stc}{character string. A statistical measure to summarize the phylogenetic rates and create the plot, which could be filled with "mean", "var", "median", "sd", "min", and "max". Default is "mean".}
+}
+\value{
+The function returns a ggplot graph.
 }
 \description{
-Title
+This function generates a plot of the sensitivity analysis calculated for a given cumulative phylogenetic rate (CpR) assessed through the \code{\link[=CpR_sensitivity]{CpR_sensitivity()}} function.
+}
+\examples{
+# Generate a random tree
+tree <- ape::rcoal(20)
+
+# Create a presence-absence matrix
+mat <- matrix(sample(c(1,0), 20*10, replace = T), ncol = 20, nrow = 10)
+colnames(mat) <- tree$tip.label
+
+# Calculate the CpD for 100 tree slices
+CpD(tree, n = 100, mat = mat)
+
+# Create a vector of number of slices
+vec <- c(25, 50, 75, 100, 125, 150)
+
+# Calculate the sensitivity of the CpD
+Sens_out <- CpR_sensitivity(tree, vec, mat, rate = "CpD", samp = 5)
+
+# Plot the sensitity analysis
+CpR_sensitivity_plot(Sens_out, rate = "CpD", stc = "mean")
+}
+\references{
+Users can use the \code{\link[=CpR_sensitivity_plot]{CpR_sensitivity_plot()}} function for plotting sensitivity analysis outputs.
+}
+\seealso{
+CpR sensitivity analysis: \code{\link[=CpR_sensitivity]{CpR_sensitivity()}}.
+}
+\author{
+Matheus Lima de Araujo \href{mailto:matheusaraujolima@live.com}{matheusaraujolima@live.com}
 }

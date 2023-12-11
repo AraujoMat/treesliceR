@@ -2,13 +2,30 @@
 % Please edit documentation in R/DR.R
 \name{DR}
 \alias{DR}
-\title{Title}
+\title{Calculate the tip diversification rates (DR) for a phylogenetic tree}
 \usage{
 DR(tree)
 }
 \arguments{
-\item{tree}{}
+\item{tree}{phylo. An ultrametric phylogenetic tree in the "phylo" format.}
+}
+\value{
+The function returns a data frame containing the tip diversification rates for all species within the inputted phylogenetic tree.
 }
 \description{
-Title
+This function computes the tip diversification rates (\href{https://doi.org/10.1038/nature11631}{Jetz et al., 2012}), or DR, for an inputted ultrametric phylogenetic tree.
+}
+\examples{
+# Generate a random tree
+tree <- ape::rcoal(20)
+
+# Computing the tip-DR
+DR(tree)
+}
+\references{
+See the tutorial on how to use this function on our \href{https://araujomat.github.io/treesliceR/articles/Passeriformes-diversification.html}{website}.
+Jetz, Walter, et al. "The global diversity of birds in space and time." Nature 491.7424 (2012): 444-448. https://doi.org/10.1038/nature11631
+}
+\author{
+Matheus Lima de Araujo \href{mailto:matheusaraujolima@live.com}{matheusaraujolima@live.com}
 }

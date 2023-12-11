@@ -1,31 +1,41 @@
-# Description:
-# Collapses, or prune, the tips of a phylogeny based on a given temporal threshold.
-
-# Arguments:
-# tree = a phylogenetic tree.
-# time = a numeric or vector of temporal thrsholds in millions of years (numeric)
-# or quantile values (set argument qtl = TRUE). If a vector is inputted, it returns
-# a list of trees based on the vector values set.
-# method = could be 1 or 2. Setting "method = 1" defines makes the algorithm drops
-# (or prune) the tips originating after a given threshold set. Otherwise, if the
-# user wants to drop those tips branches originating before a given time threshold,
-# set "method = 2".
-
-# Errors:
-# There is no tip with branching event deeper than the value inputted
-# Quantile value doesnt exist, need to be within probabilities between 0 and 1.
-
-#' Title
+#' Collapse the tips of a phylogenetic tree based on a temporal threshold
+#' @description
+#' This function collapses, or prune, the tips of a phylogenetic tree based on an inputted temporal threshold.
 #'
-#' @param tree
-#' @param time
-#' @param qtl
-#' @param method
+#' @usage prune_tips(tree, time, qtl = FALSE, method = 1)
 #'
-#' @return
-#' @export
+#' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
+#' @param time numeric or numeric vector. A numeric value, or vector, containing the temporal threshold(s) in million years for pruning the tree tips. It must be within the interval of the tips ages present in the phylogenetic tree.
+#' @param qtl logical. A logical value indicating whether the user wants to use the quantile values of the tip ages to prune the tree. Default is FALSE
+#' @param method numerical. A numerical value indicating the method to prune the tips. If "method = 1", the function will prune the tips originating after an inputted temporal threshold. If method = 2, the function will prune the tips originating before a temporal threshold. Default is 1.
+#'
+#' @return The function returns a pruned tree in the "phylo" format if a single temporal threshold was inputted. Otherwise, if a vector of thresholds was inputted, it returns an list of pruned trees.
+#'
+#' @details
+#' It uses the tip ages location in relation to an inputted time threshold to prune the phylogenetic tree. Setting "method = 2" makes slices based on the quantile distribution of tip ages available within the phylogenetic tree.
+#'
+#' @seealso Other slicing methods: [squeeze_root()],[squeeze_tips()],[squeeze_int()],[phylo_pieces()]
+#'
+#' @author Matheus Lima de Araujo <matheusaraujolima@live.com>
+#'
+#' @references
+#' See the tutorial on how to use this function on our [website](https://araujomat.github.io/treesliceR/articles/Intro-treesliceR.html).
 #'
 #' @examples
+#' # Generate a random tree
+#' tree <- ape::rcoal(20)
+#'
+#' # Pruning the tips originating after 0.3 million years
+#' tree1 <- prune_tips(tree, time = 0.1)
+#'
+#' # Plot it
+#' plot(tree1)
+#'
+#'
+#' # Pruning the tips based on quantiles of tip ages
+#' tree2 <- prune_tips(tree, time = c(0.25, 0.75), method = 2)
+#' plot(tree2[[1]])
+#' plot(tree2[[2]])
 
 prune_tips <- function(tree, time, qtl = FALSE, method = 1){
 

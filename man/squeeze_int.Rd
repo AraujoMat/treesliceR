@@ -2,13 +2,50 @@
 % Please edit documentation in R/squeeze_int.R
 \name{squeeze_int}
 \alias{squeeze_int}
-\title{Title}
+\title{Slices a temporal interval within a phylogenetic tree}
 \usage{
 squeeze_int(tree, from, to, invert = FALSE, criteria = "my", dropNodes = FALSE)
 }
 \arguments{
-\item{dropNodes}{}
+\item{tree}{phylo. An ultrametric phylogenetic tree in the "phylo" format.}
+
+\item{from}{numeric. A temporal threshold value that determines the time at which the interval should start.}
+
+\item{to}{numeric. A temporal threshold value that determines the time at which the interval should end.}
+
+\item{invert}{logical. A logical value indicating if the desired slice must be executed inside (invert = FALSE) or outside (invert = TRUE) the defined interval. Using the argument as TRUE will return a list containing a root and tip slices. Default is FALSE.}
+
+\item{criteria}{character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".}
+
+\item{dropNodes}{logical. A logical value indicating whether the nodes that were sliced (void nodes, presenting no branch length) should be preserved in the node matrix. Default is FALSE.}
+}
+\value{
+The function returns an time-slice interval of a phylogenetic tree in the "phylo" format.
 }
 \description{
-Title
+This function slices a temporal interval located within an ultrametric phylogenetic tree.
+}
+\details{
+\bold{Slicing approach}
+
+To return a given phylogenetic interval, this function simultaneously applies simultaneously the same logic as \code{\link[=squeeze_tips]{squeeze_tips()}} and \code{\link[=squeeze_root]{squeeze_root()}}. If "invert = TRUE", then the temporal interval set will be excluded from the phylogeny, returning a list containing a tip and a root slices.
+}
+\examples{
+# Generate a random tree
+tree <- ape::rcoal(20)
+
+# Slice an interval from 0.5 to 0.2 million years
+tree <- squeeze_int(tree, from = 0.5, to = 0.2)
+
+# Plot it
+plot(tree)
+}
+\references{
+See the tutorial on how to use this function on our \href{https://araujomat.github.io/treesliceR/articles/Intro-treesliceR.html}{website}.
+}
+\seealso{
+Other slicing methods: \code{\link[=squeeze_tips]{squeeze_tips()}}, \code{\link[=squeeze_root]{squeeze_root()}}, \code{\link[=phylo_pieces]{phylo_pieces()}}, \code{\link[=prune_tips]{prune_tips()}}
+}
+\author{
+Matheus Lima de Araujo \href{mailto:matheusaraujolima@live.com}{matheusaraujolima@live.com}
 }

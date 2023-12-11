@@ -1,29 +1,38 @@
-#### f7) CpE() -----------------------------------------------------------------
-
-# Calculates the rate of Cumulation of phylogenetic Endemism.
-
-# tree = a phylogenetic tree of the phylo class;
-# n = number of temporal slices (method = 1) or time interval;
-# mat = a complete presence absence matrix of all studied species and sites;
-# criteria = temporal criteria for slices ("pd" or "my");
-# pEO = numeric proportion to define the temporal origin that the phylogenetic diversity
-# starts to accumulate on a given site. The default is 5%;
-# ncor = number of cores the user wants to parallelize.
-
-
-#' Title
+#' Calculates the rate of accumulation of phylogenetic endemism (CpE) over time slices
+#' @description
+#' This function estimates the rates of accumulation of phylogenetic endemism (CpE) over time for inputted assemblages.
 #'
-#' @param tree
-#' @param n
-#' @param mat
-#' @param criteria
-#' @param pEO
-#' @param ncor
+#' @usage CpE(tree, n, mat, criteria = "my", pEO = 5, ncor = 0)
 #'
-#' @return
-#' @export
+#' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
+#' @param n numeric. A numeric value indicating the number of temporal slices (method = 1) or the time interval in million years (or phylogenetic diversity) among the tree slices (method = 2). Default is 1.
+#' @param mat matrix. A presence/absence matrix containing all studied species and sites.
+#' @param criteria character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
+#' @param pEO numeric. A value indicating the numeric proportion to define the temporal origin at which the phylogenetic endemism (PE) started to accumulate in a given assemblage. Default is 5%.
+#' @param ncor numeric. A value indicating the number of cores the user wants to parallelize. Default is 0.
+#'
+#' @return The function returns a data frame containing the assemblages' rates of cumulative phylogenetic endemism (CpE), their total phylogenetic endemism (PE), and their PE origin (pEO).
+#'
+#' @details
+#'
+#' \bold{Parallelization}
+#'
+#' Users are advised to check the number of available cores within their machines before running parallel programming.
+#'
+#' @seealso Other cumulative phylogenetic index analysis: [CpD()], [CpB()], [CpB_RW()]
+#'
+#' @author Matheus Lima de Araujo <matheusaraujolima@live.com>
 #'
 #' @examples
+#' # Generate a random tree
+#' tree <- ape::rcoal(20)
+#'
+#' # Create a presence-absence matrix
+#' mat <- matrix(sample(c(1,0), 20*10, replace = T), ncol = 20, nrow = 10)
+#' colnames(mat) <- tree$tip.label
+#'
+#' # Calculate the CpE for 100 tree slices
+#' CpE(tree, n = 100, mat = mat)
 
 CpE <- function(tree, n, mat, criteria = "my", pEO = 5, ncor = 0){
 

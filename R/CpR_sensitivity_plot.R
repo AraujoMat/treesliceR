@@ -1,20 +1,42 @@
-#### f12) CpR_sensitivity_plot() -----------------------------------------------------
-##  Make a plot of the sensitivity analysis output obtained from the function CpB_sensitivity().
-
-# sst_output = A dataframe outputed from the CpB_sensitivity();
-# stc = a character vector defining a descriptive statistic to make the plot (default is "mean").
-# rate = need to provide the CpRate desired (i.e., "CpD", "CpE", "CpB_RW", "CpB");
-
-#' Title
+#' Make a plot of the sensitivity analysis evaluated under cumulative phylogenetic rate functions
+#' @description
+#' This function generates a plot of the sensitivity analysis calculated for a given cumulative phylogenetic rate (CpR) assessed through the [CpR_sensitivity()] function.
 #'
-#' @param sst_output
-#' @param rate
-#' @param stc
+#' @usage CpR_sensitivity_plot(sst_output, rate = NULL, stc = "mean")
 #'
-#' @return
-#' @export
+#' @param sst_output data frame. The outputted data frame from the [CpR_sensitivity()] function.
+#' @param stc character string. A statistical measure to summarize the phylogenetic rates and create the plot, which could be filled with "mean", "var", "median", "sd", "min", and "max". Default is "mean".
+#' @param rate character string. The desired phylogenetic index rate to display. It can be filled with "CpD", "CPE", "CpB", or "CpB_RW".
+#'
+#' @return The function returns a ggplot graph.
+#'
+#' @seealso CpR sensitivity analysis: [CpR_sensitivity()].
+#'
+#' @author Matheus Lima de Araujo <matheusaraujolima@live.com>
+#'
+#' @references
+#' Users can use the [CpR_sensitivity_plot()] function for plotting sensitivity analysis outputs.
 #'
 #' @examples
+#' # Generate a random tree
+#' tree <- ape::rcoal(20)
+#'
+#' # Create a presence-absence matrix
+#' mat <- matrix(sample(c(1,0), 20*10, replace = T), ncol = 20, nrow = 10)
+#' colnames(mat) <- tree$tip.label
+#'
+#' # Calculate the CpD for 100 tree slices
+#' CpD(tree, n = 100, mat = mat)
+#'
+#' # Create a vector of number of slices
+#' vec <- c(25, 50, 75, 100, 125, 150)
+#'
+#' # Calculate the sensitivity of the CpD
+#' Sens_out <- CpR_sensitivity(tree, vec, mat, rate = "CpD", samp = 5)
+#'
+#' # Plot the sensitity analysis
+#' CpR_sensitivity_plot(Sens_out, rate = "CpD", stc = "mean")
+
 
 CpR_sensitivity_plot <- function(sst_output, rate = NULL, stc = "mean"){
 

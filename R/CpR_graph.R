@@ -1,29 +1,39 @@
-#### f13) CpR_graph() -----------------------------------------------------
-# Plot a line graph or grid map of the estimated CpB-rates
-
-# data = the data outputed from the CpB() function;
-# rate = need to provide the CpRate desired (i.e., "CpD", "CpE", "CpB_RW", "CpB");
-# map = NULL default. A grid map of the assemblages, if provided return mapped CpB-rates;
-# pal = a vector containing a colour pallete. If not provided it will used a default pallete;
-# qtl = TRUE or FALSE. If the colour pallete will be displayed accordingly CpB quantiles.
-
-# For testing only
-#data <- cpd_rate
-#pal <- new_pal
-# map <- grid
-
-#' Title
+#' Make a line graph or a grid map of estimated rates of accumulation of a given phylogenetic index.
+#' @description
+#' This function creates a line graph, or a grid map, depicting the estimated rates of accumulation of a given phylogenetic index (e.g., phylogenetic diversity, endemism, etc.), obtained from functions such as [CpD()], [CpE()], [CpB()], or [CpB_RW()].
 #'
-#' @param data
-#' @param rate
-#' @param map
-#' @param pal
-#' @param qtl
+#' @usage CpR_graph(data, rate = NULL, map = NULL, pal = NULL, qtl = FALSE)
 #'
-#' @return
-#' @export
+#' @param data data frame. The outputted data frame from a CpR-rate function.
+#' @param rate character string. The desired cumulative phylogenetic rate to plot, which can be phylogenetic diversity (CpD), phylogenetic endemism (CpE), phylogenetic B-diversity (CpB), or phylogenetic B-diversity range-weighted (CpB_RW). Default is NULL, but must be filled with "CpD", "CPE", "CpB", or "CpB_RW".
+#' @param map spatial data. A grid map containing the assemblages at which the phylogenetic rates were assessed. Default is NULL.
+#' @param pal character vector. A vector containing a color palette. If none provided, a default color palette will be used.
+#' @param qtl boolean. Should the color palette be displayed according to CpR-rates quantiles? It can be either TRUE or FALSE. Default is FALSE.
+#'
+#' @return The function returns a ggplot graph.
+#'
+#' @seealso Other cumulative phylogenetic rate analysis: [CpD()], [CpE()], [CpB()], [CpB_RW()], [CpR_sensitivity()]
+#' Other plotting: [CpR_sensitivity_plot()].
+#'
+#' @author
+#' Matheus Lima de Araujo <matheusaraujolima@live.com>
+#'
+#' @references
+#' See the tutorial on how to use this function on our [website](https://araujomat.github.io/treesliceR/articles/Passeriformes-diversification.html).
 #'
 #' @examples
+#' # Generate a random tree
+#' tree <- ape::rcoal(20)
+#'
+#' # Create a presence-absence matrix
+#' mat <- matrix(sample(c(1,0), 20*10, replace = T), ncol = 20, nrow = 10)
+#' colnames(mat) <- tree$tip.label
+#'
+#' # Calculate the CpD for 100 tree slices
+#' CpD_DF <- CpD(tree, n = 100, mat = mat)
+#'
+#' Plot it using the CpR_graph
+#' CpR_graph(CpD_DF, rate = "CpD")
 
 CpR_graph <- function(data, rate = NULL, map = NULL, pal = NULL, qtl = FALSE){
 

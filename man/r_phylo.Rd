@@ -2,23 +2,78 @@
 % Please edit documentation in R/r_phylo.R
 \name{r_phylo}
 \alias{r_phylo}
-\title{Title}
+\title{Calculates the relative value of a phylogenetic index in a temporal sequence of phylogenetic slices.}
 \usage{
-r_phylo(
-  tree,
-  n,
-  mat,
-  asb,
-  index = NULL,
-  comp = "sorensen",
-  method = "multisite",
-  criteria = "my",
-  ncor = 0
-)
+r_phylo(tree, n, mat, asb, index = NULL, criteria = "my", ncor = 0)
 }
 \arguments{
-\item{ncor}{}
+\item{tree}{phylo. An ultrametric phylogenetic tree in the "phylo" format.}
+
+\item{n}{numeric. A numeric value indicating either the number of temporal slices (method = 1) or the time interval in million years (or phylogenetic diversity) among the tree slices (method = 2). Default is 1.}
+
+\item{mat}{matrix. A presence/absence matrix containing all studied species and sites.}
+
+\item{asb}{matrix, or list of matrices. A matrix (or list of matrices) containing a focal assemblage and its neighborhood assemblages (requires at least two assemblages to run).}
+
+\item{index}{character string. The phylogenetic index to be calculated over the phylogenetic slices. It can be set as "PD" (phylogenetic diversity), "PE" (phylogenetic endemism), "PB" (phylogenetic B-diversity), or "PB_RW" (phylogenetic B-diversity range-weighted).}
+
+\item{comp}{character string. The component of phylogenetic beta-diversity to obtain the relative value. It can be "sorensen", "turnover", or "nestedness". Default is "sorensen".}
+
+\item{method}{character string. The method for calculating phylogenetic beta-diversity. It can be obtained through a "pairwise" or "multisite" approach. Default is "multisite".}
+
+\item{criteria}{character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".}
+
+\item{ncor}{numeric. A value indicating the number of cores the user wants to parallel. Default is 0.}
+}
+\value{
+The function returns a list where each object contains a vector (of length "n") with the relative phylogenetic index, from the phylogeny root to the tips, from the inputted assemblage.
 }
 \description{
-Title
+This function estimates the relative value of a phylogenetic index in a sequence of multiple phylogenetic slices cut from roots to tips.
+}
+\details{
+\bold{The "mat" and "asb" arguments}
+
+Must be filled only depending on the aimed phylogenetic analysis (defined in "index"). For instance, the "mat" argument must be used only in scenarios where the user aims to assess the relative phylogenetic diversity (PD) or endemism (PE), whereas the "asb" argument must be filled only for phylogenetic B-diversity ("PB") or it's range weight version ("PB_RW"). Nevertheless, to calculate "PB_RW", it is necessary to also provide a complete matrix to weight the species ranges to calculate the phylogenetic B-diversity within the assemblages.
+
+\bold{Parallelization}
+
+Users are advised to check the number of cores available within their machines before running in parallel programming.
+}
+\examples{
+# Generate a random tree
+tree <- ape::rcoal(20)
+
+# Create a presence-absence matrix
+mat <- matrix(sample(c(1,0), 20*10, replace = T), ncol = 20, nrow = 10)
+colnames(mat) <- tree$tip.label
+
+# And separe it into two assemblages with focal and neigs
+asb <- list(mat[1:5,], mat[6:10,])
+
+# Calculate the relative PD for 100 slices
+rPD <- r_phylo(tree, n = 100, mat = mat, index = "PD")
+# Plot the relative PD of the first assemblage
+plot(rPD[[1]])
+
+# Calculate the relative PE for 100 slices
+rPE <- r_phylo(tree, n = 100, mat = mat, index = "PE")
+# Plot the relative PE of the first assemblage
+plot(rPE[[1]])
+
+# Calculate the relative PB for 100 slices
+rPB <-  r_phylo(tree, n = 100, asb, index = "PB")
+# Plot the relative PB of the first assemblage
+plot(rPB[[1]])
+
+# Calculate the relative PB_RW for 100 slices
+rPB_RW <- r_phylo(tree, n = 100, mat = mat, asb = asb, index = "PB_RW")
+# Plot the relative PB_RW of the first assemblage
+plot(rPB_RW[[1]])
+}
+\seealso{
+Other cumulative phylogenetic rates analysis: \code{\link[=CpD]{CpD()}}, \code{\link[=CpE]{CpE()}}, \code{\link[=CpB]{CpB()}}, \code{\link[=CpB_RW]{CpB_RW()}}
+}
+\author{
+Matheus Lima de Araujo \href{mailto:matheusaraujolima@live.com}{matheusaraujolima@live.com}
 }

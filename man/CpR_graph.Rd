@@ -2,13 +2,48 @@
 % Please edit documentation in R/CpR_graph.R
 \name{CpR_graph}
 \alias{CpR_graph}
-\title{Title}
+\title{Make a line graph or a grid map of estimated rates of accumulation of a given phylogenetic index.}
 \usage{
 CpR_graph(data, rate = NULL, map = NULL, pal = NULL, qtl = FALSE)
 }
 \arguments{
-\item{qtl}{}
+\item{data}{data frame. The outputted data frame from a CpR-rate function.}
+
+\item{rate}{character string. The desired cumulative phylogenetic rate to plot, which can be phylogenetic diversity (CpD), phylogenetic endemism (CpE), phylogenetic B-diversity (CpB), or phylogenetic B-diversity range-weighted (CpB_RW). Default is NULL, but must be filled with "CpD", "CPE", "CpB", or "CpB_RW".}
+
+\item{map}{spatial data. A grid map containing the assemblages at which the phylogenetic rates were assessed. Default is NULL.}
+
+\item{pal}{character vector. A vector containing a color palette. If none provided, a default color palette will be used.}
+
+\item{qtl}{boolean. Should the color palette be displayed according to CpR-rates quantiles? It can be either TRUE or FALSE. Default is FALSE.}
+}
+\value{
+The function returns a ggplot graph.
 }
 \description{
-Title
+This function creates a line graph, or a grid map, depicting the estimated rates of accumulation of a given phylogenetic index (e.g., phylogenetic diversity, endemism, etc.), obtained from functions such as \code{\link[=CpD]{CpD()}}, \code{\link[=CpE]{CpE()}}, \code{\link[=CpB]{CpB()}}, or \code{\link[=CpB_RW]{CpB_RW()}}.
+}
+\examples{
+# Generate a random tree
+tree <- ape::rcoal(20)
+
+# Create a presence-absence matrix
+mat <- matrix(sample(c(1,0), 20*10, replace = T), ncol = 20, nrow = 10)
+colnames(mat) <- tree$tip.label
+
+# Calculate the CpD for 100 tree slices
+CpD_DF <- CpD(tree, n = 100, mat = mat)
+
+Plot it using the CpR_graph
+CpR_graph(CpD_DF, rate = "CpD")
+}
+\references{
+See the tutorial on how to use this function on our \href{https://araujomat.github.io/treesliceR/articles/Passeriformes-diversification.html}{website}.
+}
+\seealso{
+Other cumulative phylogenetic rate analysis: \code{\link[=CpD]{CpD()}}, \code{\link[=CpE]{CpE()}}, \code{\link[=CpB]{CpB()}}, \code{\link[=CpB_RW]{CpB_RW()}}, \code{\link[=CpR_sensitivity]{CpR_sensitivity()}}
+Other plotting: \code{\link[=CpR_sensitivity_plot]{CpR_sensitivity_plot()}}.
+}
+\author{
+Matheus Lima de Araujo \href{mailto:matheusaraujolima@live.com}{matheusaraujolima@live.com}
 }
