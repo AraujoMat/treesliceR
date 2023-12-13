@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">treesliceR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -106,30 +106,42 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate the CpD for 100 tree slices</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="CpD.html">CpD</a></span><span class="op">(</span><span class="va">tree</span>, n <span class="op">=</span> <span class="fl">100</span>, mat <span class="op">=</span> <span class="va">mat</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0186749013009003 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0119965351435566 million of years.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         CpD       PD      pDO</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.180692 5.054549 2.537267</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.244812 5.410030 2.406574</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.187614 5.178609 2.522480</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.172983 5.046654 2.553943</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.193666 5.124701 2.509691</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.235691 5.286508 2.424337</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.189077 5.181085 2.519376</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.188921 5.164462 2.519706</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1.219745 5.307273 2.456031</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.226396 5.332592 2.442712</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.808227 4.420537 1.656723</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.867265 4.571199 1.604342</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2.180424 3.453036 1.373922</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.702050 4.584076 1.760073</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.847521 4.540374 1.621487</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.907172 5.242318 1.570772</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.963533 4.843858 1.525685</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.874259 5.188012 1.598355</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2.011417 5.571853 1.489364</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.842021 4.488113 1.626329</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create a vector of number of slices</span></span></span>
 <span class="r-in"><span><span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">50</span>, <span class="fl">75</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate the sensitivity of the CpD</span></span></span>
 <span class="r-in"><span><span class="va">Sens_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="CpR_sensitivity.html">CpR_sensitivity</a></span><span class="op">(</span><span class="va">tree</span>, <span class="va">vec</span>, <span class="va">mat</span>, rate <span class="op">=</span> <span class="st">"CpD"</span>, samp <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 25 number of pieces inputted equals to intervals of 0.0746996052036011 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 50 number of pieces inputted equals to intervals of 0.0373498026018006 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 75 number of pieces inputted equals to intervals of 0.0248998684012004 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0186749013009003 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 125 number of pieces inputted equals to intervals of 0.0149399210407202 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 150 number of pieces inputted equals to intervals of 0.0124499342006002 million of years.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing the species in presence abscence matrix without any occurrence</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing tips from phylogeny that are absent on species matrix</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 25 number of pieces inputted equals to intervals of 0.0479861405742263 million of years.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing the species in presence abscence matrix without any occurrence</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing tips from phylogeny that are absent on species matrix</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 50 number of pieces inputted equals to intervals of 0.0239930702871132 million of years.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing the species in presence abscence matrix without any occurrence</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing tips from phylogeny that are absent on species matrix</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 75 number of pieces inputted equals to intervals of 0.0159953801914088 million of years.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing the species in presence abscence matrix without any occurrence</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing tips from phylogeny that are absent on species matrix</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0119965351435566 million of years.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing the species in presence abscence matrix without any occurrence</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing tips from phylogeny that are absent on species matrix</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 125 number of pieces inputted equals to intervals of 0.00959722811484527 million of years.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing the species in presence abscence matrix without any occurrence</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing tips from phylogeny that are absent on species matrix</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 150 number of pieces inputted equals to intervals of 0.00799769009570439 million of years.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot the sensitity analysis</span></span></span>
 <span class="r-in"><span><span class="fu">CpR_sensitivity_plot</span><span class="op">(</span><span class="va">Sens_out</span>, rate <span class="op">=</span> <span class="st">"CpD"</span>, stc <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span></span></span>
