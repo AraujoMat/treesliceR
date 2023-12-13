@@ -1,8 +1,8 @@
 Package: treesliceR
-Title: A Toolbox to Slice Phylogenies and Infer Phylogenetic Patterns Over Time
+Title: To Slice Phylogenies and Infer Phylogenetic Patterns Over Time
 Version: 0.0.0.9000
 Authors@R: 
-    c(person("Matheus Lima", "Araujo", , "matheusaraujolima@live.com", role = c("aut", "cre"),
+    c(person("Matheus Lima", "Araujo", , "matheusaraujolima@live.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-9111-725X")),
            person("Luiz Gabriel Souza e Souza", "Ferreira", , "luizferreira@discente.ufg.br", role = "aut",
            comment = c(ORCID = "0009-0002-5881-9791")),
@@ -17,10 +17,10 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-URL: https://github.com/AraujoTheus/treesliceR, https://araujotheus.github.io/treesliceR/, https://araujomat.github.io/treesliceR/
+URL: https://github.com/AraujoMat/treesliceR, https://araujomat.github.io/treesliceR/
 Depends: 
     R (>= 2.10)
-BugReports: https://github.com/AraujoTheus/treesliceR/issues
+BugReports: https://github.com/AraujoMat/treesliceR/issues
 Imports: 
     ape (>= 5.7-1),
     doParallel (>= 1.0.17),
@@ -33,5 +33,7 @@ Suggests:
     devtools,
     ggpubr (>= 0.6.0),
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
+Config/testthat/edition: 3
