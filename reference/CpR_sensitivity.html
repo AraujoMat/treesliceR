@@ -141,36 +141,36 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate the CpD for 100 tree slices</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="CpD.html">CpD</a></span><span class="op">(</span><span class="va">tree</span>, n <span class="op">=</span> <span class="fl">100</span>, mat <span class="op">=</span> <span class="va">mat</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0179704451491442 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         CpD       PD      pDO</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.130915 6.741136 2.648945</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.120785 6.680011 2.672888</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.101145 6.581985 2.720561</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.134612 6.762121 2.640315</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.122760 6.696750 2.668185</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.157098 6.896647 2.589005</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.085888 6.488767 2.758785</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.256184 2.655642 2.384789</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1.109230 6.626015 2.700732</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.025637 6.162598 2.920850</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0243936574764127 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          CpD       PD      pDO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.9072370 6.555791 3.302039</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.7421135 5.457242 4.036757</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.7101807 5.251691 4.218268</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.8498157 6.167115 3.525155</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.8204947 5.974882 3.651129</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.8807721 6.373152 3.401257</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  0.8081785 5.880911 3.706771</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  0.9486198 6.827307 3.157991</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  0.9903944 3.558286 3.024787</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.7445988 5.488979 4.023284</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create a vector of number of slices</span></span></span>
 <span class="r-in"><span><span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">50</span>, <span class="fl">75</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate the sensitivity of the CpD</span></span></span>
 <span class="r-in"><span><span class="fu">CpR_sensitivity</span><span class="op">(</span><span class="va">tree</span>, <span class="va">vec</span>, <span class="va">mat</span>, rate <span class="op">=</span> <span class="st">"CpD"</span>, samp <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 25 number of pieces inputted equals to intervals of 0.0718817805965768 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 50 number of pieces inputted equals to intervals of 0.0359408902982884 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 75 number of pieces inputted equals to intervals of 0.0239605935321923 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0179704451491442 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 125 number of pieces inputted equals to intervals of 0.0143763561193154 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 150 number of pieces inputted equals to intervals of 0.0119802967660961 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          25       50       75      100      125      150</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.0070869 1.058944 1.076842 1.085888 1.091366 1.095031</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1.0518243 1.106299 1.125120 1.134612 1.140360 1.144212</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 1.0208777 1.073705 1.091942 1.101145 1.106725 1.110459</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.9513433 1.000189 1.017090 1.025637 1.030811 1.034278</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 1.0483648 1.102701 1.121438 1.130915 1.136644 1.140482</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 25 number of pieces inputted equals to intervals of 0.0975746299056507 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 50 number of pieces inputted equals to intervals of 0.0487873149528254 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 75 number of pieces inputted equals to intervals of 0.0325248766352169 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0243936574764127 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 125 number of pieces inputted equals to intervals of 0.0195149259811301 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 150 number of pieces inputted equals to intervals of 0.0162624383176085 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          25        50        75       100       125       150</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.8171336 0.8590962 0.8735125 0.8807721 0.8851634 0.8880900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.9154986 0.9649226 0.9818869 0.9903944 0.9955431 0.9989678</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.6914391 0.7264182 0.7384960 0.7445988 0.7482916 0.7507600</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.7507921 0.7886579 0.8016538 0.8081785 0.8121261 0.8147677</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.8783677 0.9247309 0.9406318 0.9486198 0.9534567 0.9566777</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
