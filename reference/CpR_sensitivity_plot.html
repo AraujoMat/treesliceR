@@ -106,30 +106,30 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate the CpD for 100 tree slices</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="CpD.html">CpD</a></span><span class="op">(</span><span class="va">tree</span>, n <span class="op">=</span> <span class="fl">100</span>, mat <span class="op">=</span> <span class="va">mat</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0210670350122515 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0470183942490027 million of years.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          CpD       PD      pDO</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.0833376 8.510428 2.765281</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.0285978 8.060512 2.912443</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.8074771 4.466854 3.709991</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.0062858 7.543456 2.977019</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.0172532 7.974616 2.944923</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.0319391 8.084189 2.903013</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.0023515 7.794724 2.988704</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.0536763 8.286945 2.843124</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1.0145632 7.954923 2.952731</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.0409098 8.153207 2.877994</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.4333967 11.82242 6.912217</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.3725704 10.22836 8.040714</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.4048082 11.11113 7.400375</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.4135622 11.32103 7.243728</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.4447296 12.09665 6.736076</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.4376315 11.92468 6.845331</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  0.4213933 11.50960 7.109112</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  0.4377671 11.92798 6.843210</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  0.4293349 11.72444 6.977612</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.4367837 11.90424 6.858618</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create a vector of number of slices</span></span></span>
 <span class="r-in"><span><span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">50</span>, <span class="fl">75</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate the sensitivity of the CpD</span></span></span>
 <span class="r-in"><span><span class="va">Sens_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="CpR_sensitivity.html">CpR_sensitivity</a></span><span class="op">(</span><span class="va">tree</span>, <span class="va">vec</span>, <span class="va">mat</span>, rate <span class="op">=</span> <span class="st">"CpD"</span>, samp <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 25 number of pieces inputted equals to intervals of 0.084268140049006 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 50 number of pieces inputted equals to intervals of 0.042134070024503 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 75 number of pieces inputted equals to intervals of 0.0280893800163353 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0210670350122515 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 125 number of pieces inputted equals to intervals of 0.0168536280098012 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 150 number of pieces inputted equals to intervals of 0.0140446900081677 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 25 number of pieces inputted equals to intervals of 0.188073576996011 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 50 number of pieces inputted equals to intervals of 0.0940367884980055 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 75 number of pieces inputted equals to intervals of 0.0626911923320037 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0470183942490027 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 125 number of pieces inputted equals to intervals of 0.0376147153992022 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 150 number of pieces inputted equals to intervals of 0.0313455961660018 million of years.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot the sensitity analysis</span></span></span>
 <span class="r-in"><span><span class="fu">CpR_sensitivity_plot</span><span class="op">(</span><span class="va">Sens_out</span>, rate <span class="op">=</span> <span class="st">"CpD"</span>, stc <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span></span></span>
