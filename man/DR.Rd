@@ -25,7 +25,7 @@ DR(tree)
 }
 \references{
 See the tutorial on how to use this function on our \href{https://araujomat.github.io/treesliceR/articles/Passeriformes-diversification.html}{website}.
-Jetz, Walter, et al. "The global diversity of birds in space and time." Nature 491.7424 (2012): 444-448. https://doi.org/10.1038/nature11631
+Jetz, Walter, et al. "The global diversity of birds in space and time." Nature 491.7424 (2012): 444-448. \url{doi:10.1038/nature11631}
 }
 \author{
 Matheus Lima de Araujo \href{mailto:matheusaraujolima@live.com}{matheusaraujolima@live.com}

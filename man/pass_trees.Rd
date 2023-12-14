@@ -8,7 +8,7 @@
 List of phylogenetic trees of format phylo
 }
 \source{
-\url{https://doi.org/10.1038/nature11631}
+\url{doi:10.1038/nature11631}
 }
 \usage{
 pass_trees
