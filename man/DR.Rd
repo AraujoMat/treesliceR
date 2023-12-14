@@ -13,7 +13,7 @@ DR(tree)
 The function returns a data frame containing the tip diversification rates for all species within the inputted phylogenetic tree.
 }
 \description{
-This function computes the tip diversification rates (\href{https://doi.org/10.1038/nature11631}{Jetz et al., 2012}), or DR, for an inputted ultrametric phylogenetic tree.
+This function computes the tip diversification rates Jetz et al., 2012, or DR, for an inputted ultrametric phylogenetic tree.
 }
 \examples{
 # Generate a random tree

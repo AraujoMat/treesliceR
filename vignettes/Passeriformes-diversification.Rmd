@@ -103,7 +103,7 @@ fam_df <- fam_df[order(fam_df$DR_diff),]
 fam_df$Family <- factor(fam_df$Family, levels = fam_df$Family)
 ```
 
-Now, we can create a graph similar to the one displayed in [Araujo et al. (in review)]() using the `ggplot2` package:
+Now, we can create a graph similar to the one displayed in Araujo et al. (in review) using the `ggplot2` package:
 ```{r, eval = FALSE}
 ggplot(fam_df, aes(x = Family, y = DR_diff,
                     ymin = DR_diff - DR_sd,
@@ -122,7 +122,7 @@ ggplot(fam_df, aes(x = Family, y = DR_diff,
 knitr::include_graphics("OneTree_DR.png")
 ```
 
-Notice that the final output is slightly different from what was observed in [Araujo et al. (in review)](). However, remember that here we executed the analysis only for a single passerine phylogeny. A more comprehensive assessment using all phylogenies could be carried out in the sections below (for example in the section "*2. Passerines study for multiple phylogenies*"). 
+Notice that the final output is slightly different from what was observed in Araujo et al. (in review). However, remember that here we executed the analysis only for a single passerine phylogeny. A more comprehensive assessment using all phylogenies could be carried out in the sections below (for example in the section "*2. Passerines study for multiple phylogenies*"). 
 
 
 ## 1.2. Second framework example

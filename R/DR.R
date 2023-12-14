@@ -1,6 +1,6 @@
 #' Calculate the tip diversification rates (DR) for a phylogenetic tree
 #' @description
-#' This function computes the tip diversification rates ([Jetz et al., 2012](https://doi.org/10.1038/nature11631)), or DR, for an inputted ultrametric phylogenetic tree.
+#' This function computes the tip diversification rates Jetz et al., 2012, or DR, for an inputted ultrametric phylogenetic tree.
 #'
 #' @usage DR(tree)
 #'
