@@ -1,3 +1,3 @@
-# treesliceR (development version)
+# treesliceR 1.0.0
 
 * Initial CRAN submission.
