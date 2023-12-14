@@ -141,48 +141,36 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate the CpD for 100 tree slices</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="CpD.html">CpD</a></span><span class="op">(</span><span class="va">tree</span>, n <span class="op">=</span> <span class="fl">100</span>, mat <span class="op">=</span> <span class="va">mat</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0263310522960983 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          CpD       PD      pDO</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.7882466 8.183425 3.800501</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.6913620 5.931629 4.333088</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.7736495 6.545695 3.872208</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.7336787 6.246881 4.083166</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.7721959 6.544228 3.879498</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.8101886 8.403837 3.697574</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  0.7905440 8.206444 3.789457</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  0.7266025 6.194107 4.122931</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  0.6965534 5.969925 4.300793</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.8058163 3.406904 3.717637</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0179704451491442 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         CpD       PD      pDO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.130915 6.741136 2.648945</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.120785 6.680011 2.672888</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.101145 6.581985 2.720561</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.134612 6.762121 2.640315</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.122760 6.696750 2.668185</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.157098 6.896647 2.589005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.085888 6.488767 2.758785</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.256184 2.655642 2.384789</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1.109230 6.626015 2.700732</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.025637 6.162598 2.920850</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create a vector of number of slices</span></span></span>
 <span class="r-in"><span><span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">50</span>, <span class="fl">75</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate the sensitivity of the CpD</span></span></span>
 <span class="r-in"><span><span class="fu">CpR_sensitivity</span><span class="op">(</span><span class="va">tree</span>, <span class="va">vec</span>, <span class="va">mat</span>, rate <span class="op">=</span> <span class="st">"CpD"</span>, samp <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing the species in presence abscence matrix without any occurrence</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing tips from phylogeny that are absent on species matrix</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 25 number of pieces inputted equals to intervals of 0.105324209184393 million of years.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing the species in presence abscence matrix without any occurrence</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing tips from phylogeny that are absent on species matrix</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 50 number of pieces inputted equals to intervals of 0.0526621045921966 million of years.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing the species in presence abscence matrix without any occurrence</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing tips from phylogeny that are absent on species matrix</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 75 number of pieces inputted equals to intervals of 0.0351080697281311 million of years.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing the species in presence abscence matrix without any occurrence</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing tips from phylogeny that are absent on species matrix</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0263310522960983 million of years.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing the species in presence abscence matrix without any occurrence</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing tips from phylogeny that are absent on species matrix</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 125 number of pieces inputted equals to intervals of 0.0210648418368786 million of years.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing the species in presence abscence matrix without any occurrence</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing tips from phylogeny that are absent on species matrix</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 150 number of pieces inputted equals to intervals of 0.0175540348640655 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          25        50        75       100       125       150</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.7185458 0.7549336 0.7673516 0.7736495 0.7774250 0.7799595</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.7305754 0.7685558 0.7816168 0.7882466 0.7922241 0.7948983</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.7473465 0.7859868 0.7991274 0.8058163 0.8098093 0.8124986</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.6470157 0.6796445 0.6908655 0.6965534 0.6999779 0.7022734</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.7326354 0.7707831 0.7838899 0.7905440 0.7945393 0.7972256</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 25 number of pieces inputted equals to intervals of 0.0718817805965768 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 50 number of pieces inputted equals to intervals of 0.0359408902982884 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 75 number of pieces inputted equals to intervals of 0.0239605935321923 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0179704451491442 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 125 number of pieces inputted equals to intervals of 0.0143763561193154 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt; The 150 number of pieces inputted equals to intervals of 0.0119802967660961 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          25       50       75      100      125      150</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.0070869 1.058944 1.076842 1.085888 1.091366 1.095031</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1.0518243 1.106299 1.125120 1.134612 1.140360 1.144212</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 1.0208777 1.073705 1.091942 1.101145 1.106725 1.110459</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.9513433 1.000189 1.017090 1.025637 1.030811 1.034278</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 1.0483648 1.102701 1.121438 1.130915 1.136644 1.140482</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
