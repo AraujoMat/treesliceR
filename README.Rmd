@@ -76,4 +76,4 @@ To learn about various ways to use and solve problems using **treesliceR**, you 
 
 Encountering issues with certain **treesliceR** functions on your computer? Please report these bugs with a minimal reproducible example on the package's [GitHub](https://github.com/AraujoMat/treesliceR/issues) page. If you have suggestions for improving our algorithms, don't hesitate to submit your ideas through pull requests.
 
-If you have intriguing ideas for exploring phylogenetic information temporally, please feel free to contact us via email at: *matheusaraujolima@live.com*. You can track our commit updates and version controls directly on [GitHub](https://github.com/AraujoMat/treesliceR/commits/), or for a more amusing experience, check them out [here](https://starlogs.dev/AraujoMat/treesliceR).
+If you have intriguing ideas for exploring phylogenetic information temporally, please feel free to contact us via email at: *matheusaraujolima@live.com*. You can track our commit updates and version controls directly on [GitHub](https://github.com/AraujoMat/treesliceR/commits/).

@@ -12,7 +12,7 @@
 #'
 #' @references
 #' See the tutorial on how to use this function on our [website](https://araujomat.github.io/treesliceR/articles/Passeriformes-diversification.html).
-#' Jetz, Walter, et al. "The global diversity of birds in space and time." Nature 491.7424 (2012): 444-448. https://doi.org/10.1038/nature11631
+#' Jetz, Walter, et al. "The global diversity of birds in space and time." Nature 491.7424 (2012): 444-448. <doi:10.1038/nature11631>
 #'
 #' @examples
 #' # Generate a random tree

@@ -156,6 +156,4 @@ If you have intriguing ideas for exploring phylogenetic information
 temporally, please feel free to contact us via email at:
 *<matheusaraujolima@live.com>*. You can track our commit updates and
 version controls directly on
-[GitHub](https://github.com/AraujoMat/treesliceR/commits/), or for a
-more amusing experience, check them out
-[here](https://starlogs.dev/AraujoMat/treesliceR).
+[GitHub](https://github.com/AraujoMat/treesliceR/commits/).

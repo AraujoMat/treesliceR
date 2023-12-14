@@ -27,8 +27,8 @@ test_that("Squeeze int correctly slices the trees using criteria = my", {
   ## Doing the same for squeezes based on "my"
   # Initialize lists to store results
   squeeze_results <- vector("list", length = num_phylogenies)
-  from <- runif(20, min = 0.31, max = 0.5)
-  to <- runif(20, min = 0.1, max = 0.3)
+  from <- runif(20, min = 0.21, max = 0.3)
+  to <- runif(20, min = 0.1, max = 0.2)
   expected_v <- list()
 
   # Squeezing the tree and getting the size of the squeeze
