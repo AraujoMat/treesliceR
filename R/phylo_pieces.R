@@ -53,7 +53,7 @@ phylo_pieces <- function(tree, n, criteria = "my", method = 1,
         n <- tree$tree_depth/nslices
 
         # Printing the threshold choose
-        cat(paste("> The", nslices, "number of pieces inputted equals to intervals of",
+        message(paste("> The", nslices, "number of pieces inputted equals to intervals of",
                   n, "million of years.\n"))
       }
 
@@ -86,7 +86,7 @@ phylo_pieces <- function(tree, n, criteria = "my", method = 1,
         }
 
         # Printing the threshold choose
-        cat(paste("> The number of pieces was rounded to", tree$tree_depth/n,
+        message(paste("> The number of pieces was rounded to", tree$tree_depth/n,
                   ", with intervals of", n, "million of years.\n"))
       }
     }
@@ -177,7 +177,7 @@ phylo_pieces <- function(tree, n, criteria = "my", method = 1,
         n <- sum(tree$edge.length)/nslices
 
         # Printing the threshold choose
-        cat(paste("> The", nslices, "number of pieces inputted equals to intervals of",
+        message(paste("> The", nslices, "number of pieces inputted equals to intervals of",
                   n, "phylogenetic diversity (PD).\n"))
       }
     }
@@ -208,7 +208,7 @@ phylo_pieces <- function(tree, n, criteria = "my", method = 1,
         }
 
         # Printing the threshold choose
-        cat(paste("> The number of pieces was rounded to", sum(tree$edge.length)/n,
+        message(paste("> The number of pieces was rounded to", sum(tree$edge.length)/n,
                   ", with intervals of", n, "phylogenetic diversity (PD).\n"))
       }
     }

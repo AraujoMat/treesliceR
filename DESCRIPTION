@@ -1,5 +1,5 @@
 Package: treesliceR
-Title: To Slice 'Phylogenetic trees' and Infer Evolutionary Patterns Over Time
+Title: To Slice Phylogenetic Trees and Infer Evolutionary Patterns Over Time
 Version: 1.0.0
 Authors@R: 
     c(person("Matheus Lima", "Araujo", , "matheusaraujolima@live.com", role = c("aut", "cre", "cph"),
@@ -12,7 +12,7 @@ Authors@R:
            comment = c(ORCID = "0000-0002-7831-3053")),
            person("Thiago Fernando", "Rangel", , "rangel.tf@gmail.com", role = "aut",
            comment = c(ORCID = "0000-0002-2001-7382")))
-Description: Provide a range of functions with multiple criteria for cutting 'phylogenetic trees' at any evolutionary depth. It enables users to cut trees in any orientation, such as 'rootwardly' (from root to tips) and 'tipwardly' (from tips to its root), or allows users to define a specific time interval of interest. It can also be used to crate multiple tree pieces of equal temporal width. Moreover, it allows the assessment of novel temporal rates for various 'phylogenetic indexes', which can be quickly displayed graphically.
+Description: Provide a range of functions with multiple criteria for cutting phylogenetic trees at any evolutionary depth. It enables users to cut trees in any orientation, such as rootwardly (from root to tips) and tipwardly (from tips to its root), or allows users to define a specific time interval of interest. It can also be used to crate multiple tree pieces of equal temporal width. Moreover, it allows the assessment of novel temporal rates for various phylogenetic indexes, which can be quickly displayed graphically.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

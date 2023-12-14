@@ -18,15 +18,7 @@ This article aims to map the species richness distributions of older and young l
 
 Before starting our analysis, we'll need to load the `ape`, `ggplot2`, and `ggpubr` packages. Additionally, if required, install the `devtools` before downloading the `treesliceR` package from GitHub:
 ```{r, message = FALSE, warning = FALSE}
-# Creating a list of our desired packages
-libs <- c("ape", "devtools", "ggplot2", "ggpubr")
-
-# Checking if they're installed
-if (!requireNamespace(libs, quietly = TRUE)){
-    install.packages(libs)
-}
-
-# Loading them
+# Loading the packages that we'll use
 library(ape)
 library(ggplot2)
 library(ggpubr)
@@ -34,11 +26,6 @@ library(ggpubr)
 
 Now, we'll need to load (and install if necessary) the `treesliceR` package:
 ```{r, message = FALSE, warning = FALSE}
-# Is it already present within the machine?
-if (!requireNamespace("treesliceR", quietly = TRUE)){
-    devtools::install_github("AraujoMat/treesliceR")
-}
-
 # Loading it
 library(treesliceR)
 ```
