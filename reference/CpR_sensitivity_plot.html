@@ -106,30 +106,42 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate the CpD for 100 tree slices</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="CpD.html">CpD</a></span><span class="op">(</span><span class="va">tree</span>, n <span class="op">=</span> <span class="fl">100</span>, mat <span class="op">=</span> <span class="va">mat</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.00846087286766513 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         CpD       PD       pDO</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2.753970 3.354818 1.0877867</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2.693529 2.557444 1.1121961</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2.842010 3.475447 1.0540891</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2.586942 3.103067 1.1580207</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2.478093 2.282476 1.2088863</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2.747170 3.299246 1.0904795</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2.981615 3.708730 1.0047348</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2.722864 3.272618 1.1002137</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  3.006059 3.805374 0.9965646</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2.797619 3.466580 1.0708150</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0138721154116202 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         CpD       PD      pDO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.738904 4.192875 1.722771</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.758254 4.466451 1.703811</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.687904 4.287317 1.774824</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.818970 4.706869 1.646939</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.935760 5.007997 1.547574</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.641513 4.199844 1.824982</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.867422 4.798781 1.604207</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.789647 4.621486 1.673923</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1.674782 4.297279 1.788729</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1.831885 4.759744 1.635328</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create a vector of number of slices</span></span></span>
 <span class="r-in"><span><span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">50</span>, <span class="fl">75</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate the sensitivity of the CpD</span></span></span>
 <span class="r-in"><span><span class="va">Sens_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="CpR_sensitivity.html">CpR_sensitivity</a></span><span class="op">(</span><span class="va">tree</span>, <span class="va">vec</span>, <span class="va">mat</span>, rate <span class="op">=</span> <span class="st">"CpD"</span>, samp <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 25 number of pieces inputted equals to intervals of 0.0338434914706605 million of years.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 50 number of pieces inputted equals to intervals of 0.0169217457353303 million of years.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 75 number of pieces inputted equals to intervals of 0.0112811638235535 million of years.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.00846087286766513 million of years.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 125 number of pieces inputted equals to intervals of 0.0067686982941321 million of years.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 150 number of pieces inputted equals to intervals of 0.00564058191177675 million of years.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing the species in presence abscence matrix without any occurrence</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing tips from phylogeny that are absent on species matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 25 number of pieces inputted equals to intervals of 0.0554884616464809 million of years.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing the species in presence abscence matrix without any occurrence</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing tips from phylogeny that are absent on species matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 50 number of pieces inputted equals to intervals of 0.0277442308232404 million of years.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing the species in presence abscence matrix without any occurrence</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing tips from phylogeny that are absent on species matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 75 number of pieces inputted equals to intervals of 0.0184961538821603 million of years.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing the species in presence abscence matrix without any occurrence</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing tips from phylogeny that are absent on species matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0138721154116202 million of years.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing the species in presence abscence matrix without any occurrence</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing tips from phylogeny that are absent on species matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 125 number of pieces inputted equals to intervals of 0.0110976923292962 million of years.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing the species in presence abscence matrix without any occurrence</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removing tips from phylogeny that are absent on species matrix</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 150 number of pieces inputted equals to intervals of 0.00924807694108015 million of years.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot the sensitity analysis</span></span></span>
 <span class="r-in"><span><span class="fu">CpR_sensitivity_plot</span><span class="op">(</span><span class="va">Sens_out</span>, rate <span class="op">=</span> <span class="st">"CpD"</span>, stc <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span></span></span>
