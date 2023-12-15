@@ -10,7 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.show = "hold"
 )
 ```
 
@@ -55,7 +56,7 @@ par(mfrow = c(1, 3)) # Setting an 1x3 graphical display
 plot(tree, main = "All species", show.tip.label = F); axisPhylo()
 plot(tree_pruned10, main = "Species older than 10my", show.tip.label = F); axisPhylo()
 plot(tree_pruned30, main = "Species older than 30my", show.tip.label = T); axisPhylo()
-par(mfrow = c(1, 1))
+par(mfrow = c(1, 1)) # Returning to a simple 1x1 display
 
 ```
 
@@ -71,7 +72,7 @@ par(mfrow = c(1, 3)) # Setting an 1x3 graphical display
 plot(tree, main = "All species", show.tip.label = F); axisPhylo()
 plot(tree_pruned10_inverse, main = "Species younger than 10my", show.tip.label = F); axisPhylo()
 plot(tree_pruned30_inverse, main = "Species younger than 30my", show.tip.label = F); axisPhylo()
-par(mfrow = c(1, 1))
+par(mfrow = c(1, 1)) # Returning to a simple 1x1 display
 ```
 
 ## 1.2. Prunning using depth quantiles
@@ -104,7 +105,7 @@ par(mfrow = c(1, 3)) # Setting an 1x3 graphical display
 plot(tree_squeeze10, main = "squeezed at 10my", show.tip.label = F); axisPhylo()
 plot(tree_squeeze30, main = "Squeezed at 30my", show.tip.label = F); axisPhylo()
 plot(tree_squeeze50, main = "Squeezed at 50my", show.tip.label = F); axisPhylo()
-par(mfrow = c(1, 1))
+par(mfrow = c(1, 1)) # Returning to a simple 1x1 display
 ```
 
 It is noteworthy that setting the `dropNodes` argument as TRUE (default is FALSE) alters the tree structure by removing nodes with no branch lengths from the original tree. We can check this out by typing:
@@ -128,7 +129,7 @@ tree_squeeze50 <- squeeze_tips(tree = tree, time = PD_total/2, criteria = "pd")
 par(mfrow = c(1, 2)) # Setting an 1x2 graphical display
 plot(tree_squeeze10, main = "Tree squeezed at 10% PD", show.tip.label = F); axisPhylo()
 plot(tree_squeeze50, main = "Tree squeezed at 50% PD", show.tip.label = F); axisPhylo()
-par(mfrow = c(1, 1))
+par(mfrow = c(1, 1)) # Returning to a simple 1x1 display
 ```
 
 ## 2.2. Slicing from the root to the tips
@@ -155,7 +156,7 @@ Let's check out the slice of the tree that was retained and compare it with the 
 par(mfrow = c(1, 2)) # Setting an 1x2 graphical display
 plot(tree, main = "Original tree", show.tip.label = F); axisPhylo()
 plot(tree_int, main = "Tree slice 10-30my", show.tip.label = F); axisPhylo()
-par(mfrow = c(1, 1))
+par(mfrow = c(1, 1)) # Returning to a simple 1x1 display
 ```
 
 Again, it is essential to note that the absolute depths of the tree will change, but the internal branch lengths will remain the same as the original values (except for the ones that were sliced).
