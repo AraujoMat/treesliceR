@@ -138,10 +138,9 @@ our quantile threshold, we will set the argument <code>method = 2</code>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># Setting an 1x3 graphical display</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">older</span>, main <span class="op">=</span> <span class="st">"All species"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">older</span>, main <span class="op">=</span> <span class="st">"Older species"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">younger</span>, main <span class="op">=</span> <span class="st">"Younger species"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">younger</span>, main <span class="op">=</span> <span class="st">"Younger species"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># Returning to a simple 1x1 display</span></span></code></pre></div>
 <p><img src="Passeriformes-distribution_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># Returning to 1x1</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="distribution-of-species-richness-older-vs-younger">2. Distribution of species richness (older <em>vs</em> younger)<a class="anchor" aria-label="anchor" href="#distribution-of-species-richness-older-vs-younger"></a>
@@ -149,14 +148,14 @@ our quantile threshold, we will set the argument <code>method = 2</code>
 <p>Before calculating the species richness in each one of our categories
 (young and old lineages), we need to identify the older and younger
 species present in the pruned phylogenies:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">older</span> <span class="op">&lt;-</span> <span class="va">older</span><span class="op">$</span><span class="va">tip.label</span></span>
 <span><span class="va">younger</span> <span class="op">&lt;-</span> <span class="va">younger</span><span class="op">$</span><span class="va">tip.label</span></span></code></pre></div>
 <p>Now, we need to evaluate the distribution of these species. To do
 this, we’ll load the passerines species occurrence matrix in the
 <code>pass_mat</code> object. Let’s take a look at the first tree
 species in the matrix:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pass_mat</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   Heteromyias_albispecularis Myzomela_obscura Taeniopygia_guttata</span></span>
 <span><span class="co">#&gt; 1                          0                1                   0</span></span>
@@ -167,22 +166,22 @@ species in the matrix:</p>
 <span><span class="co">#&gt; 6                          0                1                   0</span></span></code></pre></div>
 <p>Then, we can create subsets of this matrix for both older and younger
 species. Let’s begin with the older ones:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">pass_mat</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">older</span><span class="op">)</span></span>
 <span><span class="va">old_mat</span> <span class="op">&lt;-</span> <span class="va">pass_mat</span><span class="op">[</span>, <span class="va">positions</span><span class="op">]</span></span></code></pre></div>
 <p>Now, let’s proceed by subsetting assemblages that contain the younger
 species:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">positions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">pass_mat</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">younger</span><span class="op">)</span></span>
 <span><span class="va">yng_mat</span> <span class="op">&lt;-</span> <span class="va">pass_mat</span><span class="op">[</span>, <span class="va">positions</span><span class="op">]</span></span></code></pre></div>
 <p>Now, we can load a grid map of Australia and merge species richness
 information from young and old species onto it:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="va">AU_grid</span></span>
 <span><span class="va">grid</span><span class="op">$</span><span class="va">SR_old</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">old_mat</span><span class="op">)</span></span>
 <span><span class="va">grid</span><span class="op">$</span><span class="va">SR_yng</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">yng_mat</span><span class="op">)</span></span></code></pre></div>
 <p>Then, visualize the species richness patterns in both categories:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Younger</span></span>
 <span><span class="va">AU_yng</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>          <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">grid</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">SR_yng</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -206,10 +205,10 @@ information from young and old species onto it:</p>
 species richness of younger and older lineages. However, the extent of
 is this relationship is uncertain. Let’s fit a simple linear regression
 to quantify this relationship:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">SR_yng</span> <span class="op">~</span> <span class="va">SR_old</span>, data <span class="op">=</span> <span class="va">grid</span><span class="op">)</span></span></code></pre></div>
 <p>Now, let’s examine the summarized results:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Call:</span></span>
@@ -237,7 +236,7 @@ concurrently influencing the patterns of species richness of lineages of
 different depths.</p>
 <p>Let’s dive a bit more into this example and examine a scatterplot
 depicting the species richness of both categories:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">SR_yng</span> <span class="op">~</span> <span class="va">SR_old</span>, data <span class="op">=</span> <span class="va">grid</span>,</span>
 <span>     ylab <span class="op">=</span> <span class="st">"Species richness (younger)"</span>,</span>
 <span>     xlab <span class="op">=</span> <span class="st">"Species richness (older)"</span><span class="op">)</span></span>
@@ -251,7 +250,7 @@ influencing the currently observed species richness of these
 lineages.</p>
 <p>Therefore, let’s quantify the magnitude of these deviations from our
 model using the <code>residuals</code> function and spatialize them:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">grid</span><span class="op">$</span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
 <span><span class="co"># Mapping it</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
