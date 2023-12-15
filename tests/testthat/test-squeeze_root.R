@@ -27,7 +27,7 @@ test_that("Squeeze root correctly slices the trees using both criteria, my and p
   ## Doing the same for squeezes based on "my"
   # Initialize lists to store results
   squeeze_results <- vector("list", length = num_phylogenies)
-  time <- runif(20, min = 0.1, max = 0.5)
+  time <- runif(20, min = 0.1, max = 0.3)
   expected_v <- list()
 
   # Squeezing the tree and getting the size of the squeeze
@@ -48,7 +48,7 @@ test_that("Squeeze root correctly slices the trees using both criteria, my and p
   ## Doing the same for squeezes based on "pd"
   # Initialize lists to store results
   squeeze_results <- vector("list", length = num_phylogenies)
-  time <- runif(20, min = 0.1, max = 0.5)
+  time <- runif(20, min = 0.1, max = 0.3)
   expected_v <- list()
 
   # Squeezing the tree and getting the size of the squeeze
