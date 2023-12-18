@@ -103,68 +103,68 @@ YearEnd: the year at which a given node ends.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Accessing these informations</span></span></span>
 <span class="r-in"><span><span class="va">tree</span><span class="op">$</span><span class="va">config</span> <span class="co"># Nodes configurations</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    NodeBegin NodeEnd  NodeLength  YearBegin    YearEnd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32        21      32 0.455029660 0.00000000 0.45502966</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         32       1 0.133202203 0.45502966 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2         32       2 0.133202203 0.45502966 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22        21      22 0.029274637 0.00000000 0.02927464</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26        22      26 0.259406105 0.02927464 0.28868074</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3         26       3 0.299551121 0.28868074 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35        26      35 0.232881637 0.28868074 0.52156238</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39        35      39 0.060092842 0.52156238 0.58165522</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4         39       4 0.006576642 0.58165522 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5         39       5 0.006576642 0.58165522 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6         35       6 0.066669484 0.52156238 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23        22      23 0.103914413 0.02927464 0.13318905</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24        23      24 0.127454203 0.13318905 0.26064325</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25        24      25 0.021428084 0.26064325 0.28207134</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27        25      27 0.024523833 0.28207134 0.30659517</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36        27      36 0.242226655 0.30659517 0.54882183</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7         36       7 0.039410038 0.54882183 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8         36       8 0.039410038 0.54882183 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31        27      31 0.129941468 0.30659517 0.43653664</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9         31       9 0.151695225 0.43653664 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38        31      38 0.135310385 0.43653664 0.57184702</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        38      10 0.016384840 0.57184702 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        38      11 0.016384840 0.57184702 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37        25      37 0.281580630 0.28207134 0.56365197</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        37      12 0.024579896 0.56365197 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13        37      13 0.024579896 0.56365197 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28        24      28 0.098825397 0.26064325 0.35946865</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33        28      33 0.121408294 0.35946865 0.48087694</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14        33      14 0.107354919 0.48087694 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15        33      15 0.107354919 0.48087694 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16        28      16 0.228763213 0.35946865 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29        23      29 0.249229143 0.13318905 0.38241819</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17        29      17 0.205813670 0.38241819 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30        29      30 0.041102994 0.38241819 0.42352119</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34        30      34 0.067659732 0.42352119 0.49118092</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18        34      18 0.097050944 0.49118092 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19        34      19 0.097050944 0.49118092 0.58823186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20        30      20 0.164710676 0.42352119 0.58823186</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    NodeBegin NodeEnd  NodeLength YearBegin   YearEnd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22        21      22 0.617640748 0.0000000 0.6176407</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25        22      25 0.157334044 0.6176407 0.7749748</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         25       1 0.204146352 0.7749748 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         25       2 0.204146352 0.7749748 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23        22      23 0.018296451 0.6176407 0.6359372</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24        23      24 0.069323239 0.6359372 0.7052604</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27        24      27 0.192162111 0.7052604 0.8974225</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         27       3 0.081698595 0.8974225 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39        27      39 0.078959622 0.8974225 0.9763822</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         39       4 0.002738973 0.9763822 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         39       5 0.002738973 0.9763822 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26        24      26 0.129976586 0.7052604 0.8352370</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28        26      28 0.066042397 0.8352370 0.9012794</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29        28      29 0.007943484 0.9012794 0.9092229</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30        29      30 0.015505347 0.9092229 0.9247283</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35        30      35 0.016299087 0.9247283 0.9410273</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         35       6 0.038093805 0.9410273 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         35       7 0.038093805 0.9410273 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32        30      32 0.008205995 0.9247283 0.9329342</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38        32      38 0.036544749 0.9329342 0.9694790</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         38       8 0.009642149 0.9694790 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         38       9 0.009642149 0.9694790 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        32      10 0.046186898 0.9329342 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33        29      33 0.024474487 0.9092229 0.9336974</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        33      11 0.045423752 0.9336974 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        33      12 0.045423752 0.9336974 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        28      13 0.077841723 0.9012794 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        26      14 0.143884120 0.8352370 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        23      15 0.343183945 0.6359372 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31        21      31 0.931033671 0.0000000 0.9310337</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16        31      16 0.048087472 0.9310337 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34        31      34 0.004884117 0.9310337 0.9359178</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36        34      36 0.007943472 0.9359178 0.9438613</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37        36      37 0.010105252 0.9438613 0.9539665</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17        37      17 0.025154631 0.9539665 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18        37      18 0.025154631 0.9539665 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19        36      19 0.035259884 0.9438613 0.9791211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20        34      20 0.043203356 0.9359178 0.9791211</span>
 <span class="r-in"><span><span class="va">tree</span><span class="op">$</span><span class="va">node_matrix</span> <span class="co"># Node matrix</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    t8 t13 t11 t6 t7 t3 t17 t9 t15 t16 t5 t1 t2 t19 t14 t12 t4 t18 t20 t10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21  1   1   1  1  1  1   1  1   1   1  1  1  1   1   1   1  1   1   1   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32  1   1   0  0  0  0   0  0   0   0  0  0  0   0   0   0  0   0   0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22  0   0   1  1  1  1   1  1   1   1  1  1  1   1   1   1  1   1   1   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26  0   0   1  1  1  1   0  0   0   0  0  0  0   0   0   0  0   0   0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35  0   0   0  1  1  1   0  0   0   0  0  0  0   0   0   0  0   0   0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39  0   0   0  1  1  0   0  0   0   0  0  0  0   0   0   0  0   0   0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23  0   0   0  0  0  0   1  1   1   1  1  1  1   1   1   1  1   1   1   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24  0   0   0  0  0  0   1  1   1   1  1  1  1   1   1   1  0   0   0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25  0   0   0  0  0  0   1  1   1   1  1  1  1   0   0   0  0   0   0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27  0   0   0  0  0  0   1  1   1   1  1  0  0   0   0   0  0   0   0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36  0   0   0  0  0  0   1  1   0   0  0  0  0   0   0   0  0   0   0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31  0   0   0  0  0  0   0  0   1   1  1  0  0   0   0   0  0   0   0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38  0   0   0  0  0  0   0  0   0   1  1  0  0   0   0   0  0   0   0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37  0   0   0  0  0  0   0  0   0   0  0  1  1   0   0   0  0   0   0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28  0   0   0  0  0  0   0  0   0   0  0  0  0   1   1   1  0   0   0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33  0   0   0  0  0  0   0  0   0   0  0  0  0   1   1   0  0   0   0   0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29  0   0   0  0  0  0   0  0   0   0  0  0  0   0   0   0  1   1   1   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30  0   0   0  0  0  0   0  0   0   0  0  0  0   0   0   0  0   1   1   1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34  0   0   0  0  0  0   0  0   0   0  0  0  0   0   0   0  0   1   1   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    t8 t17 t16 t11 t9 t19 t20 t2 t4 t18 t7 t5 t3 t15 t13 t14 t12 t6 t1 t10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21  1   1   1   1  1   1   1  1  1   1  1  1  1   1   1   1   1  1  1   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22  1   1   1   1  1   1   1  1  1   1  1  1  1   1   1   0   0  0  0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25  1   1   0   0  0   0   0  0  0   0  0  0  0   0   0   0   0  0  0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23  0   0   1   1  1   1   1  1  1   1  1  1  1   1   1   0   0  0  0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24  0   0   1   1  1   1   1  1  1   1  1  1  1   1   0   0   0  0  0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27  0   0   1   1  1   0   0  0  0   0  0  0  0   0   0   0   0  0  0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39  0   0   0   1  1   0   0  0  0   0  0  0  0   0   0   0   0  0  0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26  0   0   0   0  0   1   1  1  1   1  1  1  1   1   0   0   0  0  0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28  0   0   0   0  0   1   1  1  1   1  1  1  1   0   0   0   0  0  0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29  0   0   0   0  0   1   1  1  1   1  1  1  0   0   0   0   0  0  0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30  0   0   0   0  0   1   1  1  1   1  0  0  0   0   0   0   0  0  0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35  0   0   0   0  0   1   1  0  0   0  0  0  0   0   0   0   0  0  0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32  0   0   0   0  0   0   0  1  1   1  0  0  0   0   0   0   0  0  0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38  0   0   0   0  0   0   0  1  1   0  0  0  0   0   0   0   0  0  0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33  0   0   0   0  0   0   0  0  0   0  1  1  0   0   0   0   0  0  0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31  0   0   0   0  0   0   0  0  0   0  0  0  0   0   0   1   1  1  1   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34  0   0   0   0  0   0   0  0  0   0  0  0  0   0   0   0   1  1  1   1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36  0   0   0   0  0   0   0  0  0   0  0  0  0   0   0   0   1  1  1   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37  0   0   0   0  0   0   0  0  0   0  0  0  0   0   0   0   1  1  0   0</span>
 <span class="r-in"><span><span class="va">tree</span><span class="op">$</span><span class="va">tree_depth</span> <span class="co"># Tree age</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.5882319</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9791211</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
