@@ -22,7 +22,7 @@ test_that("CpE returns the expected data frame size", {
   # Run the CpE algorithm while suppressing some warnings
   # (related to tips no present within the matrix, and vice-versa)
   suppressWarnings({for(i in 1:20){
-    CpE_M1[[i]] <- CpE(tree[[i]], n = n[i], mat = mat[[i]], criteria = "my")
+    CpE_M1[[i]] <- CpE(tree[[i]], n = n[i], mat = mat[[i]], criterion = "my")
   }})
 
   # Test

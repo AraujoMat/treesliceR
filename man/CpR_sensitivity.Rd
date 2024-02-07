@@ -4,7 +4,7 @@
 \alias{CpR_sensitivity}
 \title{Runs a sensitivity analysis for rates of accumulation of a given phylogenetic index}
 \usage{
-CpR_sensitivity(tree, vec, mat, asb, rate, samp, comp, method, criteria, ncor)
+CpR_sensitivity(tree, vec, mat, adj, rate, samp, comp, method, criterion, ncor)
 }
 \arguments{
 \item{tree}{phylo. An ultrametric phylogenetic tree in the "phylo" format.}
@@ -13,7 +13,7 @@ CpR_sensitivity(tree, vec, mat, asb, rate, samp, comp, method, criteria, ncor)
 
 \item{mat}{matrix. A presence/absence matrix containing all studied species and sites.}
 
-\item{asb}{matrix, or list of matrices. A matrix (or list of matrices) containing a focal assemblage and its neighborhood assemblages (need at least two assemblages to run).}
+\item{adj}{matrix. A square adjacency matrix containing the presence/absence information of all sites and their spatially adjacent ones.}
 
 \item{rate}{character string. The desired cumulative phylogenetic rate to be assessed, which can be the phylogenetic diversity (CpD), phylogenetic endemism (CpE), phylogenetic B-diversity (CpB), or phylogenetic B-diversity range-weighted (CpB_RW). Default is NULL, but must be filled with "CpD", "CPE", "CpB_RW", or "CpB".}
 
@@ -23,7 +23,7 @@ CpR_sensitivity(tree, vec, mat, asb, rate, samp, comp, method, criteria, ncor)
 
 \item{method}{character string. The method for calculating the CpB-rate. It can be either "pairwise" or "multisite". This argument works only when the argument "rate" is set to run for "CpB" or "CpB_RW". Default is "multisite".}
 
-\item{criteria}{character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".}
+\item{criterion}{character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".}
 
 \item{ncor}{numeric. A value indicating the number of cores the user wants to parallelize. Default is 0.}
 }

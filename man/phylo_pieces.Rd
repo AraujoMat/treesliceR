@@ -4,14 +4,14 @@
 \alias{phylo_pieces}
 \title{Slices a phylogenetic tree into multiple temporal slices}
 \usage{
-phylo_pieces(tree, n, criteria, method, timeSteps, dropNodes, returnTree)
+phylo_pieces(tree, n, criterion, method, timeSteps, dropNodes, returnTree)
 }
 \arguments{
 \item{tree}{phylo. An ultrametric phylogenetic tree in the "phylo" format.}
 
 \item{n}{numeric. A numeric value indicating either the number of temporal slices (method = 1) or the time interval in million years (or phylogenetic diversity) among the tree slices (method = 2). Default is 1.}
 
-\item{criteria}{character string. The method for slicing the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".}
+\item{criterion}{character string. The method for slicing the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".}
 
 \item{method}{numerical. A numerical value indicating the method to make the multiple slices. Setting "method = 1" will slice the phylogeny based on an "n" number of slices. If method = 2, the slices will be created based on a temporal interval. Default is 1.}
 
@@ -32,7 +32,7 @@ This function slices a phylogenetic tree into multiple slices, spaced equally ei
 tree <- ape::rcoal(20)
 
 # Cuts a phylogeny into multiple temporal slices
-tree <- phylo_pieces(tree, n = 3, criteria = "my", method = 1)
+tree <- phylo_pieces(tree, n = 3, criterion = "my", method = 1)
 
 # Plotting the three slices of our phylogeny
 plot(tree[[1]])

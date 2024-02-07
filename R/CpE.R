@@ -2,12 +2,12 @@
 #' @description
 #' This function estimates the rates of accumulation of phylogenetic endemism (CpE) over time for inputted assemblages.
 #'
-#' @usage CpE(tree, n, mat, criteria = "my", pEO = 5, ncor = 0)
+#' @usage CpE(tree, n, mat, criterion = "my", pEO = 5, ncor = 0)
 #'
 #' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
 #' @param n numeric. A numeric value indicating the number of temporal slices (method = 1) or the time interval in million years (or phylogenetic diversity) among the tree slices (method = 2). Default is 1.
 #' @param mat matrix. A presence/absence matrix containing all studied species and sites.
-#' @param criteria character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
+#' @param criterion character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
 #' @param pEO numeric. A value indicating the numeric proportion to define the temporal origin at which the phylogenetic endemism (PE) started to accumulate in a given assemblage. Default is 5%.
 #' @param ncor numeric. A value indicating the number of cores the user wants to parallelize. Default is 0.
 #'
@@ -36,7 +36,7 @@
 #'
 #' @export
 
-CpE <- function(tree, n, mat, criteria = "my", pEO = 5, ncor = 0){
+CpE <- function(tree, n, mat, criterion = "my", pEO = 5, ncor = 0){
 
   ## Cleaning the phylogeny (if necessary) and cutting it into pieces ----------
 
@@ -68,7 +68,7 @@ CpE <- function(tree, n, mat, criteria = "my", pEO = 5, ncor = 0){
   }
 
   # Cutting the phylogenetic tree into equal width slices
-  branch_pieces <- phylo_pieces(tree, n, criteria = criteria,
+  branch_pieces <- phylo_pieces(tree, n, criterion = criterion,
                                 timeSteps = TRUE, returnTree = TRUE)
 
   # Separating the time steps from the phylogenetic pieces

@@ -1,3 +1,10 @@
+#' Adjacency matrix for focal and adjacent assemblages
+#'
+#' This is a square matrix containing information abount the presence-absence of each focal cell assemblage and its respective neighborhood assemblages, following the chessboard queen's case.
+#'
+#' @format Matrix
+"AU_adj"
+
 #' Australia grid map
 #'
 #' This is a gridded shapefile of Australia, with grid cells at a 0.5-degree resolution.
@@ -12,13 +19,6 @@
 #' @format Matrix
 #' @source <https://www.birdlife.org/>
 "pass_mat"
-
-#' Presence-absence matrices for focal and adjacent assemblages
-#'
-#' This is a list of presence-absence matrices for passeriformes from Australia. Each object within the list represents a passerine presence-absence matrix contaning the assemblage of a focal cell and its respective neighborhood assemblages.
-#'
-#' @format List
-"pass_asb"
 
 #' Phylogenetic tree of passerines from Australia
 #'

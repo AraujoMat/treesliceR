@@ -2,11 +2,11 @@
 #' @description
 #' This function slices a phylogenetic tree into multiple slices, spaced equally either in million years or intervals of phylogenetic diversity (PD).
 #'
-#' @usage phylo_pieces(tree, n, criteria, method, timeSteps, dropNodes, returnTree)
+#' @usage phylo_pieces(tree, n, criterion, method, timeSteps, dropNodes, returnTree)
 #'
 #' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
 #' @param n numeric. A numeric value indicating either the number of temporal slices (method = 1) or the time interval in million years (or phylogenetic diversity) among the tree slices (method = 2). Default is 1.
-#' @param criteria character string. The method for slicing the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
+#' @param criterion character string. The method for slicing the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
 #' @param method numerical. A numerical value indicating the method to make the multiple slices. Setting "method = 1" will slice the phylogeny based on an "n" number of slices. If method = 2, the slices will be created based on a temporal interval. Default is 1.
 #' @param timeSteps logical. A logical value indicating whether the vector containing the time-steps used for creating the multiple slices should be returned. If "timeSteps = TRUE", then it returns a list containing both the time vector and a list with the multiple tree slices. Default is FALSE.
 #' @param dropNodes logical. A logical value indicating whether the nodes that were sliced (void nodes, presenting no branch length) should be preserved in the node matrix. Default is FALSE.
@@ -23,7 +23,7 @@
 #' tree <- ape::rcoal(20)
 #'
 #' # Cuts a phylogeny into multiple temporal slices
-#' tree <- phylo_pieces(tree, n = 3, criteria = "my", method = 1)
+#' tree <- phylo_pieces(tree, n = 3, criterion = "my", method = 1)
 #'
 #' # Plotting the three slices of our phylogeny
 #' plot(tree[[1]])
@@ -32,14 +32,14 @@
 #'
 #' @export
 
-phylo_pieces <- function(tree, n, criteria = "my", method = 1,
+phylo_pieces <- function(tree, n, criterion = "my", method = 1,
                          timeSteps = FALSE, dropNodes = FALSE, returnTree = FALSE){
 
   # Capturing the nodes and tips informations
   tree <- nodes_config(tree)
 
-  # The choose criteria for making the slices are time
-  if(criteria == "my"){
+  # The choose criterion for making the slices are time
+  if(criterion == "my"){
 
     if(method == 1){  # number of phylogenetic slices
       # If the number of slices provided were decimals...
@@ -148,8 +148,8 @@ phylo_pieces <- function(tree, n, criteria = "my", method = 1,
     })
   }
 
-  # The choose criteria for making the slices are PD
-  if(criteria == "pd"){
+  # The choose criterion for making the slices are PD
+  if(criterion == "pd"){
     ## How many PD we have at each nodes spliting?
     # Separating only the nodes inital information
     nodes <- tree$config[!duplicated(tree$config$NodeBegin), c(1, 2, 4)]

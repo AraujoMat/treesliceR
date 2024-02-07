@@ -115,9 +115,9 @@ Notice that the final output is slightly different from what was observed in Ara
 
 ## 1.2. Second framework example
 
-Herein, we'll calculate the CpB-rate of Australian passerines for both *turnover* and *nestedness* components. Firstly, we'll need to load the assemblages paired with their respective neighborhoods. These assemblages are stored within the package in an intern object called `pass_asb`. This object is a list of presence-absences matrices, where each list contains a given Australian focal cell and its respective neighboring cells. So, let's check the header of the first matrix within the list, focusing on the first four columns (or species):
+Herein, we'll calculate the CpB-rate of Australian passerines for both *turnover* and *nestedness* components. Firstly, we'll need to load the assemblages containing the species matrix stored within the package by calling the internal object `pass_mat`. Additionally, to calculate the beta-diversity metrics, it is necessary to provide the adjacency matrix containing the focal cells and their respective neighborhoods, which can be accessed through the `AU_adj` object. Let's examine the header of the assemblage matrix containing the species, focusing on the first four columns (or species):
 ```{r, eval = TRUE}
-head(pass_asb[[1]][, 1:4])
+head(pass_mat[, 1:4])
 ```
 
 We can run some sensitivity analysis to find the most parsimonious number of slices to assess the CpB-rate patterns. But first, we need to create a vector containing our desired number of slices for assessment:
@@ -128,9 +128,9 @@ vec <- c(250, 500, 750, 1000, 1250, 1500, 1750, 2000)
 Let's run the sensitivity analysis for both *turnover* and *nestedness* components:
 ```{r, eval = FALSE}
 sens_turn <- CpR_sensitivity(tree = tree, vec = vec, samp = 100,
-                             asb = pass_asb, rate = "CpB", comp = "turnover")
+                             mat = pass_mat, adj = AU_adj, rate = "CpB", comp = "turnover")
 sens_nest <- CpR_sensitivity(tree = tree, vec = vec, samp = 100,
-                             asb = pass_asb, rate = "CpB", comp = "nestedness")
+                             mat = pass_mat, adj = AU_adj, rate = "CpB", comp = "nestedness")
 ```
 
 So, we can visualize our sensitivity analysis using the `CpR_sensitivity_plot` function. We use the `ggplot2` syntax to add a vertical line showing our selected number of slices to run our subsequent analysis:
@@ -152,9 +152,9 @@ knitr::include_graphics("OneTree_sensitivity.png")
 Now, we can finally calculate the CpB-rates for *turnover* and *nestedness* components, in this case, under a multisite approach (**PS:** this may take a few minutes):
 ```{r, eval = FALSE}
 # For turnover component
-turn <- CpB(tree = tree, n = 1000, asb = pass_asb, comp = "turnover")
+turn <- CpB(tree = tree, n = 1000, mat = pass_mat, adj = AU_adj, comp = "turnover")
 # For nestedness component
-nest <- CpB(tree = tree, n = 1000, asb = pass_asb, comp = "nestedness")
+nest <- CpB(tree = tree, n = 1000, mat = pass_mat, adj = AU_adj, comp = "nestedness")
 ```
 
 Finally, we can plot these CpB over time and map them. To map them, we'll use an Australian grid map stored within our package in the object `AU_grid`. Let's plot these patterns for the turnover component:
@@ -280,7 +280,7 @@ Once we have already decided on the number of slices in the previous sections (i
 First, we'll run the CpB-rate analysis for the **turnover** component. To obtain our CpB-rates faster for our 100 phylogenies, pay attention that we set the `CpB()` function to run under parallel programming (using the argument `ncor`). Before run it, you **must** confirm if the number of cores set (5) is supported by your machine. Anyway, the following function can may take some minutes to finish, but it can run faster if you are able to set a higher number of cores:
 ```{r, eval = FALSE}
 CpB_turn <- lapply(pass_trees, function(x){
-  return(CpB(tree = x, n = 1000, asb = pass_asb, comp = "turnover", ncor = 5))
+  return(CpB(tree = x, n = 1000, mat = pass_mat, adj = AU_adj, comp = "turnover", ncor = 5))
 })
 ```
 
@@ -310,7 +310,7 @@ knitr::include_graphics("AllTrees_turn.png")
 Now, we'll do the same for the **nestedness** component:
 ```{r, eval = FALSE}
 CpB_nest <- lapply(pass_trees, function(x){
-  return(CpB(tree = x, n = 1000, asb = pass_asb, comp = "nestedness", ncor = 5))
+  return(CpB(tree = x, n = 1000, mat = pass_mat, adj = AU_adj, comp = "nestedness", ncor = 5))
 })
 ```
 

@@ -4,20 +4,22 @@
 \alias{CpB}
 \title{Calculates the rate of accumulation of phylogenetic B-diversity (CpB) over time slices}
 \usage{
-CpB(tree, n, asb, comp, method, criteria, pBO, ncor)
+CpB(tree, n, mat, adj, comp, method, criterion, pBO, ncor)
 }
 \arguments{
 \item{tree}{phylo. An ultrametric phylogenetic tree in the "phylo" format.}
 
 \item{n}{numeric. A numeric value indicating the number of temporal slices (method = 1) or the time interval in million years (or phylogenetic diversity) among the tree slices (method = 2). Default is 1.}
 
-\item{asb}{matrix, or list of matrices. A matrix (or list of matrices) containing a focal assemblage and its neighborhood assemblages (need at least two assemblages to run).}
+\item{mat}{matrix. A presence/absence matrix containing all studied species and sites.}
+
+\item{adj}{matrix. A square adjacency matrix containing the presence/absence information of all sites and their spatially adjacent ones.}
 
 \item{comp}{character string. The component of the phylogenetic beta-diversity to obtain the rates of accumulation. It can be either "sorensen", "turnover", or "nestedness". Default is "sorensen".}
 
 \item{method}{character string. The method for calculating the phylogenetic beta-diversity. It can be either obtained through a "pairwise" or "multisite" approach. Default is "multisite".}
 
-\item{criteria}{character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".}
+\item{criterion}{character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".}
 
 \item{pBO}{numeric. A value indicating the numeric proportion to define the temporal origin at which the phylogenetic B-diversity (PB) started to accumulate in a given assemblage. Default is 5\%.}
 
@@ -42,11 +44,14 @@ tree <- ape::rcoal(20)
 mat <- matrix(sample(c(1,0), 20*10, replace = TRUE), ncol = 20, nrow = 10)
 colnames(mat) <- tree$tip.label
 
-# And separate it into two assemblages with focal and neigs
-asb <- list(mat[1:5,], mat[6:10,])
+# Create a random adjacency matrix
+adj <- matrix(sample(c(1,0), 10*10, replace = TRUE), ncol = 10, nrow = 10)
+
+# Fill the diagonals with 1
+diag(adj) <- 1
 
 # Calculate their CpB (sorensen) for 100 tree slices
-CpB(tree, n = 100, asb = asb, comp = "sorensen", method = "multisite")
+CpB(tree, n = 100, mat = mat, adj = adj, comp = "sorensen", method = "multisite")
 
 }
 \references{

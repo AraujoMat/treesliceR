@@ -2,12 +2,12 @@
 #' @description
 #' This function estimates the rates of accumulation of phylogenetic diveristy (CpD) over time for inputted assemblages.
 #'
-#' @usage CpD(tree, n, mat, criteria = "my", pDO = 5, ncor = 0)
+#' @usage CpD(tree, n, mat, criterion = "my", pDO = 5, ncor = 0)
 #'
 #' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
 #' @param n numeric. A numeric value indicating the number of temporal slices (method = 1) or the time interval in million years (or phylogenetic diversity) among the tree slices (method = 2). Default is 1.
 #' @param mat matrix. A presence/absence matrix containing all studied species and sites.
-#' @param criteria character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
+#' @param criterion character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
 #' @param pDO numeric. A value indicating the numeric proportion to define the temporal origin at which the phylogenetic diversity (PD) started to accumulate in a given assemblage. Default is 5%.
 #' @param ncor numeric. A value indicating the number of cores the user wants to parallelize. Default is 0.
 #'
@@ -36,7 +36,7 @@
 #'
 #' @export
 
-CpD <- function(tree, n, mat, criteria = "my", pDO = 5, ncor = 0){
+CpD <- function(tree, n, mat, criterion = "my", pDO = 5, ncor = 0){
 
   ## Cleaning the phylogeny (if necessary) and cutting it into pieces ----------
 
@@ -68,7 +68,7 @@ CpD <- function(tree, n, mat, criteria = "my", pDO = 5, ncor = 0){
   }
 
   # Cutting the phylogenetic tree into equal width slices
-  branch_pieces <- phylo_pieces(tree, n, criteria = criteria,
+  branch_pieces <- phylo_pieces(tree, n, criterion = criterion,
                                 timeSteps = TRUE, returnTree = TRUE)
 
   # Separating the time steps from the phylogenetic pieces

@@ -4,7 +4,7 @@
 \alias{r_phylo}
 \title{Calculates the relative value of a phylogenetic index in a temporal sequence of phylogenetic slices.}
 \usage{
-r_phylo(tree, n, mat, asb, index = NULL, comp, method, criteria = "my", ncor = 0)
+r_phylo(tree, n, mat, adj, index = NULL, comp, method, criterion = "my", ncor = 0)
 }
 \arguments{
 \item{tree}{phylo. An ultrametric phylogenetic tree in the "phylo" format.}
@@ -13,7 +13,7 @@ r_phylo(tree, n, mat, asb, index = NULL, comp, method, criteria = "my", ncor = 0
 
 \item{mat}{matrix. A presence/absence matrix containing all studied species and sites.}
 
-\item{asb}{matrix, or list of matrices. A matrix (or list of matrices) containing a focal assemblage and its neighborhood assemblages (requires at least two assemblages to run).}
+\item{adj}{matrix. A square adjacency matrix containing the presence/absence information of all sites and their spatially adjacent ones.}
 
 \item{index}{character string. The phylogenetic index to be calculated over the phylogenetic slices. It can be set as "PD" (phylogenetic diversity), "PE" (phylogenetic endemism), "PB" (phylogenetic B-diversity), or "PB_RW" (phylogenetic B-diversity range-weighted).}
 
@@ -21,7 +21,7 @@ r_phylo(tree, n, mat, asb, index = NULL, comp, method, criteria = "my", ncor = 0
 
 \item{method}{character string. The method for calculating phylogenetic beta-diversity. It can be obtained through a "pairwise" or "multisite" approach. Default is "multisite".}
 
-\item{criteria}{character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".}
+\item{criterion}{character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".}
 
 \item{ncor}{numeric. A value indicating the number of cores the user wants to parallel. Default is 0.}
 }
@@ -32,9 +32,9 @@ The function returns a list where each object contains a vector (of length "n") 
 This function estimates the relative value of a phylogenetic index in a sequence of multiple phylogenetic slices cut from roots to tips.
 }
 \details{
-\bold{The "mat" and "asb" arguments}
+\bold{The "adj" argument}
 
-Must be filled only depending on the aimed phylogenetic analysis (defined in "index"). For instance, the "mat" argument must be used only in scenarios where the user aims to assess the relative phylogenetic diversity (PD) or endemism (PE), whereas the "asb" argument must be filled only for phylogenetic B-diversity ("PB") or it's range weight version ("PB_RW"). Nevertheless, to calculate "PB_RW", it is necessary to also provide a complete matrix to weight the species ranges to calculate the phylogenetic B-diversity within the assemblages.
+Must be filled only for phylogenetic B-diversity ("PB") or it's range weight version ("PB_RW", defined in "index").
 
 \bold{Parallelization}
 
@@ -48,8 +48,11 @@ tree <- ape::rcoal(20)
 mat <- matrix(sample(c(1,0), 20*10, replace = TRUE), ncol = 20, nrow = 10)
 colnames(mat) <- tree$tip.label
 
-# And separe it into two assemblages with focal and neigs
-asb <- list(mat[1:5,], mat[6:10,])
+# Create a random adjacency matrix
+adj <- matrix(sample(c(1,0), 10*10, replace = TRUE), ncol = 10, nrow = 10)
+
+# Fill the diagonals with 1
+diag(adj) <- 1
 
 # Calculate the relative PD for 100 slices
 rPD <- r_phylo(tree, n = 100, mat = mat, index = "PD")
@@ -62,12 +65,12 @@ rPE <- r_phylo(tree, n = 100, mat = mat, index = "PE")
 plot(rPE[[1]])
 
 # Calculate the relative PB for 100 slices
-rPB <-  r_phylo(tree, n = 100, asb = asb, index = "PB")
+rPB <-  r_phylo(tree, n = 100, mat = mat, adj = adj, index = "PB")
 # Plot the relative PB of the first assemblage
 plot(rPB[[1]])
 
 # Calculate the relative PB_RW for 100 slices
-rPB_RW <- r_phylo(tree, n = 100, mat = mat, asb = asb, index = "PB_RW")
+rPB_RW <- r_phylo(tree, n = 100, mat = mat, adj = adj, index = "PB_RW")
 # Plot the relative PB_RW of the first assemblage
 plot(rPB_RW[[1]])
 

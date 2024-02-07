@@ -2,13 +2,13 @@
 #' @description
 #' This function slices a temporal interval located within an ultrametric phylogenetic tree.
 #'
-#' @usage squeeze_int(tree, from, to, invert = FALSE, criteria = "my", dropNodes = FALSE)
+#' @usage squeeze_int(tree, from, to, invert = FALSE, criterion = "my", dropNodes = FALSE)
 #'
 #' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
 #' @param from numeric. A temporal threshold value that determines the time at which the interval should start.
 #' @param to numeric. A temporal threshold value that determines the time at which the interval should end.
 #' @param invert logical. A logical value indicating if the desired slice must be executed inside (invert = FALSE) or outside (invert = TRUE) the defined interval. Using the argument as TRUE will return a list containing a root and tip slices. Default is FALSE.
-#' @param criteria character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
+#' @param criterion character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
 #' @param dropNodes logical. A logical value indicating whether the nodes that were sliced (void nodes, presenting no branch length) should be preserved in the node matrix. Default is FALSE.
 #'
 #' @return The function returns an time-slice interval of a phylogenetic tree in the "phylo" format.
@@ -38,24 +38,24 @@
 #'
 #' @export
 
-squeeze_int <- function(tree, from, to, invert = FALSE, criteria = "my", dropNodes = FALSE){
+squeeze_int <- function(tree, from, to, invert = FALSE, criterion = "my", dropNodes = FALSE){
 
   # The used want a phylogenetic interval?
   if(invert == FALSE){
-    # The order for making the slices are important depending on the criteria used
-    if(criteria == "my"){
+    # The order for making the slices are important depending on the criterion used
+    if(criterion == "my"){
       if(from > to){
-        tree <- squeeze_root(tree, from, criteria = criteria, dropNodes = dropNodes)
-        tree <- squeeze_tips(tree, to, criteria = criteria, dropNodes = dropNodes)
+        tree <- squeeze_root(tree, from, criterion = criterion, dropNodes = dropNodes)
+        tree <- squeeze_tips(tree, to, criterion = criterion, dropNodes = dropNodes)
       } else {
         stop("The thresholds set in arguments [from] and [to] are incompatible")
       }
 
     }
-    if(criteria == "pd"){
+    if(criterion == "pd"){
       if(from < to){
-        tree <- squeeze_tips(tree, to, criteria = criteria, dropNodes = dropNodes)
-        tree <- squeeze_root(tree, from, criteria = criteria, dropNodes = dropNodes)
+        tree <- squeeze_tips(tree, to, criterion = criterion, dropNodes = dropNodes)
+        tree <- squeeze_root(tree, from, criterion = criterion, dropNodes = dropNodes)
       } else {
         stop("The thresholds set in arguments [from] and [to] are incompatible")
       }
@@ -67,22 +67,22 @@ squeeze_int <- function(tree, from, to, invert = FALSE, criteria = "my", dropNod
   # or he wants to remove a phylogenetic interval?
   if(invert == TRUE){
 
-    if(criteria == "my"){
+    if(criterion == "my"){
       if(from < to){
         stop("The thresholds set in arguments [from] and [to] are incompatible")
       }
     } else {
-      tree1 <- squeeze_root(tree, to, criteria = criteria, dropNodes = dropNodes)
-      tree2 <- squeeze_tips(tree, from, criteria = criteria, dropNodes = dropNodes)
+      tree1 <- squeeze_root(tree, to, criterion = criterion, dropNodes = dropNodes)
+      tree2 <- squeeze_tips(tree, from, criterion = criterion, dropNodes = dropNodes)
     }
 
-    if(criteria == "pd"){
+    if(criterion == "pd"){
       if(from > to){
         stop("The thresholds set in arguments [from] and [to] are incompatible")
       }
     } else {
-      tree1 <- squeeze_root(tree, to, criteria = criteria, dropNodes = dropNodes)
-      tree2 <- squeeze_tips(tree, from, criteria = criteria, dropNodes = dropNodes)
+      tree1 <- squeeze_root(tree, to, criterion = criterion, dropNodes = dropNodes)
+      tree2 <- squeeze_tips(tree, from, criterion = criterion, dropNodes = dropNodes)
     }
 
     return(list(tree1, tree2))

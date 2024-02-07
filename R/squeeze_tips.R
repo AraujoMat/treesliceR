@@ -2,11 +2,11 @@
 #' @description
 #' This function slices a phylogenetic tree in a 'tipward' orientation, starting from the tips and moving towards the root of the tree.
 #'
-#' @usage squeeze_tips(tree, time, criteria = "my", dropNodes = FALSE)
+#' @usage squeeze_tips(tree, time, criterion = "my", dropNodes = FALSE)
 #'
 #' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
 #' @param time numeric. A value that determines the time, or accumulated phylogenetic diversity (PD), at which the tree should be cut.
-#' @param criteria character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
+#' @param criterion character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
 #' @param dropNodes logical. A logical value indicating whether the nodes that were sliced (void nodes, presenting no branch length) should be preserved in the node matrix. Default is FALSE.
 #'
 #' @return The function returns a time-slice of an inputted phylogenetic tree in the "phylo" format, following a 'tipward' orientation.
@@ -35,15 +35,15 @@
 #'
 #' @export
 
-squeeze_tips <- function(tree, time, criteria = "my", dropNodes = FALSE){
+squeeze_tips <- function(tree, time, criterion = "my", dropNodes = FALSE){
 
   ## CUTTING THE PHYLOGENY TIPWARDLY (FROM TIPS -> ROOTS) ##
 
   # Getting the nodes configurations
   tree <- nodes_config(tree)
 
-  # If the criteria for cutting is based on time:
-  if(criteria == "my"){
+  # If the criterion for cutting is based on time:
+  if(criterion == "my"){
 
     if(time < max(tree$config$YearEnd)){
       time <- max(tree$config$YearEnd) - time # capture the tree length
@@ -65,8 +65,8 @@ squeeze_tips <- function(tree, time, criteria = "my", dropNodes = FALSE){
     }
   }
 
-  # If the criteria for cutting is based on PD:
-  if(criteria == "pd"){
+  # If the criterion for cutting is based on PD:
+  if(criterion == "pd"){
 
     if(time < sum(tree$edge.length)){
       ## How many PD we have at each nodes spliting?

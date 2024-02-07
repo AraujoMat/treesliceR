@@ -104,8 +104,9 @@ for future functions.
 ## Installation
 
 If you are interested in using the **treesliceR** tools in your classes
-or research, you can install the CRAN (Comprehensive R Archive Network)
-version simply by typing:
+or research, you can install the
+[CRAN](https://cran.r-project.org/web/packages/treesliceR/index.html)
+(Comprehensive R Archive Network) version simply by typing:
 
 ``` r
 install.packages("treesliceR")
@@ -119,7 +120,8 @@ devtools::install_github("AraujoMat/treesliceR")
 ```
 
 Now, you are ready to temporally dissect any phylogenetic pattern of
-interest!
+interest! For more detailed information, visit our
+[CRAN](https://cran.r-project.org/web/packages/treesliceR/index.html)!
 
 ## Examples
 

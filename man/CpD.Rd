@@ -4,7 +4,7 @@
 \alias{CpD}
 \title{Calculates the rate of accumulation of phylogenetic diversity (CpD) over time slices}
 \usage{
-CpD(tree, n, mat, criteria = "my", pDO = 5, ncor = 0)
+CpD(tree, n, mat, criterion = "my", pDO = 5, ncor = 0)
 }
 \arguments{
 \item{tree}{phylo. An ultrametric phylogenetic tree in the "phylo" format.}
@@ -13,7 +13,7 @@ CpD(tree, n, mat, criteria = "my", pDO = 5, ncor = 0)
 
 \item{mat}{matrix. A presence/absence matrix containing all studied species and sites.}
 
-\item{criteria}{character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".}
+\item{criterion}{character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".}
 
 \item{pDO}{numeric. A value indicating the numeric proportion to define the temporal origin at which the phylogenetic diversity (PD) started to accumulate in a given assemblage. Default is 5\%.}
 

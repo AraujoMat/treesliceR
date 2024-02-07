@@ -12,7 +12,7 @@ test_that("r_phylo outputs a list with the same size as the inputted number of a
   # And also lists to store phylogenies
   tree <- list()
   mat <- list()
-  asb <- list()
+  adj <- list()
 
   # Create 20 random assemblages
   for(i in 1:20){
@@ -21,8 +21,10 @@ test_that("r_phylo outputs a list with the same size as the inputted number of a
     # Create a random matrix
     mat[[i]] <- matrix(sample(c(1, 0), 20 * 10, replace = TRUE), ncol = 20, nrow = 10)
     colnames(mat[[i]]) <- tree[[i]]$tip.label # Name its columns according to tip names
-    # Create an assemblage with its neighborhoods
-    asb[[i]] <- list(mat[[i]][1:5, ], mat[[i]][6:10, ])
+    # Create a random adjacency matrix
+    adj[[i]] <- matrix(sample(c(1,0), 10*10, replace = TRUE), ncol = 10, nrow = 10)
+    # Fill the diagonals with 1
+    diag(adj[[i]]) <- 1
   }
 
   # Run the algorithm for different phylogentic indexes while suppressing some warnings
@@ -30,8 +32,8 @@ test_that("r_phylo outputs a list with the same size as the inputted number of a
   suppressWarnings({for(i in 1:20){
     r_phylo_M1[[i]] <- r_phylo(tree[[i]], n = n[i], mat = mat[[i]], index = "PD")
     r_phylo_M2[[i]] <- r_phylo(tree[[i]], n = n[i], mat = mat[[i]], index = "PE")
-    r_phylo_M3[[i]] <- r_phylo(tree[[i]], n = n[i], asb = asb[[i]], index = "PB")
-    r_phylo_M4[[i]] <- r_phylo(tree[[i]], n = n[i], mat = mat[[i]], asb = asb[[i]], index = "PB_RW")
+    r_phylo_M3[[i]] <- r_phylo(tree[[i]], n = n[i], mat = mat[[i]], adj = adj[[i]], index = "PB")
+    r_phylo_M4[[i]] <- r_phylo(tree[[i]], n = n[i], mat = mat[[i]], adj = adj[[i]], index = "PB_RW")
   }})
 
   # Test 1
@@ -39,21 +41,18 @@ test_that("r_phylo outputs a list with the same size as the inputted number of a
   {
     expect_equal(length(r_phylo_M1[[i]]), nrow(mat[[i]]))
     expect_equal(length(r_phylo_M2[[i]]), nrow(mat[[i]]))
-    expect_equal(length(r_phylo_M3[[i]]), length(asb[[i]]))
-    expect_equal(length(r_phylo_M4[[i]]), length(asb[[i]]))
+    expect_equal(length(r_phylo_M3[[i]]), nrow(mat[[i]]))
+    expect_equal(length(r_phylo_M4[[i]]), nrow(mat[[i]]))
   }
 
   # test 2
   for(i in 1:20)
   {
-    for(j in 1:length(r_phylo_M1[[1]])){
+    for(j in 1:length(r_phylo_M1[[1]])){  # i <- 1   j <- 1
       expect_equal(length(r_phylo_M1[[i]][[j]]), n[i])
       expect_equal(length(r_phylo_M2[[i]][[j]]), n[i])
-    }
-    for(k in 1:length(r_phylo_M3[[1]])){
-      expect_equal(length(r_phylo_M3[[i]][[k]]), n[i])
-      expect_equal(length(r_phylo_M4[[i]][[k]]), n[i])
+      expect_equal(length(r_phylo_M3[[i]][[j]]), n[i])
+      expect_equal(length(r_phylo_M4[[i]][[j]]), n[i])
     }
   }
 })
-

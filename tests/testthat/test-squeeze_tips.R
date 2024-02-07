@@ -1,5 +1,5 @@
 # Testing if the size removed correspond to the time inputted
-test_that("Squeeze tips correctly slices the trees using both criteria, my and pd", {
+test_that("Squeeze tips correctly slices the trees using both criterion, my and pd", {
   # Function to crate random phylogenies with a random number of tips
   generate_phylogenies <- function(num_trees) {
     # Initialize an empty list
@@ -54,7 +54,7 @@ test_that("Squeeze tips correctly slices the trees using both criteria, my and p
   # Squeezing the tree and getting the size of the squeeze
   for (i in 1:num_phylogenies) {
     # Squeezing the tree based on the sampled time
-    squeeze_results[[i]] <- squeeze_tips(phylos[[i]], time[[i]], criteria = "pd")
+    squeeze_results[[i]] <- squeeze_tips(phylos[[i]], time[[i]], criterion = "pd")
   }
 
   # Testing if the pd remaning correspond to the pd inputted

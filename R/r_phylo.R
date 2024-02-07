@@ -2,25 +2,25 @@
 #' @description
 #' This function estimates the relative value of a phylogenetic index in a sequence of multiple phylogenetic slices cut from roots to tips.
 #'
-#' @usage r_phylo(tree, n, mat, asb, index = NULL, comp, method, criteria = "my", ncor = 0)
+#' @usage r_phylo(tree, n, mat, adj, index = NULL, comp, method, criterion = "my", ncor = 0)
 #'
 #' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
 #' @param n numeric. A numeric value indicating either the number of temporal slices (method = 1) or the time interval in million years (or phylogenetic diversity) among the tree slices (method = 2). Default is 1.
 #' @param mat matrix. A presence/absence matrix containing all studied species and sites.
-#' @param asb matrix, or list of matrices. A matrix (or list of matrices) containing a focal assemblage and its neighborhood assemblages (requires at least two assemblages to run).
+#' @param adj matrix. A square adjacency matrix containing the presence/absence information of all sites and their spatially adjacent ones.
 #' @param index character string. The phylogenetic index to be calculated over the phylogenetic slices. It can be set as "PD" (phylogenetic diversity), "PE" (phylogenetic endemism), "PB" (phylogenetic B-diversity), or "PB_RW" (phylogenetic B-diversity range-weighted).
 #' @param comp character string. The component of phylogenetic beta-diversity to obtain the relative value. It can be "sorensen", "turnover", or "nestedness". Default is "sorensen".
 #' @param method character string. The method for calculating phylogenetic beta-diversity. It can be obtained through a "pairwise" or "multisite" approach. Default is "multisite".
-#' @param criteria character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
+#' @param criterion character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
 #' @param ncor numeric. A value indicating the number of cores the user wants to parallel. Default is 0.
 #'
 #' @return The function returns a list where each object contains a vector (of length "n") with the relative phylogenetic index, from the phylogeny root to the tips, from the inputted assemblage.
 #'
 #' @details
 #'
-#' \bold{The "mat" and "asb" arguments}
+#' \bold{The "adj" argument}
 #'
-#' Must be filled only depending on the aimed phylogenetic analysis (defined in "index"). For instance, the "mat" argument must be used only in scenarios where the user aims to assess the relative phylogenetic diversity (PD) or endemism (PE), whereas the "asb" argument must be filled only for phylogenetic B-diversity ("PB") or it's range weight version ("PB_RW"). Nevertheless, to calculate "PB_RW", it is necessary to also provide a complete matrix to weight the species ranges to calculate the phylogenetic B-diversity within the assemblages.
+#' Must be filled only for phylogenetic B-diversity ("PB") or it's range weight version ("PB_RW", defined in "index").
 #'
 #' \bold{Parallelization}
 #'
@@ -38,8 +38,11 @@
 #' mat <- matrix(sample(c(1,0), 20*10, replace = TRUE), ncol = 20, nrow = 10)
 #' colnames(mat) <- tree$tip.label
 #'
-#' # And separe it into two assemblages with focal and neigs
-#' asb <- list(mat[1:5,], mat[6:10,])
+#' # Create a random adjacency matrix
+#' adj <- matrix(sample(c(1,0), 10*10, replace = TRUE), ncol = 10, nrow = 10)
+#'
+#' # Fill the diagonals with 1
+#' diag(adj) <- 1
 #'
 #' # Calculate the relative PD for 100 slices
 #' rPD <- r_phylo(tree, n = 100, mat = mat, index = "PD")
@@ -52,19 +55,19 @@
 #' plot(rPE[[1]])
 #'
 #' # Calculate the relative PB for 100 slices
-#' rPB <-  r_phylo(tree, n = 100, asb = asb, index = "PB")
+#' rPB <-  r_phylo(tree, n = 100, mat = mat, adj = adj, index = "PB")
 #' # Plot the relative PB of the first assemblage
 #' plot(rPB[[1]])
 #'
 #' # Calculate the relative PB_RW for 100 slices
-#' rPB_RW <- r_phylo(tree, n = 100, mat = mat, asb = asb, index = "PB_RW")
+#' rPB_RW <- r_phylo(tree, n = 100, mat = mat, adj = adj, index = "PB_RW")
 #' # Plot the relative PB_RW of the first assemblage
 #' plot(rPB_RW[[1]])
 #'
 #' @export
 
-r_phylo <- function(tree, n, mat, asb, index = NULL, comp = "sorensen",
-                    method = "multisite", criteria = "my", ncor = 0){
+r_phylo <- function(tree, n, mat, adj, index = NULL, comp = "sorensen",
+                    method = "multisite", criterion = "my", ncor = 0){
 
   # Checking if the index was provided by the user:
   if(is.null(index) == TRUE){
@@ -101,7 +104,7 @@ r_phylo <- function(tree, n, mat, asb, index = NULL, comp = "sorensen",
       }
 
       # Cutting the phylogenetic tree into equal width slices
-      branch_pieces <- phylo_pieces(tree, n, criteria = criteria,
+      branch_pieces <- phylo_pieces(tree, n, criterion = criterion,
                                     timeSteps = TRUE, returnTree = TRUE)
 
       # Separating the time steps from the phylogenetic pieces
@@ -226,7 +229,7 @@ r_phylo <- function(tree, n, mat, asb, index = NULL, comp = "sorensen",
       }
 
       # Cutting the phylogenetic tree into equal width slices
-      branch_pieces <- phylo_pieces(tree, n, criteria = criteria,
+      branch_pieces <- phylo_pieces(tree, n, criterion = criterion,
                                     timeSteps = TRUE, returnTree = TRUE)
 
       # Separating the time steps from the phylogenetic pieces
@@ -351,20 +354,30 @@ r_phylo <- function(tree, n, mat, asb, index = NULL, comp = "sorensen",
 
     # Relative PB on each phylogenetic slice -------------------------------------
     if(index == "PB"){
+
+      # Creating a list containing the focal and adjacent sites
+      asb <- lapply(1:nrow(adj), function(x){
+        # The matrix has only one site?
+        if(nrow(adj) <= 1 & nrow(mat) <= 1){
+          return(stop("At least one additional site must be provided to conduct B-diversity analysis."))
+          # If it has more, list them
+        } else if(all(which(adj[x,] == 1) %in% 1:nrow(mat)) == FALSE) {
+          return(stop("Not all adjacent sites are included in the adjacency matrix."))
+          # If everything is OK:
+        } else {
+          return(mat[which(adj[x,] == 1), , drop = FALSE])
+        }
+      })
+
       # Capturing the tree configs and
       # Cutting the phylogenetic tree into equal width slices
-      branch_pieces <- phylo_pieces(tree, n, criteria = criteria,
+      branch_pieces <- phylo_pieces(tree, n, criterion = criterion,
                                     timeSteps = TRUE, returnTree = TRUE)
 
       # Separating the time steps from the phylogenetic pieces
       tree <- branch_pieces[[3]]
       branch_pieces <- branch_pieces[[1]]
       commu <- NULL
-
-      # Checking if a single matrix or a list of matrixes was provided
-      if(sum(class(asb) != "list") >= 1){
-        asb <- list(asb)  # Transforming the list into a single matrix
-      }
 
       # The user wants to use more CPU cores?
       if(ncor > 0){
@@ -1040,8 +1053,22 @@ r_phylo <- function(tree, n, mat, asb, index = NULL, comp = "sorensen",
         warning("Removing tips from phylogeny that are absent on species matrix")
       }
 
+      # Creating a list containing the focal and adjacent sites
+      asb <- lapply(1:nrow(adj), function(x){
+        # The matrix has only one site?
+        if(nrow(adj) <= 1 & nrow(mat) <= 1){
+          return(stop("At least one additional site must be provided to conduct B-diversity analysis."))
+          # If it has more, list them
+        } else if(all(which(adj[x,] == 1) %in% 1:nrow(mat)) == FALSE) {
+          return(stop("Not all adjacent sites are included in the adjacency matrix."))
+          # If everything is OK:
+        } else {
+          return(mat[which(adj[x,] == 1), , drop = FALSE])
+        }
+      })
+
       # Cutting the phylogenetic tree into equal width slices
-      branch_pieces <- phylo_pieces(tree, n, criteria = criteria,
+      branch_pieces <- phylo_pieces(tree, n, criterion = criterion,
                                     timeSteps = TRUE, returnTree = TRUE)
 
       # Separating the time steps from the phylogenetic pieces
@@ -1072,10 +1099,6 @@ r_phylo <- function(tree, n, mat, asb, index = NULL, comp = "sorensen",
         return(deno)
       })
 
-      # Checking if a single matrix or a list of matrixes was provided
-      if(sum(class(asb) != "list") >= 1){
-        asb <- list(asb)  # Transforming the list into a single matrix
-      }
 
       ## Calculating the CpB_RW (using phylo-Sorensen) -----------------------------
       # The user wants to use more CPU cores?
@@ -1392,6 +1415,5 @@ r_phylo <- function(tree, n, mat, asb, index = NULL, comp = "sorensen",
       # Return
       return(CpB)
     }
-
   }
 }

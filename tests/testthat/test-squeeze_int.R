@@ -1,5 +1,5 @@
 # Checking if the interval size of the piece equals the difference between "from" and "to"
-test_that("Squeeze int correctly slices the trees using criteria = my", {
+test_that("Squeeze int correctly slices the trees using criterion = my", {
   # Function to crate random phylogenies with a random number of tips
   generate_phylogenies <- function(num_trees) {
     # Initialize an empty list

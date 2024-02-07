@@ -2,11 +2,11 @@
 #' @description
 #' This function slices a phylogenetic tree in a 'rootward' orientation, starting from the root and moving towards the tips of the tree.
 #'
-#' @usage squeeze_root(tree, time, criteria = "my", dropNodes = FALSE)
+#' @usage squeeze_root(tree, time, criterion = "my", dropNodes = FALSE)
 #'
 #' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
 #' @param time numeric. A value that determines the time, or accumulated phylogenetic diversity (PD), at which the tree should be cut.
-#' @param criteria character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
+#' @param criterion character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
 #' @param dropNodes logical. A logical value indicating whether the nodes that were sliced (void nodes, presenting no branch length) should be preserved in the node matrix. Default is FALSE.
 #'
 #' @return The function returns a time-slice of an inputted phylogenetic tree in the "phylo" format, following a 'rootward' orientation.
@@ -36,15 +36,15 @@
 #'
 #' @export
 
-squeeze_root <- function(tree, time, criteria = "my", dropNodes = FALSE){
+squeeze_root <- function(tree, time, criterion = "my", dropNodes = FALSE){
 
   ## CUTTING THE PHYLOGENY ROOTWARDLY (FROM ROOTS -> TIPS) ##
 
   # Getting the nodes configurations
   tree <- nodes_config(tree)
 
-  # If the criteria for cutting is based on time:
-  if(criteria == "my"){
+  # If the criterion for cutting is based on time:
+  if(criterion == "my"){
 
     if(time < max(tree$config$YearEnd)){
       # Capturing the tree length (cutting end)
@@ -86,7 +86,7 @@ squeeze_root <- function(tree, time, criteria = "my", dropNodes = FALSE){
   }
 
 
-  if(criteria == "pd"){
+  if(criterion == "pd"){
 
     if(time < sum(tree$edge.length)){
       ## How many PD we have at each nodes spliting?

@@ -23,7 +23,7 @@ test_that("CpD returns the expected data frame size", {
   # Run the CpD algorithm while suppressing some warnings
   # (related to tips no present within the matrix, and vice-versa)
   suppressWarnings({for(i in 1:20){
-    CpD_M1[[i]] <- CpD(tree[[i]], n = n[i], mat = mat[[i]], criteria = "my")
+    CpD_M1[[i]] <- CpD(tree[[i]], n = n[i], mat = mat[[i]], criterion = "my")
   }})
 
   # Test

@@ -2,14 +2,15 @@
 #' @description
 #' This function estimates the rates of accumulation of phylogenetic B-diversity (CpB) over time for inputted assemblages.
 #'
-#' @usage CpB(tree, n, asb, comp, method, criteria, pBO, ncor)
+#' @usage CpB(tree, n, mat, adj, comp, method, criterion, pBO, ncor)
 #'
 #' @param tree phylo. An ultrametric phylogenetic tree in the "phylo" format.
 #' @param n numeric. A numeric value indicating the number of temporal slices (method = 1) or the time interval in million years (or phylogenetic diversity) among the tree slices (method = 2). Default is 1.
-#' @param asb matrix, or list of matrices. A matrix (or list of matrices) containing a focal assemblage and its neighborhood assemblages (need at least two assemblages to run).
+#' @param mat matrix. A presence/absence matrix containing all studied species and sites.
+#' @param adj matrix. A square adjacency matrix containing the presence/absence information of all sites and their spatially adjacent ones.
 #' @param comp character string. The component of the phylogenetic beta-diversity to obtain the rates of accumulation. It can be either "sorensen", "turnover", or "nestedness". Default is "sorensen".
 #' @param method character string. The method for calculating the phylogenetic beta-diversity. It can be either obtained through a "pairwise" or "multisite" approach. Default is "multisite".
-#' @param criteria character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
+#' @param criterion character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".
 #' @param pBO numeric. A value indicating the numeric proportion to define the temporal origin at which the phylogenetic B-diversity (PB) started to accumulate in a given assemblage. Default is 5%.
 #' @param ncor numeric. A value indicating the number of cores the user wants to parallelize. Default is 0.
 #'
@@ -36,20 +37,37 @@
 #' mat <- matrix(sample(c(1,0), 20*10, replace = TRUE), ncol = 20, nrow = 10)
 #' colnames(mat) <- tree$tip.label
 #'
-#' # And separate it into two assemblages with focal and neigs
-#' asb <- list(mat[1:5,], mat[6:10,])
+#' # Create a random adjacency matrix
+#' adj <- matrix(sample(c(1,0), 10*10, replace = TRUE), ncol = 10, nrow = 10)
+#'
+#' # Fill the diagonals with 1
+#' diag(adj) <- 1
 #'
 #' # Calculate their CpB (sorensen) for 100 tree slices
-#' CpB(tree, n = 100, asb = asb, comp = "sorensen", method = "multisite")
+#' CpB(tree, n = 100, mat = mat, adj = adj, comp = "sorensen", method = "multisite")
 #'
 #' @export
 
-CpB <- function(tree, n, asb, comp = "sorensen",
-                method = "multisite", criteria = "my", pBO = 5, ncor = 0){
+CpB <- function(tree, n, mat, adj, comp = "sorensen",
+                method = "multisite", criterion = "my", pBO = 5, ncor = 0){
+
+  # Creating a list containing the focal and adjacent sites
+  asb <- lapply(1:nrow(adj), function(x){
+    # The matrix has only one site?
+    if(nrow(adj) <= 1 & nrow(mat) <= 1){
+      return(stop("At least one additional site must be provided to conduct B-diversity analysis."))
+      # If it has more, list them
+    } else if(all(which(adj[x,] == 1) %in% 1:nrow(mat)) == FALSE) {
+      return(stop("Not all adjacent sites are included in the adjacency matrix."))
+      # If everything is OK:
+    } else {
+      return(mat[which(adj[x,] == 1), , drop = FALSE])
+    }
+  })
 
   # Capturing the tree configs and
   # Cutting the phylogenetic tree into equal width slices
-  branch_pieces <- phylo_pieces(tree, n, criteria = criteria,
+  branch_pieces <- phylo_pieces(tree, n, criterion = criterion,
                                 timeSteps = TRUE, returnTree = TRUE)
 
   # Separating the time steps from the phylogenetic pieces
@@ -57,11 +75,6 @@ CpB <- function(tree, n, asb, comp = "sorensen",
   tree <- branch_pieces[[3]]
   branch_pieces <- branch_pieces[[1]]
   commu <- NULL
-
-  # Checking if a single matrix or a list of matrixes was provided
-  if(sum(class(asb) != "list") >= 1){
-    asb <- list(asb)  # Transforming the list into a single matrix
-  }
 
   # The user wants to use more CPU cores?
   if(ncor > 0){

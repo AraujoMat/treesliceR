@@ -4,7 +4,7 @@
 \alias{CpB_RW}
 \title{Calculates the range weighted rate of accumulation of phylogenetic B-diversity (CpB_RW) over time slices}
 \usage{
-CpB_RW(tree, n, mat, asb, method = "multisite", criteria = "my", pBO = 5, ncor = 0)
+CpB_RW(tree, n, mat, adj, method = "multisite", criterion = "my", pBO = 5, ncor = 0)
 }
 \arguments{
 \item{tree}{phylo. An ultrametric phylogenetic tree in the "phylo" format.}
@@ -13,18 +13,18 @@ CpB_RW(tree, n, mat, asb, method = "multisite", criteria = "my", pBO = 5, ncor =
 
 \item{mat}{matrix. A presence/absence matrix containing all studied species and sites.}
 
-\item{asb}{matrix, or list of matrices. A matrix (or list of matrices) containing a focal assemblage and its neighborhood assemblages (need at least two assemblages to run).}
+\item{adj}{matrix. A square adjacency matrix containing the presence/absence information of all sites and their spatially adjacent ones.}
 
 \item{method}{character string. The method for calculating the phylogenetic beta-diversity. It can be either obtained through a "pairwise" or "multisite" approach. Default is "multisite".}
 
-\item{criteria}{character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".}
+\item{criterion}{character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".}
 
 \item{pBO}{numeric. A value indicating the numeric proportion to define the temporal origin at which the range-weighted phylogenetic B-diversity (PB_RW) started to accumulate in a given assemblage. Default is 5\%.}
 
 \item{ncor}{numeric. A value indicating the number of cores the user wants to parallelize. Default is 0.}
 }
 \value{
-The function returns a data frame containing the assemblages' rates of cumulative range-weighted phylogenetic B-diversity  (CpB_RW), their total range-weighted phylgonetic B-diversity (PB_RW), and their origin (pBO).
+The function returns a data frame containing the assemblages' rates of cumulative range-weighted phylogenetic B-diversity (CpB_RW), their total range-weighted phylogenetic B-diversity (PB_RW), and their origin (pBO).
 }
 \description{
 This function estimates the range-weighted rates of accumulation of phylogenetic B-diversity (CpB_RW) over time for inputted assemblages.
@@ -42,11 +42,14 @@ tree <- ape::rcoal(20)
 mat <- matrix(sample(c(1,0), 20*10, replace = TRUE), ncol = 20, nrow = 10)
 colnames(mat) <- tree$tip.label
 
-# And separate it into two assemblages with focal and neigs
-asb <- list(mat[1:5,], mat[6:10,])
+# Create a random adjacency matrix
+adj <- matrix(sample(c(1,0), 10*10, replace = TRUE), ncol = 10, nrow = 10)
+
+# Fill the diagonals with 1
+diag(adj) <- 1
 
 # Calculate their CpB range weighted for 100 tree slices
-CpB_RW(tree, n = 100, mat = mat, asb = asb, method = "multisite")
+CpB_RW(tree, n = 100, mat = mat, adj = adj, method = "multisite")
 
 }
 \references{

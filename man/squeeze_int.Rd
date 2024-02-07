@@ -4,7 +4,7 @@
 \alias{squeeze_int}
 \title{Slices a temporal interval within a phylogenetic tree}
 \usage{
-squeeze_int(tree, from, to, invert = FALSE, criteria = "my", dropNodes = FALSE)
+squeeze_int(tree, from, to, invert = FALSE, criterion = "my", dropNodes = FALSE)
 }
 \arguments{
 \item{tree}{phylo. An ultrametric phylogenetic tree in the "phylo" format.}
@@ -15,7 +15,7 @@ squeeze_int(tree, from, to, invert = FALSE, criteria = "my", dropNodes = FALSE)
 
 \item{invert}{logical. A logical value indicating if the desired slice must be executed inside (invert = FALSE) or outside (invert = TRUE) the defined interval. Using the argument as TRUE will return a list containing a root and tip slices. Default is FALSE.}
 
-\item{criteria}{character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".}
+\item{criterion}{character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".}
 
 \item{dropNodes}{logical. A logical value indicating whether the nodes that were sliced (void nodes, presenting no branch length) should be preserved in the node matrix. Default is FALSE.}
 }
