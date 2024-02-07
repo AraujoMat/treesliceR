@@ -59,7 +59,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CpB</span><span class="op">(</span><span class="va">tree</span>, <span class="va">n</span>, <span class="va">asb</span>, <span class="va">comp</span>, <span class="va">method</span>, <span class="va">criteria</span>, <span class="va">pBO</span>, <span class="va">ncor</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CpB</span><span class="op">(</span><span class="va">tree</span>, <span class="va">n</span>, <span class="va">mat</span>, <span class="va">adj</span>, <span class="va">comp</span>, <span class="va">method</span>, <span class="va">criterion</span>, <span class="va">pBO</span>, <span class="va">ncor</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -72,8 +72,12 @@
 <dd><p>numeric. A numeric value indicating the number of temporal slices (method = 1) or the time interval in million years (or phylogenetic diversity) among the tree slices (method = 2). Default is 1.</p></dd>
 
 
-<dt>asb</dt>
-<dd><p>matrix, or list of matrices. A matrix (or list of matrices) containing a focal assemblage and its neighborhood assemblages (need at least two assemblages to run).</p></dd>
+<dt>mat</dt>
+<dd><p>matrix. A presence/absence matrix containing all studied species and sites.</p></dd>
+
+
+<dt>adj</dt>
+<dd><p>matrix. A square adjacency matrix containing the presence/absence information of all sites and their spatially adjacent ones.</p></dd>
 
 
 <dt>comp</dt>
@@ -84,7 +88,7 @@
 <dd><p>character string. The method for calculating the phylogenetic beta-diversity. It can be either obtained through a "pairwise" or "multisite" approach. Default is "multisite".</p></dd>
 
 
-<dt>criteria</dt>
+<dt>criterion</dt>
 <dd><p>character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".</p></dd>
 
 
@@ -129,15 +133,26 @@
 <span class="r-in"><span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, <span class="fl">20</span><span class="op">*</span><span class="fl">10</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">20</span>, nrow <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">tree</span><span class="op">$</span><span class="va">tip.label</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># And separate it into two assemblages with focal and neigs</span></span></span>
-<span class="r-in"><span><span class="va">asb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">mat</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span>, <span class="va">mat</span><span class="op">[</span><span class="fl">6</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Create a random adjacency matrix</span></span></span>
+<span class="r-in"><span><span class="va">adj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, <span class="fl">10</span><span class="op">*</span><span class="fl">10</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">10</span>, nrow <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Fill the diagonals with 1</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">adj</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate their CpB (sorensen) for 100 tree slices</span></span></span>
-<span class="r-in"><span><span class="fu">CpB</span><span class="op">(</span><span class="va">tree</span>, n <span class="op">=</span> <span class="fl">100</span>, asb <span class="op">=</span> <span class="va">asb</span>, comp <span class="op">=</span> <span class="st">"sorensen"</span>, method <span class="op">=</span> <span class="st">"multisite"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0130378545795196 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        CpB        PB       pBO</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 5.469094 0.2939093 0.5477566</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 3.785716 0.3076237 0.7913251</span>
+<span class="r-in"><span><span class="fu">CpB</span><span class="op">(</span><span class="va">tree</span>, n <span class="op">=</span> <span class="fl">100</span>, mat <span class="op">=</span> <span class="va">mat</span>, adj <span class="op">=</span> <span class="va">adj</span>, comp <span class="op">=</span> <span class="st">"sorensen"</span>, method <span class="op">=</span> <span class="st">"multisite"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0117346229387734 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         CpB        PB       pBO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  4.432679 0.4608967 0.6758288</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  4.576292 0.3682585 0.6546200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  4.729336 0.4112421 0.6334362</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  3.977516 0.4162567 0.7531667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  4.905771 0.2586152 0.6106547</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  8.195826 0.1945679 0.3655193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  4.974841 0.2766693 0.6021765</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  5.177977 0.3465438 0.5785526</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  4.791601 0.2686137 0.6252048</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 3.855738 0.3963444 0.7769542</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

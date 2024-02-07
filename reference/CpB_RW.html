@@ -59,7 +59,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CpB_RW</span><span class="op">(</span><span class="va">tree</span>, <span class="va">n</span>, <span class="va">mat</span>, <span class="va">asb</span>, method <span class="op">=</span> <span class="st">"multisite"</span>, criteria <span class="op">=</span> <span class="st">"my"</span>, pBO <span class="op">=</span> <span class="fl">5</span>, ncor <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CpB_RW</span><span class="op">(</span><span class="va">tree</span>, <span class="va">n</span>, <span class="va">mat</span>, <span class="va">adj</span>, method <span class="op">=</span> <span class="st">"multisite"</span>, criterion <span class="op">=</span> <span class="st">"my"</span>, pBO <span class="op">=</span> <span class="fl">5</span>, ncor <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -76,15 +76,15 @@
 <dd><p>matrix. A presence/absence matrix containing all studied species and sites.</p></dd>
 
 
-<dt>asb</dt>
-<dd><p>matrix, or list of matrices. A matrix (or list of matrices) containing a focal assemblage and its neighborhood assemblages (need at least two assemblages to run).</p></dd>
+<dt>adj</dt>
+<dd><p>matrix. A square adjacency matrix containing the presence/absence information of all sites and their spatially adjacent ones.</p></dd>
 
 
 <dt>method</dt>
 <dd><p>character string. The method for calculating the phylogenetic beta-diversity. It can be either obtained through a "pairwise" or "multisite" approach. Default is "multisite".</p></dd>
 
 
-<dt>criteria</dt>
+<dt>criterion</dt>
 <dd><p>character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".</p></dd>
 
 
@@ -100,7 +100,7 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>The function returns a data frame containing the assemblages' rates of cumulative range-weighted phylogenetic B-diversity  (CpB_RW), their total range-weighted phylgonetic B-diversity (PB_RW), and their origin (pBO).</p>
+<p>The function returns a data frame containing the assemblages' rates of cumulative range-weighted phylogenetic B-diversity (CpB_RW), their total range-weighted phylogenetic B-diversity (PB_RW), and their origin (pBO).</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -129,15 +129,26 @@
 <span class="r-in"><span><span class="va">mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, <span class="fl">20</span><span class="op">*</span><span class="fl">10</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">20</span>, nrow <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">mat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">tree</span><span class="op">$</span><span class="va">tip.label</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># And separate it into two assemblages with focal and neigs</span></span></span>
-<span class="r-in"><span><span class="va">asb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">mat</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span>, <span class="va">mat</span><span class="op">[</span><span class="fl">6</span><span class="op">:</span><span class="fl">10</span>,<span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Create a random adjacency matrix</span></span></span>
+<span class="r-in"><span><span class="va">adj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, <span class="fl">10</span><span class="op">*</span><span class="fl">10</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">10</span>, nrow <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Fill the diagonals with 1</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">adj</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate their CpB range weighted for 100 tree slices</span></span></span>
-<span class="r-in"><span><span class="fu">CpB_RW</span><span class="op">(</span><span class="va">tree</span>, n <span class="op">=</span> <span class="fl">100</span>, mat <span class="op">=</span> <span class="va">mat</span>, asb <span class="op">=</span> <span class="va">asb</span>, method <span class="op">=</span> <span class="st">"multisite"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0184616615032091 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     CpB_RW     PB_RW       pBO</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 6.616916 0.3610714 0.4527385</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 7.239716 0.3394927 0.4137914</span>
+<span class="r-in"><span><span class="fu">CpB_RW</span><span class="op">(</span><span class="va">tree</span>, n <span class="op">=</span> <span class="fl">100</span>, mat <span class="op">=</span> <span class="va">mat</span>, adj <span class="op">=</span> <span class="va">adj</span>, method <span class="op">=</span> <span class="st">"multisite"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.00564697464687796 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       CpB_RW     PB_RW       pBO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   8.958268 0.4349110 0.3344098</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   9.770025 0.5080866 0.3066248</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  10.334197 0.4164614 0.2898853</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   9.660119 0.5200874 0.3101134</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   9.995885 0.5612029 0.2996965</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  10.371196 0.4614058 0.2888512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  10.714812 0.4758689 0.2795879</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  10.593510 0.5500048 0.2827894</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   9.736709 0.4040865 0.3076740</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  9.739280 0.5456430 0.3075928</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

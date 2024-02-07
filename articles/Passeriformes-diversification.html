@@ -201,22 +201,30 @@ for multiple phylogenies</em>”).</p>
 </h3>
 <p>Herein, we’ll calculate the CpB-rate of Australian passerines for
 both <em>turnover</em> and <em>nestedness</em> components. Firstly,
-we’ll need to load the assemblages paired with their respective
-neighborhoods. These assemblages are stored within the package in an
-intern object called <code>pass_asb</code>. This object is a list of
-presence-absences matrices, where each list contains a given Australian
-focal cell and its respective neighboring cells. So, let’s check the
-header of the first matrix within the list, focusing on the first four
-columns (or species):</p>
+we’ll need to load the assemblages containing the species matrix stored
+within the package by calling the internal object <code>pass_mat</code>.
+Additionally, to calculate the beta-diversity metrics, it is necessary
+to provide the adjacency matrix containing the focal cells and their
+respective neighborhoods, which can be accessed through the
+<code>AU_adj</code> object. Let’s examine the header of the assemblage
+matrix containing the species, focusing on the first four columns (or
+species):</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pass_asb</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt;    Myzomela_obscura Dicaeum_hirundinaceum Hirundo_nigricans Artamus_personatus</span></span>
-<span><span class="co">#&gt; 6                 1                     1                 1                  1</span></span>
-<span><span class="co">#&gt; 5                 1                     1                 1                  1</span></span>
-<span><span class="co">#&gt; 7                 1                     1                 1                  1</span></span>
-<span><span class="co">#&gt; 16                1                     1                 1                  1</span></span>
-<span><span class="co">#&gt; 17                1                     1                 1                  1</span></span>
-<span><span class="co">#&gt; 18                1                     1                 1                  1</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pass_mat</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   Heteromyias_albispecularis Myzomela_obscura Taeniopygia_guttata</span></span>
+<span><span class="co">#&gt; 1                          0                1                   0</span></span>
+<span><span class="co">#&gt; 2                          0                1                   0</span></span>
+<span><span class="co">#&gt; 3                          0                1                   0</span></span>
+<span><span class="co">#&gt; 4                          0                1                   0</span></span>
+<span><span class="co">#&gt; 5                          0                1                   0</span></span>
+<span><span class="co">#&gt; 6                          0                1                   0</span></span>
+<span><span class="co">#&gt;   Dicaeum_hirundinaceum</span></span>
+<span><span class="co">#&gt; 1                     1</span></span>
+<span><span class="co">#&gt; 2                     1</span></span>
+<span><span class="co">#&gt; 3                     1</span></span>
+<span><span class="co">#&gt; 4                     1</span></span>
+<span><span class="co">#&gt; 5                     1</span></span>
+<span><span class="co">#&gt; 6                     1</span></span></code></pre></div>
 <p>We can run some sensitivity analysis to find the most parsimonious
 number of slices to assess the CpB-rate patterns. But first, we need to
 create a vector containing our desired number of slices for
@@ -227,9 +235,9 @@ assessment:</p>
 <em>nestedness</em> components:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sens_turn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_sensitivity.html">CpR_sensitivity</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, vec <span class="op">=</span> <span class="va">vec</span>, samp <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>                             asb <span class="op">=</span> <span class="va">pass_asb</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, comp <span class="op">=</span> <span class="st">"turnover"</span><span class="op">)</span></span>
+<span>                             mat <span class="op">=</span> <span class="va">pass_mat</span>, adj <span class="op">=</span> <span class="va">AU_adj</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, comp <span class="op">=</span> <span class="st">"turnover"</span><span class="op">)</span></span>
 <span><span class="va">sens_nest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_sensitivity.html">CpR_sensitivity</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, vec <span class="op">=</span> <span class="va">vec</span>, samp <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>                             asb <span class="op">=</span> <span class="va">pass_asb</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, comp <span class="op">=</span> <span class="st">"nestedness"</span><span class="op">)</span></span></code></pre></div>
+<span>                             mat <span class="op">=</span> <span class="va">pass_mat</span>, adj <span class="op">=</span> <span class="va">AU_adj</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, comp <span class="op">=</span> <span class="st">"nestedness"</span><span class="op">)</span></span></code></pre></div>
 <p>So, we can visualize our sensitivity analysis using the
 <code>CpR_sensitivity_plot</code> function. We use the
 <code>ggplot2</code> syntax to add a vertical line showing our selected
@@ -249,9 +257,9 @@ number of slices to run our subsequent analysis:</p>
 (<strong>PS:</strong> this may take a few minutes):</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For turnover component</span></span>
-<span><span class="va">turn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, n <span class="op">=</span> <span class="fl">1000</span>, asb <span class="op">=</span> <span class="va">pass_asb</span>, comp <span class="op">=</span> <span class="st">"turnover"</span><span class="op">)</span></span>
+<span><span class="va">turn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, n <span class="op">=</span> <span class="fl">1000</span>, mat <span class="op">=</span> <span class="va">pass_mat</span>, adj <span class="op">=</span> <span class="va">AU_adj</span>, comp <span class="op">=</span> <span class="st">"turnover"</span><span class="op">)</span></span>
 <span><span class="co"># For nestedness component</span></span>
-<span><span class="va">nest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, n <span class="op">=</span> <span class="fl">1000</span>, asb <span class="op">=</span> <span class="va">pass_asb</span>, comp <span class="op">=</span> <span class="st">"nestedness"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">nest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, n <span class="op">=</span> <span class="fl">1000</span>, mat <span class="op">=</span> <span class="va">pass_mat</span>, adj <span class="op">=</span> <span class="va">AU_adj</span>, comp <span class="op">=</span> <span class="st">"nestedness"</span><span class="op">)</span></span></code></pre></div>
 <p>Finally, we can plot these CpB over time and map them. To map them,
 we’ll use an Australian grid map stored within our package in the object
 <code>AU_grid</code>. Let’s plot these patterns for the turnover
@@ -383,7 +391,7 @@ following function can may take some minutes to finish, but it can run
 faster if you are able to set a higher number of cores:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CpB_turn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">pass_trees</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">x</span>, n <span class="op">=</span> <span class="fl">1000</span>, asb <span class="op">=</span> <span class="va">pass_asb</span>, comp <span class="op">=</span> <span class="st">"turnover"</span>, ncor <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">x</span>, n <span class="op">=</span> <span class="fl">1000</span>, mat <span class="op">=</span> <span class="va">pass_mat</span>, adj <span class="op">=</span> <span class="va">AU_adj</span>, comp <span class="op">=</span> <span class="st">"turnover"</span>, ncor <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>Now, we capture can capture the mean of each parameter outputted in
 on our list of <code><a href="../reference/CpB.html">CpB()</a></code> outputs using the
@@ -410,7 +418,7 @@ containing the format that our <code><a href="../reference/CpR_graph.html">CpR_g
 component:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CpB_nest</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">pass_trees</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">x</span>, n <span class="op">=</span> <span class="fl">1000</span>, asb <span class="op">=</span> <span class="va">pass_asb</span>, comp <span class="op">=</span> <span class="st">"nestedness"</span>, ncor <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">x</span>, n <span class="op">=</span> <span class="fl">1000</span>, mat <span class="op">=</span> <span class="va">pass_mat</span>, adj <span class="op">=</span> <span class="va">AU_adj</span>, comp <span class="op">=</span> <span class="st">"nestedness"</span>, ncor <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>Separating and summarizing each parameter:</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">

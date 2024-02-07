@@ -59,7 +59,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CpD</span><span class="op">(</span><span class="va">tree</span>, <span class="va">n</span>, <span class="va">mat</span>, criteria <span class="op">=</span> <span class="st">"my"</span>, pDO <span class="op">=</span> <span class="fl">5</span>, ncor <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CpD</span><span class="op">(</span><span class="va">tree</span>, <span class="va">n</span>, <span class="va">mat</span>, criterion <span class="op">=</span> <span class="st">"my"</span>, pDO <span class="op">=</span> <span class="fl">5</span>, ncor <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -76,7 +76,7 @@
 <dd><p>matrix. A presence/absence matrix containing all studied species and sites.</p></dd>
 
 
-<dt>criteria</dt>
+<dt>criterion</dt>
 <dd><p>character string. The method for cutting the tree. It can be either "my" (million years) or "PD" (accumulated phylogenetic diversity). Default is "my".</p></dd>
 
 
@@ -119,18 +119,18 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Calculate the CpD for 100 tree slices</span></span></span>
 <span class="r-in"><span><span class="fu">CpD</span><span class="op">(</span><span class="va">tree</span>, n <span class="op">=</span> <span class="fl">100</span>, mat <span class="op">=</span> <span class="va">mat</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0223615819323421 million of years.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          CpD       PD      pDO</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.9637278 6.304540 3.108484</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.9610561 6.178336 3.117125</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.9749047 6.267274 3.072846</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.0505896 6.980993 2.851477</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.0405050 6.780533 2.879114</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1.1238318 7.466741 2.665641</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  0.9868062 6.338247 3.035786</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1.0484060 6.841397 2.857416</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1.0770138 7.155462 2.781517</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.8678893 5.516852 3.451745</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> &gt; The 100 number of pieces inputted equals to intervals of 0.0100617206504046 million of years.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         CpD       PD       pDO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2.720199 4.047351 1.1012915</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2.363736 3.298641 1.2673718</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  2.647727 3.853059 1.1314356</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2.560152 4.686887 1.1701383</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  3.022092 3.575483 0.9912775</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2.868203 4.279610 1.0444631</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2.536186 3.491732 1.1811959</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2.235117 3.653646 1.3403020</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  2.399111 4.181462 1.2486843</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 2.458594 4.263962 1.2184736</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
