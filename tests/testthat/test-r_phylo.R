@@ -17,12 +17,12 @@ test_that("r_phylo outputs a list with the same size as the inputted number of a
   # Create 20 random assemblages
   for(i in 1:20){
     # Create a random phylogeny
-    tree[[i]] <- ape::rcoal(20)
+    tree[[i]] <- ape::rcoal(30)
     # Create a random matrix
-    mat[[i]] <- matrix(sample(c(1, 0), 20 * 10, replace = TRUE), ncol = 20, nrow = 10)
+    mat[[i]] <- matrix(sample(c(1, 0), 30*15, replace = TRUE), ncol = 30, nrow = 15)
     colnames(mat[[i]]) <- tree[[i]]$tip.label # Name its columns according to tip names
     # Create a random adjacency matrix
-    adj[[i]] <- matrix(sample(c(1,0), 10*10, replace = TRUE), ncol = 10, nrow = 10)
+    adj[[i]] <- matrix(sample(c(1,0), 15*15, replace = TRUE), ncol = 15, nrow = 15)
     # Fill the diagonals with 1
     diag(adj[[i]]) <- 1
   }
@@ -37,8 +37,7 @@ test_that("r_phylo outputs a list with the same size as the inputted number of a
   }})
 
   # Test 1
-  for(i in 1:20)
-  {
+  for(i in 1:20){
     expect_equal(length(r_phylo_M1[[i]]), nrow(mat[[i]]))
     expect_equal(length(r_phylo_M2[[i]]), nrow(mat[[i]]))
     expect_equal(length(r_phylo_M3[[i]]), nrow(mat[[i]]))
@@ -46,8 +45,7 @@ test_that("r_phylo outputs a list with the same size as the inputted number of a
   }
 
   # test 2
-  for(i in 1:20)
-  {
+  for(i in 1:20){
     for(j in 1:length(r_phylo_M1[[1]])){  # i <- 1   j <- 1
       expect_equal(length(r_phylo_M1[[i]][[j]]), n[i])
       expect_equal(length(r_phylo_M2[[i]][[j]]), n[i])

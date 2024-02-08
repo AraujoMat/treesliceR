@@ -105,8 +105,8 @@ for future functions.
 
 If you are interested in using the **treesliceR** tools in your classes
 or research, you can install the
-[CRAN](https://cran.r-project.org/web/packages/treesliceR/index.html)
-(Comprehensive R Archive Network) version simply by typing:
+[CRAN](https://cran.r-project.org/package=treesliceR) (Comprehensive R
+Archive Network) version simply by typing:
 
 ``` r
 install.packages("treesliceR")
@@ -121,7 +121,7 @@ devtools::install_github("AraujoMat/treesliceR")
 
 Now, you are ready to temporally dissect any phylogenetic pattern of
 interest! For more detailed information, visit our
-[CRAN](https://cran.r-project.org/web/packages/treesliceR/index.html)!
+[CRAN](https://cran.r-project.org/package=treesliceR)!
 
 ## Examples
 
