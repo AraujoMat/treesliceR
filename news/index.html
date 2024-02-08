@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">treesliceR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,10 +53,17 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.1" id="treeslicer-101">treesliceR 1.0.1<a class="anchor" aria-label="anchor" href="#treeslicer-101"></a></h2>
+<ul><li><p>The functions for calculating beta-diversity indexes have undergone changes in their arguments. Previously, they required a list containing each focal assemblage along with their respective adjacent cells separately, filled in the <code>asb</code> argument. Now, for simplicity, these functions need to be filled with a species presence-absence matrix (i.e., sites in rows and species in columns) in the <code>mat</code> argument and an adjacency matrix containing the focal assemblages and their respective adjacent cells in the <code>adj</code> argument, being the <code>asb</code> argument removed.</p></li>
+<li><p>The internal object <code>pass_asb</code> has been removed. This object previously contained a list of where each object had a matrix of a focal cell and its adjacent neighborhoods for Australian passeriformes. A spatial adjacency matrix of the Australian grid assemblages has been added and stored within the <code>AU_adj</code> internal object.</p></li>
+<li><p>The argument <code>criteria</code> in cutting functions has been changed to its singular form, <code>criterion</code>.</p></li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.0" id="treeslicer-100">treesliceR 1.0.0<a class="anchor" aria-label="anchor" href="#treeslicer-100"></a></h2><p class="text-muted">CRAN release: 2023-12-18</p>
 <ul><li>Initial CRAN submission.</li>
 </ul></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
