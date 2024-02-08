@@ -1,7 +1,7 @@
 # Evaluating the size of the outputs
 test_that("r_phylo outputs a list with the same size as the inputted number of assemblages, and the correct inputted number of slices", {
   # Number of iterations
-  n <- sample(2:10, 20, replace = TRUE)
+  n <- sample(5:15, 20, replace = TRUE)
 
   # Creating empty lists to store r_phylo outputs
   r_phylo_M1 <- list()
