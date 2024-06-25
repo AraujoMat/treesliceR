@@ -52,7 +52,7 @@ younger <- prune_tips(tree, 0.25, qtl = T, method = 2)
 Let's visualize both the original and pruned phylogenies:
 ```{r}
 oldpar <- par(mfrow = c(1, 3)) # Setting an 1x3 graphical display
-plot(older, main = "All species", show.tip.label = F); axisPhylo()
+plot(tree, main = "All species", show.tip.label = F); axisPhylo()
 plot(older, main = "Older species", show.tip.label = F); axisPhylo()
 plot(younger, main = "Younger species", show.tip.label = F); axisPhylo()
 par(oldpar) # Returning to the original display

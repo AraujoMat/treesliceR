@@ -33,16 +33,16 @@ Now, we'll need to load (and install if necessary) the `treesliceR` package:
 library(treesliceR)
 ```
 
-To showcase the flexibility of `treesliceR`, we will provide a demonstration on how to subset and slice a phylogenetic tree for passarine species (308 species) included in the package (obatined from [Jetz et al. (2012)](https://doi.org/10.1038/nature11631)). The `pass_tree` object comprises a multiphylo object containing 100 passerine trees. For simplicity, we will focus on a single tree. To load this dataset, we use the following code:
+To showcase the flexibility of `treesliceR`, we will provide a demonstration on how to subset and slice a phylogenetic tree for passarine species (308 species) included in the package (obtained from [Jetz et al. (2012)](https://doi.org/10.1038/nature11631)). The `pass_tree` object comprises a multiphylo object containing 100 passerine trees. For simplicity, we will focus on a single tree. To load this dataset, we use the following code:
 ```{r readData, echo=TRUE, eval=TRUE}
 tree <- pass_trees[[1]]
 ```
 
-# 1. Prunning function
+# 1. Pruning function
 
 `treesliceR` encompasses functions for pruning a phylogenetic tree based on a specific absolute tree depth or by establishing a quantile value devied from the age distribution of the last splitting events for the tips of a given phylogenetic tree. In both procedures (absolute age or quantile), all tips with the age of the last splitting event **after** or **before** the value specified in the time argument will be pruned or retained in the phylogeny (depending on the `method` argument). In the next examples, we will illustrate how to prune the phylogenetic tree using an absolute depth (in this case, in million of years) or a scalar indicating a quantile drawn from the tip-species age distribution.
 
-## 1.1. Prunning using absolute depth
+## 1.1. Pruning using absolute depth
 
 First, let's prune the phylogeny to retain only species with splitting events older than 10 and 30 millions years:
 ```{r echo=TRUE, eval=TRUE}
@@ -75,7 +75,7 @@ plot(tree_pruned30_inverse, main = "Species younger than 30my", show.tip.label =
 par(oldpar) # Returning to the original display
 ```
 
-## 1.2. Prunning using depth quantiles
+## 1.2. Pruning using depth quantiles
 
 The same procedure can be applied by setting the `time` argument as a scalar indicating the quantile of the distribution of tip-species ages, given by the time of the last branching event. For instance, to retain only species with age values younger (lower) than the ages of 25th quantile of the age distribution of all species, we can do the following:
 

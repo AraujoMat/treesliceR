@@ -17,12 +17,13 @@ knitr::opts_chunk$set(
 
 This article aims to replicate the case study developed by [Araujo et al. (in review)](https://github.com/AraujoMat/treesliceR). We will also present the workflow executed within the study for both a single passerine phylogeny and multiple passerine phylogenies, in order to control the results for phylogenetic uncertainty [Rangel et al. (2015)](https://doi.org/10.1111/evo.12644).
 
-Before starting our analysis, we'll need to load the `ape`, `ggplot2`, and `ggpubr` packages. Additionally, if required, install the `devtools` to invoke the `treesliceR` package:
+Before starting our analysis, we'll need to load the `ape`, `ggplot2`, `ggpubr`, and `sf` packages. Additionally, if required, install the `devtools` to invoke the `treesliceR` package:
 ```{r, message = FALSE, warning = FALSE}
 # Loading the packages that we'll use
 library(ape)
 library(ggplot2)
 library(ggpubr)
+library(sf)
 ```
 
 Now, we'll need to load (and install if necessary) the `treesliceR` package:
@@ -36,81 +37,134 @@ library(treesliceR)
 
 ## 1.1. First framework example
 
-Herein, we'll compare the passerines tip diversification rates (DR) before and after the Australian aridification (~33 Mya). Our used passerines phylogenies are subsets of the global birds phylogenies made available by [Jetz et al. (2012)](https://doi.org/10.1038/nature11631). 
+Herein, we'll compare the distribution of passerine species richness between ancient and recent lineages. Additionally, we'll map the distribution of their respective ancient and recent endemic species (i.e., regions of paleo- and neo-endemism). The passerine phylogenies we used are subsets of the global bird phylogenies provided by [Jetz et al. (2012)](https://doi.org/10.1038/nature11631). 
 
-Thus, primarily, we can load the passerines phylogeny available within the package by calling the `pass_trees` object:
-```{r, eval = FALSE}
+First, we load the passerine phylogeny available within the package by calling the `pass_trees` object:
+```{r, eval = TRUE, echo = FALSE}
 tree <- pass_trees[[1]]
 ```
 
-Now, we need to split the phylogeny into two distinct portions, one representing the last 33 millions of years ago (Mya) and another representing the cladogenesis events before this period. To capture the root slice before 33 Mya, we can slice our phylogeny tipwardly (i.e., from tips to root) using the `squeeze_tips()` function. Alternatively, the phylogeny slice of the last 33 Mya can be obtained through the `squeeze_root()` function, which slices a phylogeny rootwardly (i.e, from root to tips).
+Now, we need to split the phylogeny into two distinct portions: one representing ancient lineages and another representing those originating from recent cladogenesis events. To do this, we categorically defined ancient species as those with tips ages beyond the 75º quantile, while more derived were categorized as those located within the 25º quantile. 
 
-Since DR calculations are dependent on the node's path to a given tip, we set the argument `dropNodes = TRUE` in our functions to remove those "void nodes" (nodes with zero branch length) to avoid biases in our DR estimates:
-```{r, eval = FALSE}
-recent <- squeeze_root(tree = tree, time = 33, dropNodes = T)
-old <- squeeze_tips(tree = tree, time = 33, dropNodes = T)
+We can prune the tips outside the defined thresholds from our phylogeny using the `prune_tips()` function, setting the argument `qtl = TRUE` to prune the tips based on quantile values:
+```{r, eval = TRUE, echo = FALSE}
+ancient <- prune_tips(tree, 0.75, qtl = TRUE)
+recent <- prune_tips(tree, 0.25, qtl = TRUE, method = 2)
 ```
+The `method = 2` setting makes the function prune the tips older than the specified temporal threshold. For more details, see the argument descriptions by tipping `?prune_tips`.
 
-Let's compare our original phylogeny with those cut ones:
-```{r, eval = FALSE}
+Let's compare our original phylogeny with the pruned ones:
+```{r, eval = TRUE}
 oldpar <- par(mfrow = c(1, 3)) # Setting an 1x3 graphical display
 plot(tree, main = "Complete tree", show.tip.label = F); axisPhylo()
-plot(old, main = "Old tree", show.tip.label = F); axisPhylo()
+plot(ancient, main = "Ancient tree", show.tip.label = F); axisPhylo()
 plot(recent, main = "Recent tree", show.tip.label = F); axisPhylo()
 par(oldpar) # Returning to the original display
 ```
-```{r, echo = FALSE, fig.align = 'center'}
-knitr::include_graphics("Sliced_pas_tree.png")
+
+Next, we need to obtain the species presence-absence matrix separately for each phylogeny. Let's start with the ancient phylogeny:
+```{r, echo = FALSE, eval = TRUE}
+anc_mat <- pass_mat[, which(colnames(pass_mat) %in% ancient$tip.label)]
 ```
 
-Then, we need to calculate the DR separately for each phylogeny slice while finding the difference between them. To calculate the DR, we can use the `DR()` function available within the `treesliceR` package:
-```{r, eval = FALSE}
-DR_diff <- DR(tree = recent)[,2] - DR(tree = old)[,2]
+Now we'll create another presence-absence matrix with the passerine endemics, based on a quantile threshold of the 30th percentile of the ancient species' range size:
+```{r, echo = FALSE, eval = TRUE}
+anc_end_mat <- anc_mat[which(colSums(anc_mat) <= quantile(colSums(anc_mat), 0.30))]
 ```
 
-Now we'll assign these DR differences to a data frame inside our tree object containing passerines information:
-```{r, eval = FALSE}
-tree$Species_info$DR_diff <- DR_diff
+The same needs to be computed for recent species. We will subset their presence-absence matrix for all recent species and another for their endemics using the same criteria:
+```{r, echo = FALSE, eval = TRUE}
+# All recent
+rec_mat <- pass_mat[, which(colnames(pass_mat) %in% recent$tip.label)]
+# Endemics
+rec_end_mat <- rec_mat[which(colSums(rec_mat) <= quantile(colSums(rec_mat), 0.30))]
 ```
 
-To calculate the mean and standard deviation differences per family, we use the `tapply()` function to aggregate the calculated DRs by passerine families:
-```{r, eval = FALSE}
-# tapply() for means
-fam_DR <- tapply(tree$Species_info$DR_diff, tree$Species_info$Family, mean)
-# tapply() for standard deviations
-fam_DR_sd <- tapply(tree$Species_info$DR_diff, tree$Species_info$Family, sd)
+Finally, we'll add all the species richness information to the grid assemblages (`AU_grid` object):
+```{r, echo = FALSE, eval = TRUE}
+AU_grid <- cbind(AU_grid, 
+                 SR_anc = rowSums(anc_mat), SR_end_anc = rowSums(anc_end_mat), # Ancient
+                 SR_rec = rowSums(rec_mat), SR_end_rec = rowSums(rec_end_mat)) # Recent
+
 ```
 
-To visualize DR differences among families, we'll create a new data frame with our outputs:
-```{r, eval = FALSE}
-# Creating the families DR data frame
-fam_df <- data.frame(Family = names(fam_DR), DR_diff = fam_DR, DR_sd = fam_DR_sd)
-# Sorting them based on DR's value
-fam_df <- fam_df[order(fam_df$DR_diff),]
-# Turning this order into a factor to plot it
-fam_df$Family <- factor(fam_df$Family, levels = fam_df$Family)
+Now, we can create a graph similar to the one displayed in Araujo et al. (in review) using the `ggplot2` package. Let's start with the ancient species:
+```{r, eval = TRUE, fig.align='center', out.width="100%"}
+# Before plotting, let's set a cool palette:
+pal <- colorRampPalette(c("#30009B", "#000083", "#009BFE", "#00BC00", "#FEF600", "#FE6230", "#DD0000" ))
+
+# All species
+fig_a <- ggplot() +
+  geom_sf(data = AU_grid, aes(fill = SR_anc)) +
+  scale_fill_gradientn(colours = pal(100),
+                       limits = c(0.5, max(AU_grid$SR_anc)),
+                       na.value="white") +
+  labs(fill = expression(SR["ancient"])) +
+  theme_void() +
+  labs(x = NULL, y = NULL) +
+  theme(legend.position = c(.15, .14),
+        legend.title = element_text(size = 13),
+        legend.key.size = unit(0.75, "cm"),
+        legend.direction = "horizontal")
+
+# Only endemics
+fig_b <- ggplot() +
+  geom_sf(data = AU_grid, aes(fill = SR_end_anc)) +
+  scale_fill_gradientn(colours = pal(100),
+                       limits = c(0.5, max(AU_grid$SR_end_anc)),
+                       na.value="white") +
+  labs(fill = expression(SR["ancient"])) +
+  theme_void() +
+  labs(x = NULL, y = NULL) +
+  theme(legend.position = c(.15, .14),
+        legend.title = element_text(size = 13),
+        legend.key.size = unit(0.75, "cm"),
+        legend.direction = "horizontal")
+
+# To plot them together
+ggarrange(fig_a, fig_b,
+          labels = c("a)", "b)"), ncol = 2, nrow = 1)
+
 ```
 
-Now, we can create a graph similar to the one displayed in Araujo et al. (in review) using the `ggplot2` package:
-```{r, eval = FALSE}
-ggplot(fam_df, aes(x = Family, y = DR_diff,
-                    ymin = DR_diff - DR_sd,
-                    ymax = DR_diff + DR_sd)) +
-  geom_pointrange(color = "#d90429") +
-  geom_hline(yintercept = 0, linetype="dashed", color = "black") +
-  coord_flip() + theme_minimal() + 
-  theme(axis.title = element_text(size = 13),
-        axis.text = element_text(size = 10),
-        axis.line = element_line(colour = "black"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank()) +
-  ylab(expression(paste(DR["recent"]-DR["past"]))) + xlab(NULL)
-```
-```{r, echo = FALSE, fig.align='center', out.width="60%"}
-knitr::include_graphics("OneTree_DR.png")
+
+and for those recent species:
+```{r, eval = TRUE, fig.align='center', out.width="100%"}
+# All species
+fig_c <- ggplot() +
+  geom_sf(data = AU_grid, aes(fill = SR_rec)) +
+  scale_fill_gradientn(colours = pal(100),
+                       limits = c(1, max(AU_grid$SR_rec)),
+                       na.value="white") +
+  labs(fill = expression(SR["recent"])) +
+  theme_void() +
+  labs(x = NULL, y = NULL) +
+  theme(legend.position = c(.15, .14),
+        legend.title = element_text(size = 13),
+        legend.key.size = unit(0.75, "cm"),
+        legend.direction = "horizontal")
+
+# Only endemics
+fig_d <- ggplot() +
+  geom_sf(data = AU_grid, aes(fill = SR_end_rec)) +
+  scale_fill_gradientn(colours = pal(100),
+                       limits = c(1, max(AU_grid$SR_end_rec)),
+                       na.value="white") +
+  labs(fill = expression(SR["recent"])) +
+  theme_void() +
+  labs(x = NULL, y = NULL) +
+  theme(legend.position = c(.15, .14),
+        legend.title = element_text(size = 13),
+        legend.key.size = unit(0.75, "cm"),
+        legend.direction = "horizontal")
+
+# To plot them together
+ggarrange(fig_c, fig_d,
+          labels = c("c)", "d)"), ncol = 2, nrow = 1)
+
 ```
 
-Notice that the final output is slightly different from what was observed in Araujo et al. (in review). However, remember that here we executed the analysis only for a single passerine phylogeny. A more comprehensive assessment using all phylogenies could be carried out in the sections below (for example in the section "*2. Passerines study for multiple phylogenies*"). 
+Note that the final output may differ slightly from what was observed in Araujo et al. (in review). However, it's important to remember that here we conducted the analysis using only a single passerine phylogeny. A more comprehensive assessment using all phylogenies could be conducted in subsequent sections below (for example in the section "*2. Passerines study for multiple phylogenies*"). 
 
 
 ## 1.2. Second framework example
@@ -186,91 +240,121 @@ knitr::include_graphics("OneTree_nest.png")
 
 ## 2.1. First framework example
 
-Herein, we'll do the same as we have done in the previous section but using multiple (100) phylogenies. We'll use all these phylogenies to control for phylogenetic uncertainty present in the position of inputted tips.
+Herein, we'll replicate the process from the previous section using multiple (100) phylogenies. We'll utilize all these phylogenies to account for phylogenetic uncertainty associated with the inputted tips.
 
-Thus, let's firstly cut our 100 phylogenies to compare their tip-DR before and after Australia aridification (~33Mya). This can be done easily for our list of trees using the `lapply()` function:
-```{r, eval = FALSE}
-recent <- lapply(tree, function(x){return(squeeze_root(x, 33, dropNodes = T))})
-old <- lapply(tree, function(x){return(squeeze_tips(x, 33, dropNodes = T))})
+Let's start by creating empty `data.frames` to store the species richness for each category (i.e., ancient vs. recent, all species vs. endemics):
+```{r, echo = FALSE}
+# Data frames for ancient lineages:
+mat_anc_rich <- as.data.frame(matrix(nrow = nrow(AU_grid), ncol = 100))
+mat_anc_endemics <- as.data.frame(matrix(nrow = nrow(AU_grid), ncol = 100))
+
+# Data frames for recent ones:
+mat_rec_rich <- as.data.frame(matrix(nrow = nrow(AU_grid), ncol = 100))
+mat_rec_endemics <- as.data.frame(matrix(nrow = nrow(AU_grid), ncol = 100))
 ```
 
-In the same way, we can calculate their species DR separately using the same function:
-```{r, eval = FALSE}
-DR_rec <- lapply(recent, function(x){DR(x)})
-DR_old <- lapply(old, function(x){DR(x)})
-```
 
-Once the DRs are calculated, we can capture their mean values per species. However, since species positions are generally different among the phylogenies, we'll need to merge the lists based on the species column:
-```{r, eval = FALSE}
-# Recent
-f_DRrec <- DR_rec[[1]]
-colnames(f_DRrec)[2] <- 1
-# Old
-f_DRold <- DR_old[[1]]
-colnames(f_DRold)[2] <- 1
-
-# Looping
-for (i in 2:length(DR_rec)) {
-  # Recent
-  f_DRrec <- merge(f_DRrec, DR_rec[[i]], by = "Species", sort = FALSE)
-  colnames(f_DRrec)[i + 1] <- i
-  # Old
-  f_DRold <- merge(f_DRold, DR_old[[i]], by = "Species", sort = FALSE)
-  colnames(f_DRold)[i + 1] <- i
+Then, we can automate the procedures executed in the first section for all our 100 phylogenies by simply using a `for()` loop to iterate over each phylogeny:
+```{r, eval = TRUE, echo = FALSE}
+for (i in 1:100) {
+  # Select phylogeny "i" available within the package:
+  tree <- pass_trees[[i]]
+  # Prune the "i" phylogeny based on quantiles:
+  ancient <- prune_tips(tree, 0.75, qtl = T)
+  recent <- prune_tips(tree, 0.25, qtl = T, method = 2)
+  
+  # Capture the presence-absence matrix for ancient species:
+  anc_mat <- pass_mat[, which(colnames(pass_mat) %in% ancient$tip.label)]
+  mat_anc_rich[, i] <- rowSums(anc_mat) # Save their species richness
+  # Capture ancient endemic richness in Australia:
+  anc_mat <- anc_mat[which(colSums(anc_mat) <= quantile(colSums(anc_mat), 0.30))]
+  mat_anc_endemics[, i] <- rowSums(anc_mat) # Save their species richness
+  
+  # Capturing the presence-absence matrix for recent species:
+  rec_mat <- pass_mat[, which(colnames(pass_mat) %in% recent$tip.label)]
+  mat_rec_rich[, i] <- rowSums(rec_mat) # Save their species richness
+  # Capturing recent endemic richness in Australia:
+  rec_mat <- rec_mat[which(colSums(rec_mat) <= quantile(colSums(rec_mat), 0.30))]
+  mat_rec_endemics[, i] <- rowSums(rec_mat) # Save their species richness
 }
 ```
 
-Now, we can calculate the mean and standard deviation of DRs per passerine species for each phylogeny time slice. Then, calculate their mean differences as done in the first workflow for one phylogeny:
-```{r, eval = FALSE}
-# Recent
-DR_rec_mean <- apply(f_DRrec[, -1], 1, mean)
-DR_rec_sd <- apply(f_DRrec[, -1], 1, sd)
+Similarly as before, we can assign the mean species richness values of each category to our `AU_grid` assemblages:
+```{r, echo = FALSE, eval = TRUE}
+# Assigning ancient species richness
+AU_grid$SR_anc <- rowMeans(mat_anc_rich)
+AU_grid$SR_end_anc <- rowMeans(mat_anc_endemics)
+# Assigning recent species richness
+AU_grid$SR_rec <- rowMeans(mat_rec_rich)
+AU_grid$SR_rec_anc <- rowMeans(mat_rec_endemics)
 
-# Old
-DR_old_mean <- apply(f_DRold[, -1], 1, mean)
-DR_old_sd <- apply(f_DRold[, -1], 1, sd)
-
-# Capturing their mean difference
-DR_diff <- DR_rec_mean - DR_old_mean
 ```
 
-Again, we can merge these DR differences into a data frame inside our tree object containing passerine information, and then obtain this information per passerine family using the `tapply()` function:
-```{r, eval = FALSE}
-df <- data.frame(Specie = f_DRrec[, 1], DR_diff = DR_diff)
-# Capturing families information
-df <- merge(df, tree[[1]]$Species_info, by = "Specie", sort = FALSE)
+Let's plot it!
+```{r, eval = TRUE, fig.align='center', out.width="100%"}
+# All ancient species
+fig_a <- ggplot() +
+  geom_sf(data = AU_grid, aes(fill = SR_rec)) +
+  scale_fill_gradientn(colours = pal(100),
+                       limits = c(1, max(AU_grid$SR_rec)),
+                       na.value="white") +
+  labs(fill = expression(SR["ancient"])) +
+  theme_void() +
+  labs(x = NULL, y = NULL) +
+  theme(legend.position = c(.15, .14),
+        legend.title = element_text(size = 13),
+        legend.key.size = unit(0.75, "cm"),
+        legend.direction = "horizontal")
 
-## Displaying it graphically for families
-fam_DR <- tapply(df$DR_diff, df$Family, mean)
-fam_DR_sd <- tapply(df$DR_diff, df$Family, sd)
-```
- 
-Before plotting, we'll create a new data frame containing our DRs per family and sort it based on the highest DR values:
-```{r, eval = FALSE}
-fam_df <- data.frame(Family = names(fam_DR), DR_diff = fam_DR, DR_sd = fam_DR_sd)
-# Ordering to plot
-fam_df <- fam_df[order(fam_df$DR_diff),]
-fam_df$Family <- factor(fam_df$Family, levels = fam_df$Family)
+# Only ancient endemics
+fig_b <- ggplot() +
+  geom_sf(data = AU_grid, aes(fill = SR_end_rec)) +
+  scale_fill_gradientn(colours = pal(100),
+                       limits = c(1, max(AU_grid$SR_end_rec)),
+                       na.value="white") +
+  labs(fill = expression(SR["ancient"])) +
+  theme_void() +
+  labs(x = NULL, y = NULL) +
+  theme(legend.position = c(.15, .14),
+        legend.title = element_text(size = 13),
+        legend.key.size = unit(0.75, "cm"),
+        legend.direction = "horizontal")
+
+# All recent species
+fig_c <- ggplot() +
+  geom_sf(data = AU_grid, aes(fill = SR_rec)) +
+  scale_fill_gradientn(colours = pal(100),
+                       limits = c(1, max(AU_grid$SR_rec)),
+                       na.value="white") +
+  labs(fill = expression(SR["recent"])) +
+  theme_void() +
+  labs(x = NULL, y = NULL) +
+  theme(legend.position = c(.15, .14),
+        legend.title = element_text(size = 13),
+        legend.key.size = unit(0.75, "cm"),
+        legend.direction = "horizontal")
+
+# Only recent endemics
+fig_d <- ggplot() +
+  geom_sf(data = AU_grid, aes(fill = SR_end_rec)) +
+  scale_fill_gradientn(colours = pal(100),
+                       limits = c(1, max(AU_grid$SR_end_rec)),
+                       na.value="white") +
+  labs(fill = expression(SR["recent"])) +
+  theme_void() +
+  labs(x = NULL, y = NULL) +
+  theme(legend.position = c(.15, .14),
+        legend.title = element_text(size = 13),
+        legend.key.size = unit(0.75, "cm"),
+        legend.direction = "horizontal")
+
+# To plot them together
+ggarrange(fig_a, fig_b, fig_c, fig_d,
+          labels = c("a)", "b)", "c)", "d)"), 
+          ncol = 2, nrow = 2)
+
 ```
 
-Plotting it!
-```{r, eval = FALSE}
-ggplot(fam_df, aes(x = Family, y = DR_diff,
-                    ymin = DR_diff - DR_sd,
-                    ymax = DR_diff + DR_sd)) +
-  geom_pointrange(color = "#d90429") +
-  geom_hline(yintercept = 0, linetype="dashed", color = "black") +
-  coord_flip() + theme_minimal() + 
-  theme(axis.title = element_text(size = 13),
-        axis.text = element_text(size = 10),
-        axis.line = element_line(colour = "black"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank()) +
-  ylab(expression(paste(DR["recent"]-DR["past"]))) + xlab(NULL)
-```
-```{r, echo = FALSE, fig.align='center', out.width="60%"}
-knitr::include_graphics("AllTrees_DR.png")
-```
   
   
 ## 2.2. Second framework example
