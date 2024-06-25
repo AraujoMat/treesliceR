@@ -89,7 +89,7 @@ AU_grid <- cbind(AU_grid,
 ```
 
 Now, we can create a graph similar to the one displayed in Araujo et al. (in review) using the `ggplot2` package. Let's start with the ancient species:
-```{r, eval = TRUE, fig.align='center', out.width="100%"}
+```{r, eval = TRUE, fig.align='center', out.width="80%"}
 # Before plotting, let's set a cool palette:
 pal <- colorRampPalette(c("#30009B", "#000083", "#009BFE", "#00BC00", "#FEF600", "#FE6230", "#DD0000" ))
 
@@ -129,7 +129,7 @@ ggarrange(fig_a, fig_b,
 
 
 and for those recent species:
-```{r, eval = TRUE, fig.align='center', out.width="100%"}
+```{r, eval = TRUE, fig.align='center', out.width="80%"}
 # All species
 fig_c <- ggplot() +
   geom_sf(data = AU_grid, aes(fill = SR_rec)) +
@@ -291,7 +291,7 @@ AU_grid$SR_rec_anc <- rowMeans(mat_rec_endemics)
 ```
 
 Let's plot it!
-```{r, eval = TRUE, fig.align='center', out.width="100%"}
+```{r, eval = TRUE, fig.align='center', out.width="80%"}
 # All ancient species
 fig_a <- ggplot() +
   geom_sf(data = AU_grid, aes(fill = SR_rec)) +
