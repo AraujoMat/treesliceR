@@ -294,9 +294,9 @@ Let's plot it!
 ```{r, eval = TRUE, fig.align='center', out.width="80%"}
 # All ancient species
 fig_a <- ggplot() +
-  geom_sf(data = AU_grid, aes(fill = SR_rec)) +
+  geom_sf(data = AU_grid, aes(fill = SR_anc)) +
   scale_fill_gradientn(colours = pal(100),
-                       limits = c(1, max(AU_grid$SR_rec)),
+                       limits = c(0.5, max(AU_grid$SR_anc)),
                        na.value="white") +
   labs(fill = expression(SR["ancient"])) +
   theme_void() +
@@ -308,9 +308,9 @@ fig_a <- ggplot() +
 
 # Only ancient endemics
 fig_b <- ggplot() +
-  geom_sf(data = AU_grid, aes(fill = SR_end_rec)) +
+  geom_sf(data = AU_grid, aes(fill = SR_end_anc)) +
   scale_fill_gradientn(colours = pal(100),
-                       limits = c(1, max(AU_grid$SR_end_rec)),
+                       limits = c(0.5, max(AU_grid$SR_end_anc)),
                        na.value="white") +
   labs(fill = expression(SR["ancient"])) +
   theme_void() +
@@ -324,7 +324,7 @@ fig_b <- ggplot() +
 fig_c <- ggplot() +
   geom_sf(data = AU_grid, aes(fill = SR_rec)) +
   scale_fill_gradientn(colours = pal(100),
-                       limits = c(1, max(AU_grid$SR_rec)),
+                       limits = c(0.5, max(AU_grid$SR_rec)),
                        na.value="white") +
   labs(fill = expression(SR["recent"])) +
   theme_void() +
@@ -338,7 +338,7 @@ fig_c <- ggplot() +
 fig_d <- ggplot() +
   geom_sf(data = AU_grid, aes(fill = SR_end_rec)) +
   scale_fill_gradientn(colours = pal(100),
-                       limits = c(1, max(AU_grid$SR_end_rec)),
+                       limits = c(0.5, max(AU_grid$SR_end_rec)),
                        na.value="white") +
   labs(fill = expression(SR["recent"])) +
   theme_void() +
