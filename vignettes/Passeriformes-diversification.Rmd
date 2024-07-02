@@ -40,14 +40,14 @@ library(treesliceR)
 Herein, we'll compare the distribution of passerine species richness between ancient and recent lineages. Additionally, we'll map the distribution of their respective ancient and recent endemic species (i.e., regions of paleo- and neo-endemism). The passerine phylogenies we used are subsets of the global bird phylogenies provided by [Jetz et al. (2012)](https://doi.org/10.1038/nature11631). 
 
 First, we load the passerine phylogeny available within the package by calling the `pass_trees` object:
-```{r, eval = TRUE, echo = FALSE}
+```{r, eval = TRUE}
 tree <- pass_trees[[1]]
 ```
 
 Now, we need to split the phylogeny into two distinct portions: one representing ancient lineages and another representing those originating from recent cladogenesis events. To do this, we categorically defined ancient species as those with tips ages beyond the 75º quantile, while more derived were categorized as those located within the 25º quantile. 
 
 We can prune the tips outside the defined thresholds from our phylogeny using the `prune_tips()` function, setting the argument `qtl = TRUE` to prune the tips based on quantile values:
-```{r, eval = TRUE, echo = FALSE}
+```{r, eval = TRUE}
 ancient <- prune_tips(tree, 0.75, qtl = TRUE)
 recent <- prune_tips(tree, 0.25, qtl = TRUE, method = 2)
 ```
@@ -63,17 +63,17 @@ par(oldpar) # Returning to the original display
 ```
 
 Next, we need to obtain the species presence-absence matrix separately for each phylogeny. Let's start with the ancient phylogeny:
-```{r, echo = FALSE, eval = TRUE}
+```{r, eval = TRUE}
 anc_mat <- pass_mat[, which(colnames(pass_mat) %in% ancient$tip.label)]
 ```
 
 Now we'll create another presence-absence matrix with the passerine endemics, based on a quantile threshold of the 30th percentile of the ancient species' range size:
-```{r, echo = FALSE, eval = TRUE}
+```{r, eval = TRUE}
 anc_end_mat <- anc_mat[which(colSums(anc_mat) <= quantile(colSums(anc_mat), 0.30))]
 ```
 
 The same needs to be computed for recent species. We will subset their presence-absence matrix for all recent species and another for their endemics using the same criteria:
-```{r, echo = FALSE, eval = TRUE}
+```{r, eval = TRUE}
 # All recent
 rec_mat <- pass_mat[, which(colnames(pass_mat) %in% recent$tip.label)]
 # Endemics
@@ -81,7 +81,7 @@ rec_end_mat <- rec_mat[which(colSums(rec_mat) <= quantile(colSums(rec_mat), 0.30
 ```
 
 Finally, we'll add all the species richness information to the grid assemblages (`AU_grid` object):
-```{r, echo = FALSE, eval = TRUE}
+```{r, eval = TRUE}
 AU_grid <- cbind(AU_grid, 
                  SR_anc = rowSums(anc_mat), SR_end_anc = rowSums(anc_end_mat), # Ancient
                  SR_rec = rowSums(rec_mat), SR_end_rec = rowSums(rec_end_mat)) # Recent
@@ -89,7 +89,7 @@ AU_grid <- cbind(AU_grid,
 ```
 
 Now, we can create a graph similar to the one displayed in Araujo et al. (in review) using the `ggplot2` package. Let's start with the ancient species:
-```{r, eval = TRUE, fig.align='center', out.width="80%"}
+```{r, eval = TRUE, warning = FALSE, fig.align='center', out.width="80%"}
 # Before plotting, let's set a cool palette:
 pal <- colorRampPalette(c("#30009B", "#000083", "#009BFE", "#00BC00", "#FEF600", "#FE6230", "#DD0000" ))
 
@@ -129,7 +129,7 @@ ggarrange(fig_a, fig_b,
 
 
 and for those recent species:
-```{r, eval = TRUE, fig.align='center', out.width="80%"}
+```{r, eval = TRUE, warning = FALSE, fig.align='center', out.width="80%"}
 # All species
 fig_c <- ggplot() +
   geom_sf(data = AU_grid, aes(fill = SR_rec)) +
@@ -243,7 +243,8 @@ knitr::include_graphics("OneTree_nest.png")
 Herein, we'll replicate the process from the previous section using multiple (100) phylogenies. We'll utilize all these phylogenies to account for phylogenetic uncertainty associated with the inputted tips.
 
 Let's start by creating empty `data.frames` to store the species richness for each category (i.e., ancient vs. recent, all species vs. endemics):
-```{r, echo = FALSE}
+
+```{r, echo=TRUE}
 # Data frames for ancient lineages:
 mat_anc_rich <- as.data.frame(matrix(nrow = nrow(AU_grid), ncol = 100))
 mat_anc_endemics <- as.data.frame(matrix(nrow = nrow(AU_grid), ncol = 100))
@@ -255,7 +256,8 @@ mat_rec_endemics <- as.data.frame(matrix(nrow = nrow(AU_grid), ncol = 100))
 
 
 Then, we can automate the procedures executed in the first section for all our 100 phylogenies by simply using a `for()` loop to iterate over each phylogeny:
-```{r, eval = TRUE, echo = FALSE}
+```{r, echo=TRUE}
+# Create a for loop that iterate along all trees
 for (i in 1:100) {
   # Select phylogeny "i" available within the package:
   tree <- pass_trees[[i]]
@@ -280,18 +282,18 @@ for (i in 1:100) {
 ```
 
 Similarly as before, we can assign the mean species richness values of each category to our `AU_grid` assemblages:
-```{r, echo = FALSE, eval = TRUE}
+```{r, echo = TRUE}
 # Assigning ancient species richness
 AU_grid$SR_anc <- rowMeans(mat_anc_rich)
 AU_grid$SR_end_anc <- rowMeans(mat_anc_endemics)
 # Assigning recent species richness
 AU_grid$SR_rec <- rowMeans(mat_rec_rich)
-AU_grid$SR_rec_anc <- rowMeans(mat_rec_endemics)
+AU_grid$SR_end_rec <- rowMeans(mat_rec_endemics)
 
 ```
 
 Let's plot it!
-```{r, eval = TRUE, fig.align='center', out.width="80%"}
+```{r, eval = TRUE, warning = FALSE, fig.align='center', out.width="80%"}
 # All ancient species
 fig_a <- ggplot() +
   geom_sf(data = AU_grid, aes(fill = SR_anc)) +
