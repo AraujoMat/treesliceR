@@ -122,6 +122,8 @@ distribution of their respective ancient and recent endemic species
 used are subsets of the global bird phylogenies provided by <a href="https://doi.org/10.1038/nature11631" class="external-link">Jetz et al. (2012)</a>.</p>
 <p>First, we load the passerine phylogeny available within the package
 by calling the <code>pass_trees</code> object:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="va">pass_trees</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <p>Now, we need to split the phylogeny into two distinct portions: one
 representing ancient lineages and another representing those originating
 from recent cladogenesis events. To do this, we categorically defined
@@ -132,11 +134,14 @@ quantile.</p>
 phylogeny using the <code><a href="../reference/prune_tips.html">prune_tips()</a></code> function, setting the
 argument <code>qtl = TRUE</code> to prune the tips based on quantile
 values:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ancient</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prune_tips.html">prune_tips</a></span><span class="op">(</span><span class="va">tree</span>, <span class="fl">0.75</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">recent</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prune_tips.html">prune_tips</a></span><span class="op">(</span><span class="va">tree</span>, <span class="fl">0.25</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span>, method <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <p>The <code>method = 2</code> setting makes the function prune the tips
 older than the specified temporal threshold. For more details, see the
 argument descriptions by tipping <code><a href="../reference/prune_tips.html">?prune_tips</a></code>.</p>
 <p>Let’s compare our original phylogeny with the pruned ones:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># Setting an 1x3 graphical display</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree</span>, main <span class="op">=</span> <span class="st">"Complete tree"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ancient</span>, main <span class="op">=</span> <span class="st">"Ancient tree"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -146,18 +151,31 @@ argument descriptions by tipping <code><a href="../reference/prune_tips.html">?p
 <p>Next, we need to obtain the species presence-absence matrix
 separately for each phylogeny. Let’s start with the ancient
 phylogeny:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">anc_mat</span> <span class="op">&lt;-</span> <span class="va">pass_mat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">pass_mat</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">ancient</span><span class="op">$</span><span class="va">tip.label</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <p>Now we’ll create another presence-absence matrix with the passerine
 endemics, based on a quantile threshold of the 30th percentile of the
 ancient species’ range size:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">anc_end_mat</span> <span class="op">&lt;-</span> <span class="va">anc_mat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">anc_mat</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">anc_mat</span><span class="op">)</span>, <span class="fl">0.30</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <p>The same needs to be computed for recent species. We will subset
 their presence-absence matrix for all recent species and another for
 their endemics using the same criteria:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># All recent</span></span>
+<span><span class="va">rec_mat</span> <span class="op">&lt;-</span> <span class="va">pass_mat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">pass_mat</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">recent</span><span class="op">$</span><span class="va">tip.label</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co"># Endemics</span></span>
+<span><span class="va">rec_end_mat</span> <span class="op">&lt;-</span> <span class="va">rec_mat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">rec_mat</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">rec_mat</span><span class="op">)</span>, <span class="fl">0.30</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <p>Finally, we’ll add all the species richness information to the grid
 assemblages (<code>AU_grid</code> object):</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">AU_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">AU_grid</span>, </span>
+<span>                 SR_anc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">anc_mat</span><span class="op">)</span>, SR_end_anc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">anc_end_mat</span><span class="op">)</span>, <span class="co"># Ancient</span></span>
+<span>                 SR_rec <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">rec_mat</span><span class="op">)</span>, SR_end_rec <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">rec_end_mat</span><span class="op">)</span><span class="op">)</span> <span class="co"># Recent</span></span></code></pre></div>
 <p>Now, we can create a graph similar to the one displayed in Araujo et
 al. (in review) using the <code>ggplot2</code> package. Let’s start with
 the ancient species:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Before plotting, let's set a cool palette:</span></span>
 <span><span class="va">pal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html" class="external-link">colorRampPalette</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#30009B"</span>, <span class="st">"#000083"</span>, <span class="st">"#009BFE"</span>, <span class="st">"#00BC00"</span>, <span class="st">"#FEF600"</span>, <span class="st">"#FE6230"</span>, <span class="st">"#DD0000"</span> <span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -174,14 +192,7 @@ the ancient species:</p>
 <span>        legend.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">13</span><span class="op">)</span>,</span>
 <span>        legend.key.size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.75</span>, <span class="st">"cm"</span><span class="op">)</span>,</span>
 <span>        legend.direction <span class="op">=</span> <span class="st">"horizontal"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: A numeric `legend.position` argument in `theme()` was deprecated in ggplot2</span></span>
-<span><span class="co">#&gt; 3.5.0.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use the `legend.position.inside` argument of `theme()` instead.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span></span>
 <span><span class="co"># Only endemics</span></span>
 <span><span class="va">fig_b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">AU_grid</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">SR_end_anc</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -201,7 +212,7 @@ the ancient species:</p>
 <span>          labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a)"</span>, <span class="st">"b)"</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Passeriformes-diversification_files/figure-html/unnamed-chunk-11-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>and for those recent species:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># All species</span></span>
 <span><span class="va">fig_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">AU_grid</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">SR_rec</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -254,7 +265,7 @@ respective neighborhoods, which can be accessed through the
 <code>AU_adj</code> object. Let’s examine the header of the assemblage
 matrix containing the species, focusing on the first four columns (or
 species):</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pass_mat</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   Heteromyias_albispecularis Myzomela_obscura Taeniopygia_guttata</span></span>
 <span><span class="co">#&gt; 1                          0                1                   0</span></span>
@@ -274,11 +285,11 @@ species):</p>
 number of slices to assess the CpB-rate patterns. But first, we need to
 create a vector containing our desired number of slices for
 assessment:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">250</span>, <span class="fl">500</span>, <span class="fl">750</span>, <span class="fl">1000</span>, <span class="fl">1250</span>, <span class="fl">1500</span>, <span class="fl">1750</span>, <span class="fl">2000</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s run the sensitivity analysis for both <em>turnover</em> and
 <em>nestedness</em> components:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sens_turn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_sensitivity.html">CpR_sensitivity</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, vec <span class="op">=</span> <span class="va">vec</span>, samp <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>                             mat <span class="op">=</span> <span class="va">pass_mat</span>, adj <span class="op">=</span> <span class="va">AU_adj</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, comp <span class="op">=</span> <span class="st">"turnover"</span><span class="op">)</span></span>
 <span><span class="va">sens_nest</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_sensitivity.html">CpR_sensitivity</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, vec <span class="op">=</span> <span class="va">vec</span>, samp <span class="op">=</span> <span class="fl">100</span>,</span>
@@ -287,7 +298,7 @@ assessment:</p>
 <code>CpR_sensitivity_plot</code> function. We use the
 <code>ggplot2</code> syntax to add a vertical line showing our selected
 number of slices to run our subsequent analysis:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Store each graph within a respective object</span></span>
 <span><span class="va">turn_sens_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_sensitivity_plot.html">CpR_sensitivity_plot</a></span><span class="op">(</span><span class="va">sens_turn</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, stc <span class="op">=</span> <span class="st">"mean"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">1000</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>, color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span>
@@ -300,7 +311,7 @@ number of slices to run our subsequent analysis:</p>
 <p>Now, we can finally calculate the CpB-rates for <em>turnover</em> and
 <em>nestedness</em> components, in this case, under a multisite approach
 (<strong>PS:</strong> this may take a few minutes):</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For turnover component</span></span>
 <span><span class="va">turn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, n <span class="op">=</span> <span class="fl">1000</span>, mat <span class="op">=</span> <span class="va">pass_mat</span>, adj <span class="op">=</span> <span class="va">AU_adj</span>, comp <span class="op">=</span> <span class="st">"turnover"</span><span class="op">)</span></span>
 <span><span class="co"># For nestedness component</span></span>
@@ -309,7 +320,7 @@ number of slices to run our subsequent analysis:</p>
 we’ll use an Australian grid map stored within our package in the object
 <code>AU_grid</code>. Let’s plot these patterns for the turnover
 component:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">turn_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">turn</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">turn_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">turn</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span>, map <span class="op">=</span> <span class="va">AU_grid</span><span class="op">)</span></span>
 <span><span class="co"># To plot them together</span></span>
@@ -317,7 +328,7 @@ component:</p>
 <span>                    labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a)"</span>, <span class="st">"b)"</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="OneTree_turn.png" style="display: block; margin: auto;"></p>
 <p>And we can do the same for the nestedness component:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nest1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nest</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">nest2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nest</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span>, map <span class="op">=</span> <span class="va">AU_grid</span><span class="op">)</span></span>
 <span><span class="co"># To plot them together</span></span>
@@ -339,13 +350,51 @@ tips.</p>
 <p>Let’s start by creating empty <code>data.frames</code> to store the
 species richness for each category (i.e., ancient vs. recent, all
 species vs. endemics):</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Data frames for ancient lineages:</span></span>
+<span><span class="va">mat_anc_rich</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">AU_grid</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">mat_anc_endemics</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">AU_grid</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Data frames for recent ones:</span></span>
+<span><span class="va">mat_rec_rich</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">AU_grid</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">mat_rec_endemics</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span>nrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">AU_grid</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Then, we can automate the procedures executed in the first section
 for all our 100 phylogenies by simply using a <code>for()</code> loop to
 iterate over each phylogeny:</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create a for loop that iterate along all trees</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Select phylogeny "i" available within the package:</span></span>
+<span>  <span class="va">tree</span> <span class="op">&lt;-</span> <span class="va">pass_trees</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="co"># Prune the "i" phylogeny based on quantiles:</span></span>
+<span>  <span class="va">ancient</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prune_tips.html">prune_tips</a></span><span class="op">(</span><span class="va">tree</span>, <span class="fl">0.75</span>, qtl <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span>  <span class="va">recent</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prune_tips.html">prune_tips</a></span><span class="op">(</span><span class="va">tree</span>, <span class="fl">0.25</span>, qtl <span class="op">=</span> <span class="cn">T</span>, method <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Capture the presence-absence matrix for ancient species:</span></span>
+<span>  <span class="va">anc_mat</span> <span class="op">&lt;-</span> <span class="va">pass_mat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">pass_mat</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">ancient</span><span class="op">$</span><span class="va">tip.label</span><span class="op">)</span><span class="op">]</span></span>
+<span>  <span class="va">mat_anc_rich</span><span class="op">[</span>, <span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">anc_mat</span><span class="op">)</span> <span class="co"># Save their species richness</span></span>
+<span>  <span class="co"># Capture ancient endemic richness in Australia:</span></span>
+<span>  <span class="va">anc_mat</span> <span class="op">&lt;-</span> <span class="va">anc_mat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">anc_mat</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">anc_mat</span><span class="op">)</span>, <span class="fl">0.30</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
+<span>  <span class="va">mat_anc_endemics</span><span class="op">[</span>, <span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">anc_mat</span><span class="op">)</span> <span class="co"># Save their species richness</span></span>
+<span>  </span>
+<span>  <span class="co"># Capturing the presence-absence matrix for recent species:</span></span>
+<span>  <span class="va">rec_mat</span> <span class="op">&lt;-</span> <span class="va">pass_mat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">pass_mat</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">recent</span><span class="op">$</span><span class="va">tip.label</span><span class="op">)</span><span class="op">]</span></span>
+<span>  <span class="va">mat_rec_rich</span><span class="op">[</span>, <span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">rec_mat</span><span class="op">)</span> <span class="co"># Save their species richness</span></span>
+<span>  <span class="co"># Capturing recent endemic richness in Australia:</span></span>
+<span>  <span class="va">rec_mat</span> <span class="op">&lt;-</span> <span class="va">rec_mat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">rec_mat</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">rec_mat</span><span class="op">)</span>, <span class="fl">0.30</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
+<span>  <span class="va">mat_rec_endemics</span><span class="op">[</span>, <span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">rec_mat</span><span class="op">)</span> <span class="co"># Save their species richness</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>Similarly as before, we can assign the mean species richness values
 of each category to our <code>AU_grid</code> assemblages:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Assigning ancient species richness</span></span>
+<span><span class="va">AU_grid</span><span class="op">$</span><span class="va">SR_anc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowMeans</a></span><span class="op">(</span><span class="va">mat_anc_rich</span><span class="op">)</span></span>
+<span><span class="va">AU_grid</span><span class="op">$</span><span class="va">SR_end_anc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowMeans</a></span><span class="op">(</span><span class="va">mat_anc_endemics</span><span class="op">)</span></span>
+<span><span class="co"># Assigning recent species richness</span></span>
+<span><span class="va">AU_grid</span><span class="op">$</span><span class="va">SR_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowMeans</a></span><span class="op">(</span><span class="va">mat_rec_rich</span><span class="op">)</span></span>
+<span><span class="va">AU_grid</span><span class="op">$</span><span class="va">SR_end_rec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowMeans</a></span><span class="op">(</span><span class="va">mat_rec_endemics</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s plot it!</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># All ancient species</span></span>
 <span><span class="va">fig_a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">AU_grid</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">SR_anc</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -424,7 +473,7 @@ function to run under parallel programming (using the argument
 the number of cores set (5) is supported by your machine. Anyway, the
 following function can may take some minutes to finish, but it can run
 faster if you are able to set a higher number of cores:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CpB_turn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">pass_trees</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">x</span>, n <span class="op">=</span> <span class="fl">1000</span>, mat <span class="op">=</span> <span class="va">pass_mat</span>, adj <span class="op">=</span> <span class="va">AU_adj</span>, comp <span class="op">=</span> <span class="st">"turnover"</span>, ncor <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
@@ -433,7 +482,7 @@ on our list of <code><a href="../reference/CpB.html">CpB()</a></code> outputs us
 <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply()</a></code> function. We’ll store them within a new data frame
 containing the format that our <code><a href="../reference/CpR_graph.html">CpR_graph()</a></code> is able to read
 (which is the same as the <code><a href="../reference/CpB.html">CpB()</a></code> output):</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CpB_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">CpB_turn</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
 <span><span class="va">pB_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">CpB_turn</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
 <span><span class="va">pBO_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">CpB_turn</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
@@ -442,7 +491,7 @@ containing the format that our <code><a href="../reference/CpR_graph.html">CpR_g
 <span>                            pB <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">pB_val</span>, <span class="fl">1</span>, <span class="va">mean</span><span class="op">)</span>,</span>
 <span>                            pBO <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">pBO_val</span>, <span class="fl">1</span>, <span class="va">mean</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Plotting the CpB outputs for the turnover component:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">turn_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">turn_100trees</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">turn_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">turn_100trees</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span>, map <span class="op">=</span> <span class="va">AU_grid</span><span class="op">)</span></span>
 <span><span class="co"># To plot them together</span></span>
@@ -451,12 +500,12 @@ containing the format that our <code><a href="../reference/CpR_graph.html">CpR_g
 <p><img src="AllTrees_turn.png" style="display: block; margin: auto;"></p>
 <p>Now, we’ll do the same for the <strong>nestedness</strong>
 component:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CpB_nest</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">pass_trees</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="../reference/CpB.html">CpB</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">x</span>, n <span class="op">=</span> <span class="fl">1000</span>, mat <span class="op">=</span> <span class="va">pass_mat</span>, adj <span class="op">=</span> <span class="va">AU_adj</span>, comp <span class="op">=</span> <span class="st">"nestedness"</span>, ncor <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p>Separating and summarizing each parameter:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CpB_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">CpB_nest</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
 <span><span class="va">pB_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">CpB_nest</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
 <span><span class="va">pBO_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">CpB_nest</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span>
@@ -465,7 +514,7 @@ component:</p>
 <span>                            pB <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">pB_val</span>, <span class="fl">1</span>, <span class="va">mean</span><span class="op">)</span>,</span>
 <span>                            pBO <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">pBO_val</span>, <span class="fl">1</span>, <span class="va">mean</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Plotting the CpB outputs for the nestedness component:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nest_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nest_100trees</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">nest_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CpR_graph.html">CpR_graph</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nest_100trees</span>, rate <span class="op">=</span> <span class="st">"CpB"</span>, qtl <span class="op">=</span> <span class="cn">TRUE</span>, map <span class="op">=</span> <span class="va">AU_grid</span><span class="op">)</span></span>
 <span><span class="co"># To plot them together</span></span>
