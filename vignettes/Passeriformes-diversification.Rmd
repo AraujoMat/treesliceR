@@ -44,7 +44,7 @@ First, we load the passerine phylogeny available within the package by calling t
 tree <- pass_trees[[1]]
 ```
 
-Now, we need to split the phylogeny into two distinct portions: one representing ancient lineages and another representing those originating from recent cladogenesis events. To do this, we categorically defined ancient species as those with tips ages beyond the 75º quantile, while more derived were categorized as those located within the 25º quantile. 
+Now, we need to split the phylogeny into two distinct portions: one representing ancient lineages and another representing those originating from recent cladogenesis events. To do this, we categorically defined ancient species as those with tips ages beyond the 75th percentile, while more derived were categorized as those located within the 25th percentile. 
 
 We can prune the tips outside the defined thresholds from our phylogeny using the `prune_tips()` function, setting the argument `qtl = TRUE` to prune the tips based on quantile values:
 ```{r, eval = TRUE}

@@ -86,7 +86,7 @@ CpD <- function(tree, n, mat, criterion = "my", pDO = 5, ncor = 0){
     CPD <- foreach::foreach(i = 1:nrow(mat), .combine = rbind) %dopar% {
 
       # Which species are within this assemblage
-      tips <- which(mat[i,] > 0) # (spp numbers follows same position on node matrix)  i <- 1000
+      tips <- colnames(mat)[which(mat[i,] > 0)] # (spp numbers follows same position on node matrix)  i <- 1000
 
       if(length(tips) == 0) {
         CPDrate <- c(NA, NA, NA)
@@ -146,7 +146,7 @@ CpD <- function(tree, n, mat, criterion = "my", pDO = 5, ncor = 0){
     CPD <- foreach::foreach(i = 1:nrow(mat), .combine = rbind) %do% {
 
       # Which species are within this assemblage
-      tips <- which(mat[i,] > 0) # (spp numbers follows same position on node matrix)  i <- 1000
+      tips <- colnames(mat)[which(mat[i,] > 0)] # (spp numbers follows same position on node matrix)  i <- 1000
 
       if(length(tips) == 0) {
         CPDrate <- c(NA, NA, NA)

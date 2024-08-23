@@ -116,7 +116,7 @@ CpE <- function(tree, n, mat, criterion = "my", pEO = 5, ncor = 0){
     CPE <- foreach::foreach(i = 1:nrow(mat), .combine = rbind) %dopar% {
 
       # Which species are within this assemblage
-      tips <- which(mat[i,] > 0) # (spp numbers follows same position on node matrix)  i <- 1000
+      tips <- colnames(mat)[which(mat[i,] > 0)] # (spp numbers follows same position on node matrix)  i <- 1000
 
       if(length(tips) == 0) {
         CPErate <- c(NA, NA, NA)
@@ -176,7 +176,7 @@ CpE <- function(tree, n, mat, criterion = "my", pEO = 5, ncor = 0){
     CPE <- foreach::foreach(i = 1:nrow(mat), .combine = rbind) %do% {
 
       # Which species are within this assemblage
-      tips <- which(mat[i,] > 0) # (spp numbers follows same position on node matrix)  i <- 1
+      tips <- colnames(mat)[which(mat[i,] > 0)] # (spp numbers follows same position on node matrix)  i <- 1
 
       if(length(tips) == 0) {
         CPErate <- c(NA, NA, NA)
