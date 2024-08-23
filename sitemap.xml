@@ -1,96 +1,34 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/404.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/articles/Intro-treesliceR.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/articles/Passeriformes-distribution.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/articles/Passeriformes-diversification.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/index.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/AU_adj.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/AU_grid.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/CpB.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/CpB_RW.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/CpD.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/CpE.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/CpR_graph.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/CpR_sensitivity.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/CpR_sensitivity_plot.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/DR.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/nodes_config.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/pass_mat.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/pass_trees.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/phylo_pieces.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/prune_tips.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/r_phylo.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/reexports.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/squeeze_int.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/squeeze_root.html</loc>
-  </url>
-  <url>
-    <loc>https://araujomat.github.io/treesliceR/reference/squeeze_tips.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://araujomat.github.io/treesliceR/404.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/LICENSE-text.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/LICENSE.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/articles/Intro-treesliceR.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/articles/Passeriformes-distribution.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/articles/Passeriformes-diversification.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/articles/index.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/authors.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/index.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/news/index.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/AU_adj.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/AU_grid.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/CpB.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/CpB_RW.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/CpD.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/CpE.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/CpR_graph.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/CpR_sensitivity.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/CpR_sensitivity_plot.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/DR.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/index.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/nodes_config.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/pass_mat.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/pass_trees.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/phylo_pieces.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/prune_tips.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/r_phylo.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/reexports.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/squeeze_int.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/squeeze_root.html</loc></url>
+<url><loc>https://araujomat.github.io/treesliceR/reference/squeeze_tips.html</loc></url>
 </urlset>
+
