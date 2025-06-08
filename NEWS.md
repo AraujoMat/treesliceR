@@ -1,3 +1,5 @@
+# treesliceR 1.0.3
+
 # treesliceR 1.0.2
 * The functions for calculating rates of accumulation of phylogenetic diversity (CpD()) and phylogenetic endemism (CpE()) indexes have undergone internal changes. Previously, their outputs were sensitive to the position of species in the presence-absence matrix; this issue has now been corrected, and the position of species in the matrix no longer affects the final output.
 

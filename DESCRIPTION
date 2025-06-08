@@ -1,6 +1,6 @@
 Package: treesliceR
 Title: To Slice Phylogenetic Trees and Infer Evolutionary Patterns Over Time
-Version: 1.0.2
+Version: 1.0.3
 Authors@R: 
     c(person("Matheus Lima", "Araujo", , "matheusaraujolima@live.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-9111-725X")),
