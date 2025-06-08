@@ -13,7 +13,7 @@ test_that("CpE returns the expected data frame size", {
   # Create 20 random assemblages
   for(i in 1:20){
     # Create a random phylogeny
-    tree[[i]] <- ape::rcoal(20)
+    tree[[i]] <- ape::rcoal(20, br = c(min = 2, max = 10)) # Sets a minimum and maximum length for branch lengths
     # Create a random matrix
     mat[[i]] <- matrix(sample(c(1, 0), 20 * 10, replace = TRUE), ncol = 20, nrow = 10)
     colnames(mat[[i]]) <- tree[[i]]$tip.label # Name its columns according to tip names

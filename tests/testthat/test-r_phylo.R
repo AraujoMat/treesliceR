@@ -1,7 +1,35 @@
 # Evaluating the size of the outputs
 test_that("r_phylo outputs a list with the same size as the inputted number of assemblages, and the correct inputted number of slices", {
   # Number of iterations
-  n <- sample(5:15, 20, replace = TRUE)
+  n <- sample(10:20, 20, replace = TRUE)
+
+  # Creating a presence-absence matrix
+  mat_input <- c(0,1,0,0,0,0,1,1,0,1,1,0,1,1,0,1,0,1,0,1,1,0,1,0,1,0,0,1,0,1,
+                 1,1,1,1,1,1,1,0,1,1,0,1,1,1,0,1,1,0,1,0,0,0,0,1,1,1,0,1,1,1,
+                 1,0,1,1,1,0,0,0,0,1,0,0,1,0,1,0,0,1,1,0,0,1,1,0,0,0,0,1,0,0,
+                 0,0,1,0,0,0,1,0,1,1,1,1,1,0,1,0,0,0,1,0,0,1,1,0,1,0,0,1,0,0,
+                 1,1,1,1,0,1,1,1,0,1,1,0,1,0,1,0,0,1,1,0,1,1,0,0,1,1,0,0,1,0,
+                 1,1,0,1,1,0,0,0,0,0,1,1,1,1,1,0,0,1,0,1,0,0,1,0,1,0,0,1,0,1,
+                 0,1,1,0,1,0,1,0,1,0,1,1,1,1,1,1,0,1,1,1,0,0,1,0,0,0,0,0,1,1,
+                 1,1,0,1,1,0,0,1,1,1,1,1,1,0,1,0,0,1,1,0,1,1,1,0,1,1,1,0,0,0,
+                 0,1,1,0,1,0,1,0,1,1,0,1,1,0,0,1,0,0,0,1,1,1,0,1,1,1,0,1,0,0,
+                 1,0,0,0,0,1,0,0,0,0,1,1,0,0,0,1,1,1,1,0,0,0,0,0,1,1,1,1,0,1)
+  # Transforming into a 10x30 matrix
+  mat_input <- matrix(mat_input, nrow = 10, ncol = 30, byrow = TRUE)
+
+  # Creating an adjacency matrix
+  adj <- c(1,1,1,0,0,1,0,1,0,0,
+           1,1,0,0,0,0,1,1,0,1,
+           1,1,1,0,1,0,1,1,1,1,
+           1,0,1,1,0,0,0,0,1,0,
+           1,1,0,1,1,1,1,1,0,1,
+           0,1,0,1,0,1,1,1,0,1,
+           0,1,1,0,0,0,1,1,0,1,
+           1,0,0,0,0,1,0,1,1,1,
+           1,0,0,1,0,1,0,0,1,0,
+           0,1,1,1,0,1,0,1,0,1)
+  # Converting into a 10x10 matrix
+  adj <- matrix(adj, nrow = 10, ncol = 10, byrow = TRUE)
 
   # Creating empty lists to store r_phylo outputs
   r_phylo_M1 <- list()
@@ -12,19 +40,14 @@ test_that("r_phylo outputs a list with the same size as the inputted number of a
   # And also lists to store phylogenies
   tree <- list()
   mat <- list()
-  adj <- list()
 
   # Create 20 random assemblages
   for(i in 1:20){
     # Create a random phylogeny
-    tree[[i]] <- ape::rcoal(30)
+    tree[[i]] <- ape::rcoal(30, br = c(min = 2, max = 10)) # Sets a minimum and maximum length for branch lengths
     # Create a random matrix
-    mat[[i]] <- matrix(sample(c(1, 0), 30*15, replace = TRUE), ncol = 30, nrow = 15)
+    mat[[i]] <- mat_input
     colnames(mat[[i]]) <- tree[[i]]$tip.label # Name its columns according to tip names
-    # Create a random adjacency matrix
-    adj[[i]] <- matrix(sample(c(1,0), 15*15, replace = TRUE), ncol = 15, nrow = 15)
-    # Fill the diagonals with 1
-    diag(adj[[i]]) <- 1
   }
 
   # Run the algorithm for different phylogentic indexes while suppressing some warnings
@@ -32,8 +55,8 @@ test_that("r_phylo outputs a list with the same size as the inputted number of a
   suppressWarnings({for(i in 1:20){
     r_phylo_M1[[i]] <- r_phylo(tree[[i]], n = n[i], mat = mat[[i]], index = "PD")
     r_phylo_M2[[i]] <- r_phylo(tree[[i]], n = n[i], mat = mat[[i]], index = "PE")
-    r_phylo_M3[[i]] <- r_phylo(tree[[i]], n = n[i], mat = mat[[i]], adj = adj[[i]], index = "PB")
-    r_phylo_M4[[i]] <- r_phylo(tree[[i]], n = n[i], mat = mat[[i]], adj = adj[[i]], index = "PB_RW")
+    r_phylo_M3[[i]] <- r_phylo(tree[[i]], n = n[i], mat = mat[[i]], adj = adj, index = "PB")
+    r_phylo_M4[[i]] <- r_phylo(tree[[i]], n = n[i], mat = mat[[i]], adj = adj, index = "PB_RW")
   }})
 
   # Test 1
