@@ -93,19 +93,10 @@ CpD <- function(tree, n, mat, criterion = "my", pDO = 5, ncor = 0){
         return(CPDrate)
 
       } else {
-        # Obtaining the node matrix for those species
-        if(length(tips) == 1){
-          #  if there is a single spp, which nodes give origin to my species
-          nodes <- as.numeric(names(which(rowSums(as.data.frame(tree$node_matrix[, tips])) > 0)))
-        }
-
-        if(length(tips) > 1){
-          # Which nodes give origin to my species
-          nodes <- as.numeric(names(which(rowSums(tree$node_matrix[, tips]) > 0)))
-        }
-
+        # Which nodes give origin to my species
+        nodes <- unique(unlist(tree$paths[tips]))
         # Obtaining the tips and node positions
-        positions <- which(tree$edge[,2] %in% c(tips, nodes))
+        positions <- which(tree$edge[,2] %in% c(nodes))
 
         # Calculating the relative PE on each phylo slice
         CPD <- sapply(branch_pieces, function(x){     # x <- branch_pieces[[1800]]
@@ -153,19 +144,11 @@ CpD <- function(tree, n, mat, criterion = "my", pDO = 5, ncor = 0){
         return(CPDrate)
 
       } else {
-        # Obtaining the node matrix for those species
-        if(length(tips) == 1){
-          #  if there is a single spp, which nodes give origin to my species
-          nodes <- as.numeric(names(which(rowSums(as.data.frame(tree$node_matrix[, tips])) > 0)))
-        }
 
-        if(length(tips) > 1){
-          # Which nodes give origin to my species
-          nodes <- as.numeric(names(which(rowSums(tree$node_matrix[, tips]) > 0)))
-        }
-
+        # Which nodes give origin to my species
+        nodes <- unique(unlist(tree$paths[tips]))
         # Obtaining the tips and node positions
-        positions <- which(tree$edge[,2] %in% c(tips, nodes))
+        positions <- which(tree$edge[,2] %in% c(nodes))
 
         # Calculating the relative PE on each phylo slice
         CPD <- sapply(branch_pieces, function(x){     # x <- branch_pieces[[1800]]

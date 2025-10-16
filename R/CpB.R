@@ -86,7 +86,7 @@ CpB <- function(tree, n, mat, adj, comp = "sorensen",
     CpBrate <- foreach::foreach(commu = asb, .combine = rbind) %dopar% {
 
       if(nrow(commu) >= 2 & ncol(commu) >= 2 &
-         all(commu == 1) == FALSE & all(commu == 0) == FALSE){ # Minimum 2 neig and 2 spp
+         all(commu == 1) == FALSE & all(commu == 0) == FALSE){ # Minimum 2 neig and 2 spp commu <- asb[[1]]
 
         # Combining the paired assemblages into a new species presence-absence matrix
         comb_commus <- t(apply(utils::combn(nrow(commu), 2), 2, function(x) colSums(commu[x,]) > 0))
@@ -98,49 +98,22 @@ CpB <- function(tree, n, mat, adj, comp = "sorensen",
         # OBS
         commus_nodes <- apply(commu, 1, function(x) { # x <- 1
           # Which species are present in my assemblage
-          present_obs <- species[x > 0] # present_obs <- species[commu[1,] > 0]
-
-          # Which is the species position in my node matrix
-          spps <- which(colnames(tree$node_matrix) %in% present_obs)
-
-          # if there is a single spp
-          if(length(spps) == 1){
-            # Which nodes give origin to my species
-            nodes <- as.numeric(names(which(rowSums(as.data.frame(tree$node_matrix[,spps])) > 0)))
-
-          } else {
-            # Which nodes give origin to my species
-            nodes <- as.numeric(names(which(rowSums(tree$node_matrix[,spps]) > 0)))
-          }
-
+          present_obs <- species[x > 0] # present_obs <- species[commu[3,] > 0]
+          # Which nodes give origin to my species
+          nodes <- unique(unlist(tree$paths[present_obs]))
+          # Obtaining the tips and node positions
           # Lines from the edge.length to preserve
-          lines_prs <- which(tree$edge[, 1] %in% nodes &             # Which nodes are in my spliting side from matrix
-                               tree$edge[, 2] %in% c(spps, nodes))   # Which nodes and tips are in my splitted side from matrix
-
+          lines_prs <- which(tree$edge[,2] %in% c(nodes))
         })
         # PWR
         p_commus_nodes <- lapply(1:nrow(comb_commus), function(x) { # x <- 1
           # Which species are present in my assemblage
           present_obs <- species[comb_commus[x,] > 0] # present_obs <- species[comb_commus[1,] > 0]
-
-          # Which is the species position in my node matrix
-          spps <- which(colnames(tree$node_matrix) %in% present_obs)
-
-
-          # if there is a single spp
-          if(length(spps) == 1){
-            # Which nodes give origin to my species
-            nodes <- as.numeric(names(which(rowSums(as.data.frame(tree$node_matrix[,spps])) > 0)))
-
-          } else {
-            # Which nodes give origin to my species
-            nodes <- as.numeric(names(which(rowSums(tree$node_matrix[, spps]) > 0)))
-          }
-
+          # Which nodes give origin to my species
+          nodes <- unique(unlist(tree$paths[present_obs]))
+          # Obtaining the tips and node positions
           # Lines from the edge.length to preserve
-          lines_prs <- which(tree$edge[, 1] %in% nodes &             # Which nodes are in my spliting side from matrix
-                               tree$edge[, 2] %in% c(spps, nodes))   # Which nodes and tips are in my splitted side from matrix
-
+          lines_prs <- which(tree$edge[,2] %in% c(nodes))
         })
 
 
@@ -176,16 +149,11 @@ CpB <- function(tree, n, mat, adj, comp = "sorensen",
             t_commus_nodes <- apply(t(as.matrix(colSums(commu) > 0)), 1, function(x) { # x <- 1
               # Which species are present in my assemblage
               present_obs <- species[x > 0] # present_obs <- species[commu[1,] > 0]
-
-              # Which is the species position in my node matrix
-              spps <- which(colnames(tree$node_matrix) %in% present_obs)
               # Which nodes give origin to my species
-              nodes <- as.numeric(names(which(rowSums(tree$node_matrix[,spps]) > 0)))
-
+              nodes <- unique(unlist(tree$paths[present_obs]))
+              # Obtaining the tips and node positions
               # Lines from the edge.length to preserve
-              lines_prs <- which(tree$edge[, 1] %in% nodes &             # Which nodes are in my spliting side from matrix
-                                   tree$edge[, 2] %in% c(spps, nodes))   # Which nodes and tips are in my splitted side from matrix
-
+              lines_prs <- which(tree$edge[,2] %in% c(nodes))
             })
             # Calculating the total PD for the complete tree
             t_pd_assemblages <- sum(tree$edge.length[t_commus_nodes])
@@ -263,16 +231,11 @@ CpB <- function(tree, n, mat, adj, comp = "sorensen",
             t_commus_nodes <- apply(t(as.matrix(colSums(commu) > 0)), 1, function(x) { # x <- 1
               # Which species are present in my assemblage
               present_obs <- species[x > 0] # present_obs <- species[commu[1,] > 0]
-
-              # Which is the species position in my node matrix
-              spps <- which(colnames(tree$node_matrix) %in% present_obs)
               # Which nodes give origin to my species
-              nodes <- as.numeric(names(which(rowSums(tree$node_matrix[,spps]) > 0)))
-
+              nodes <- unique(unlist(tree$paths[present_obs]))
+              # Obtaining the tips and node positions
               # Lines from the edge.length to preserve
-              lines_prs <- which(tree$edge[, 1] %in% nodes &             # Which nodes are in my spliting side from matrix
-                                   tree$edge[, 2] %in% c(spps, nodes))   # Which nodes and tips are in my splitted side from matrix
-
+              lines_prs <- which(tree$edge[,2] %in% c(nodes))
             })
             # Calculating the total PD for the complete tree
             t_pd_assemblages <- sum(tree$edge.length[t_commus_nodes])
@@ -345,16 +308,11 @@ CpB <- function(tree, n, mat, adj, comp = "sorensen",
             t_commus_nodes <- apply(t(as.matrix(colSums(commu) > 0)), 1, function(x) { # x <- 1
               # Which species are present in my assemblage
               present_obs <- species[x > 0] # present_obs <- species[commu[1,] > 0]
-
-              # Which is the species position in my node matrix
-              spps <- which(colnames(tree$node_matrix) %in% present_obs)
               # Which nodes give origin to my species
-              nodes <- as.numeric(names(which(rowSums(tree$node_matrix[,spps]) > 0)))
-
+              nodes <- unique(unlist(tree$paths[present_obs]))
+              # Obtaining the tips and node positions
               # Lines from the edge.length to preserve
-              lines_prs <- which(tree$edge[, 1] %in% nodes &             # Which nodes are in my spliting side from matrix
-                                   tree$edge[, 2] %in% c(spps, nodes))   # Which nodes and tips are in my splitted side from matrix
-
+              lines_prs <- which(tree$edge[,2] %in% c(nodes))
             })
             # Calculating the total PD for the complete tree
             t_pd_assemblages <- sum(tree$edge.length[t_commus_nodes])
@@ -463,7 +421,7 @@ CpB <- function(tree, n, mat, adj, comp = "sorensen",
     CpBrate <- foreach::foreach(commu = asb, .combine = rbind) %do% {
 
       if(nrow(commu) >= 2 & ncol(commu) >= 2 &
-         all(commu == 1) == FALSE & all(commu == 0) == FALSE){ # Minimum 2 neig and 2 spp
+         all(commu == 1) == FALSE & all(commu == 0) == FALSE){ # Minimum 2 neig and 2 spp commu <- asb[[1]]
 
         # Combining the paired assemblages into a new species presence-absence matrix
         comb_commus <- t(apply(utils::combn(nrow(commu), 2), 2, function(x) colSums(commu[x,]) > 0))
@@ -475,49 +433,22 @@ CpB <- function(tree, n, mat, adj, comp = "sorensen",
         # OBS
         commus_nodes <- apply(commu, 1, function(x) { # x <- 1
           # Which species are present in my assemblage
-          present_obs <- species[x > 0] # present_obs <- species[commu[1,] > 0]
-
-          # Which is the species position in my node matrix
-          spps <- which(colnames(tree$node_matrix) %in% present_obs)
-
-          # if there is a single spp
-          if(length(spps) == 1){
-            # Which nodes give origin to my species
-            nodes <- as.numeric(names(which(rowSums(as.data.frame(tree$node_matrix[,spps])) > 0)))
-
-          } else {
-            # Which nodes give origin to my species
-            nodes <- as.numeric(names(which(rowSums(tree$node_matrix[,spps]) > 0)))
-          }
-
+          present_obs <- species[x > 0] # present_obs <- species[commu[3,] > 0]
+          # Which nodes give origin to my species
+          nodes <- unique(unlist(tree$paths[present_obs]))
+          # Obtaining the tips and node positions
           # Lines from the edge.length to preserve
-          lines_prs <- which(tree$edge[, 1] %in% nodes &             # Which nodes are in my spliting side from matrix
-                               tree$edge[, 2] %in% c(spps, nodes))   # Which nodes and tips are in my splitted side from matrix
-
+          lines_prs <- which(tree$edge[,2] %in% c(nodes))
         })
         # PWR
         p_commus_nodes <- lapply(1:nrow(comb_commus), function(x) { # x <- 1
           # Which species are present in my assemblage
           present_obs <- species[comb_commus[x,] > 0] # present_obs <- species[comb_commus[1,] > 0]
-
-          # Which is the species position in my node matrix
-          spps <- which(colnames(tree$node_matrix) %in% present_obs)
-
-
-          # if there is a single spp
-          if(length(spps) == 1){
-            # Which nodes give origin to my species
-            nodes <- as.numeric(names(which(rowSums(as.data.frame(tree$node_matrix[,spps])) > 0)))
-
-          } else {
-            # Which nodes give origin to my species
-            nodes <- as.numeric(names(which(rowSums(tree$node_matrix[, spps]) > 0)))
-          }
-
+          # Which nodes give origin to my species
+          nodes <- unique(unlist(tree$paths[present_obs]))
+          # Obtaining the tips and node positions
           # Lines from the edge.length to preserve
-          lines_prs <- which(tree$edge[, 1] %in% nodes &             # Which nodes are in my spliting side from matrix
-                               tree$edge[, 2] %in% c(spps, nodes))   # Which nodes and tips are in my splitted side from matrix
-
+          lines_prs <- which(tree$edge[,2] %in% c(nodes))
         })
 
 
@@ -553,16 +484,11 @@ CpB <- function(tree, n, mat, adj, comp = "sorensen",
             t_commus_nodes <- apply(t(as.matrix(colSums(commu) > 0)), 1, function(x) { # x <- 1
               # Which species are present in my assemblage
               present_obs <- species[x > 0] # present_obs <- species[commu[1,] > 0]
-
-              # Which is the species position in my node matrix
-              spps <- which(colnames(tree$node_matrix) %in% present_obs)
               # Which nodes give origin to my species
-              nodes <- as.numeric(names(which(rowSums(tree$node_matrix[,spps]) > 0)))
-
+              nodes <- unique(unlist(tree$paths[present_obs]))
+              # Obtaining the tips and node positions
               # Lines from the edge.length to preserve
-              lines_prs <- which(tree$edge[, 1] %in% nodes &             # Which nodes are in my spliting side from matrix
-                                   tree$edge[, 2] %in% c(spps, nodes))   # Which nodes and tips are in my splitted side from matrix
-
+              lines_prs <- which(tree$edge[,2] %in% c(nodes))
             })
             # Calculating the total PD for the complete tree
             t_pd_assemblages <- sum(tree$edge.length[t_commus_nodes])
@@ -640,16 +566,11 @@ CpB <- function(tree, n, mat, adj, comp = "sorensen",
             t_commus_nodes <- apply(t(as.matrix(colSums(commu) > 0)), 1, function(x) { # x <- 1
               # Which species are present in my assemblage
               present_obs <- species[x > 0] # present_obs <- species[commu[1,] > 0]
-
-              # Which is the species position in my node matrix
-              spps <- which(colnames(tree$node_matrix) %in% present_obs)
               # Which nodes give origin to my species
-              nodes <- as.numeric(names(which(rowSums(tree$node_matrix[,spps]) > 0)))
-
+              nodes <- unique(unlist(tree$paths[present_obs]))
+              # Obtaining the tips and node positions
               # Lines from the edge.length to preserve
-              lines_prs <- which(tree$edge[, 1] %in% nodes &             # Which nodes are in my spliting side from matrix
-                                   tree$edge[, 2] %in% c(spps, nodes))   # Which nodes and tips are in my splitted side from matrix
-
+              lines_prs <- which(tree$edge[,2] %in% c(nodes))
             })
             # Calculating the total PD for the complete tree
             t_pd_assemblages <- sum(tree$edge.length[t_commus_nodes])
@@ -722,16 +643,11 @@ CpB <- function(tree, n, mat, adj, comp = "sorensen",
             t_commus_nodes <- apply(t(as.matrix(colSums(commu) > 0)), 1, function(x) { # x <- 1
               # Which species are present in my assemblage
               present_obs <- species[x > 0] # present_obs <- species[commu[1,] > 0]
-
-              # Which is the species position in my node matrix
-              spps <- which(colnames(tree$node_matrix) %in% present_obs)
               # Which nodes give origin to my species
-              nodes <- as.numeric(names(which(rowSums(tree$node_matrix[,spps]) > 0)))
-
+              nodes <- unique(unlist(tree$paths[present_obs]))
+              # Obtaining the tips and node positions
               # Lines from the edge.length to preserve
-              lines_prs <- which(tree$edge[, 1] %in% nodes &             # Which nodes are in my spliting side from matrix
-                                   tree$edge[, 2] %in% c(spps, nodes))   # Which nodes and tips are in my splitted side from matrix
-
+              lines_prs <- which(tree$edge[,2] %in% c(nodes))
             })
             # Calculating the total PD for the complete tree
             t_pd_assemblages <- sum(tree$edge.length[t_commus_nodes])

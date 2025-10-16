@@ -83,7 +83,7 @@ CpE <- function(tree, n, mat, criterion = "my", pEO = 5, ncor = 0){
   if(nrow(mat) == 1){
     r_sizes <- rep(1, length(tree$edge[,2]))
   } else {
-    r_sizes <- sapply(tree$edge[,2], function(x){
+    r_sizes <- sapply(tree$edge[,2], function(x){ #x <- 612
       # If its a tip branch
       if(x < tree$edge[1, 1]){
         # There is only one species within the node, calculate and save its range
@@ -91,7 +91,16 @@ CpE <- function(tree, n, mat, criterion = "my", pEO = 5, ncor = 0){
       } else {
         # If its a node branch
         # Which species share those nodes
-        spps_node <- names(which(tree$node_matrix[as.character(x), ] > 0))  # node 1    x <- 689
+        # Creating a index
+        spps_node <- NA
+        z <- 1
+        # Filling it
+        for(y in 1:length(tree$paths)){ # y <- 1
+          if(x %in% tree$paths[[y]]){
+            spps_node[z] <- names(tree$paths[y])
+            z <- z + 1
+          }
+        }
 
         # Capturing the range size denominator from the node
         if(length(spps_node) == 1){
@@ -105,7 +114,6 @@ CpE <- function(tree, n, mat, criterion = "my", pEO = 5, ncor = 0){
       return(deno)
     })
   }
-
 
   ## Calculating assemblages CpE, PE and pEO -----------------------------------
   # The user wants to use more CPU cores?
@@ -123,19 +131,10 @@ CpE <- function(tree, n, mat, criterion = "my", pEO = 5, ncor = 0){
         return(CPErate)
 
       } else {
-        # Obtaining the node matrix for those species
-        if(length(tips) == 1){
-          #  if there is a single spp, which nodes give origin to my species
-          nodes <- as.numeric(names(which(rowSums(as.data.frame(tree$node_matrix[, tips])) > 0)))
-        }
-
-        if(length(tips) > 1){
-          # Which nodes give origin to my species
-          nodes <- as.numeric(names(which(rowSums(tree$node_matrix[, tips]) > 0)))
-        }
-
+        # Which nodes give origin to my species
+        nodes <- unique(unlist(tree$paths[tips]))
         # Obtaining the tips and node positions
-        positions <- which(tree$edge[,2] %in% c(tips, nodes))
+        positions <- which(tree$edge[,2] %in% c(nodes))
 
         # Calculating the relative PE on each phylo slice
         CPE <- sapply(branch_pieces, function(x){     # x <- branch_pieces[[1800]]
@@ -183,19 +182,10 @@ CpE <- function(tree, n, mat, criterion = "my", pEO = 5, ncor = 0){
         return(CPErate)
 
       } else {
-        # Obtaining the node matrix for those species
-        if(length(tips) == 1){
-          #  if there is a single spp, which nodes give origin to my species
-          nodes <- as.numeric(names(which(rowSums(as.data.frame(tree$node_matrix[, tips])) > 0)))
-        }
-
-        if(length(tips) > 1){
-          # Which nodes give origin to my species
-          nodes <- as.numeric(names(which(rowSums(tree$node_matrix[, tips]) > 0)))
-        }
-
+        # Which nodes give origin to my species
+        nodes <- unique(unlist(tree$paths[tips]))
         # Obtaining the tips and node positions
-        positions <- which(tree$edge[,2] %in% c(tips, nodes))
+        positions <- which(tree$edge[,2] %in% c(nodes))
 
         # Calculating the relative PE on each phylo slice
         CPE <- sapply(branch_pieces, function(x){     # x <- branch_pieces[[1800]]

@@ -55,13 +55,9 @@ nodes_config <- function(tree){
     row.names(node_mat) <- unique(tree$edge[,1])
     colnames(node_mat) <- tree$tip.label
 
-    # Creating a presence-abscense nodes-matrix
-    paths <- ape::nodepath(tree)
-    for(i in 1:length(tree$tip.label)){
-      node_mat[which(row.names(node_mat) %in% paths[[i]]), i] <- 1
-    }
-    # Adding it to the tree
-    tree$node_matrix <- node_mat
+    # Creating a nodes-path information within the phylogeny
+    tree$paths <- ape::nodepath(tree)
+    names(tree$paths) <- tree$tip.label
 
     # Calculating the total tree depth
     tree$tree_depth <- matrix_nodes[tree$edge[1, 1], 1] # distance from root to the species 1 (Just for ultrametric trees)
