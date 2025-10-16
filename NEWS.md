@@ -1,3 +1,5 @@
+# treesliceR 1.1.0
+
 # treesliceR 1.0.3
 
 # treesliceR 1.0.2
