@@ -68,8 +68,8 @@ few deep lineages or a high richness of recent lineages. Therefore,
 given phylogenetic pattern (e.g., PD, PE, Pβ…) through time to elucidate
 the main lineages depths responsible for generating it. For more
 detailed information regarding the mathematical procedures behind these
-rates, please refer to [Araujo et al. (under
-review)](https://github.com/AraujoMat/treesliceR).
+rates, please refer to [Araujo et
+al. (2025)](https://doi.org/10.1111/ecog.07364).
 
 <div class="figure">
 
@@ -140,8 +140,8 @@ To learn about various ways to use and solve problems using
   distributions between older and more recent lineages;
 - [Passerines
   diversification](https://araujomat.github.io/treesliceR/articles/Passeriformes-diversification.html):
-  In this vignette, we replicate the case study by [Araujo et al. (in
-  review)](https://github.com/AraujoMat/treesliceR). It presents the
+  In this vignette, we replicate the case study by [Araujo et
+  al. (2025)](https://doi.org/10.1111/ecog.07364). It presents the
   workflow executed for both a single phylogeny and multiple sampled
   phylogenies for passeriformes.
 
