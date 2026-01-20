@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">treesliceR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -145,7 +145,7 @@ splitting events older than 10 and 30 millions years:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree_pruned10</span>, main <span class="op">=</span> <span class="st">"Species older than 10my"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree_pruned30</span>, main <span class="op">=</span> <span class="st">"Species older than 30my"</span>, show.tip.label <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span> <span class="co"># Returning to the original display</span></span></code></pre></div>
-<p><img src="Intro-treesliceR_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p><img src="Intro-treesliceR_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="700"></p>
 <p>We can see that only tip-species with the last splitting events older
 than 10 and 30 million years were retained in the trees. It is important
 to note that the original branch lengths remain unchanged. From left to
@@ -167,7 +167,7 @@ as 2. Therefore:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree_pruned10_inverse</span>, main <span class="op">=</span> <span class="st">"Species younger than 10my"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree_pruned30_inverse</span>, main <span class="op">=</span> <span class="st">"Species younger than 30my"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span> <span class="co"># Returning to the original display</span></span></code></pre></div>
-<p><img src="Intro-treesliceR_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="Intro-treesliceR_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="pruning-using-depth-quantiles">1.2. Pruning using depth quantiles<a class="anchor" aria-label="anchor" href="#pruning-using-depth-quantiles"></a>
@@ -181,7 +181,7 @@ do the following:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree_pruned25q</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prune_tips.html">prune_tips</a></span><span class="op">(</span><span class="va">tree</span>, <span class="fl">0.25</span>, qtl <span class="op">=</span> <span class="cn">T</span>, method <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree_pruned25q</span>, main <span class="op">=</span> <span class="st">"Species with ages younger than 25th quantile"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Intro-treesliceR_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<p><img src="Intro-treesliceR_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="700"></p>
 <p>Note that if we aim to retain species with ages younger than the 25th
 quantile, the <code>method</code> argument must be set as 2, as
 illustrated in the above example. The default value is 1, signifying the
@@ -219,7 +219,7 @@ to check out the differences:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree_squeeze30</span>, main <span class="op">=</span> <span class="st">"Squeezed at 30my"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree_squeeze50</span>, main <span class="op">=</span> <span class="st">"Squeezed at 50my"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span> <span class="co"># Returning to the original display</span></span></code></pre></div>
-<p><img src="Intro-treesliceR_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+<p><img src="Intro-treesliceR_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="700"></p>
 <p>It is noteworthy that setting the <code>dropNodes</code> argument as
 TRUE (default is FALSE) alters the tree structure by removing nodes with
 no branch lengths from the original tree. We can check this out by
@@ -262,7 +262,7 @@ total PD was accumulated in the phylogenetic tree:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree_squeeze10</span>, main <span class="op">=</span> <span class="st">"Tree squeezed at 10% PD"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree_squeeze50</span>, main <span class="op">=</span> <span class="st">"Tree squeezed at 50% PD"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span> <span class="co"># Returning to the original display</span></span></code></pre></div>
-<p><img src="Intro-treesliceR_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
+<p><img src="Intro-treesliceR_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="slicing-from-the-root-to-the-tips">2.2. Slicing from the root to the tips<a class="anchor" aria-label="anchor" href="#slicing-from-the-root-to-the-tips"></a>
@@ -276,7 +276,7 @@ years:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree_root50</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/squeeze_root.html">squeeze_root</a></span><span class="op">(</span>tree <span class="op">=</span> <span class="va">tree</span>, time <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree_root50</span>, main <span class="op">=</span> <span class="st">"Tree sliced rootwardly in 50my"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Intro-treesliceR_files/figure-html/squeezeRoot-1.png" width="700"></p>
+<p><img src="Intro-treesliceR_files/figure-html/squeezeRoot-1.png" class="r-plt" alt="" width="700"></p>
 <p>Notice that the root of the tree now begins at 50 millions of
 years.</p>
 </div>
@@ -299,7 +299,7 @@ it with the original tree:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree</span>, main <span class="op">=</span> <span class="st">"Original tree"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tree_int</span>, main <span class="op">=</span> <span class="st">"Tree slice 10-30my"</span>, show.tip.label <span class="op">=</span> <span class="cn">F</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/ape/man/axisPhylo.html" class="external-link">axisPhylo</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span> <span class="co"># Returning to the original display</span></span></code></pre></div>
-<p><img src="Intro-treesliceR_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
+<p><img src="Intro-treesliceR_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="" width="700"></p>
 <p>Again, it is essential to note that the absolute depths of the tree
 will change, but the internal branch lengths will remain the same as the
 original values (except for the ones that were sliced).</p>
@@ -324,7 +324,7 @@ original values (except for the ones that were sliced).</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
